@@ -1,4 +1,5 @@
 * Base de datos meteoros (definitivo)						
++ Press C-c C-x C-c for full view. Press q in highlighted text to return to normal
 						
 | ID |      Fecha | T_0 (GLM-16) | T_0 (GLM-17) | dt (GLM-16) | dt (GLM-17) |    dt |   s_dt | Latitud (GLM-16) | Latitud (GLM-17) | Longitud (GLM-16) | Longitud (GLM-17) | Latitud | Longitud | sig_latitude | sig_lon |
 |----+------------+--------------+--------------+-------------+-------------+-------+--------+------------------+------------------+-------------------+-------------------+---------+----------+--------------+---------|
@@ -7,7 +8,7 @@
 | 03 | 10-08-2019 | 11:18:48.726 | 11:18:48.632 |       0.145 |       0.252 | 0.199 | 0.0757 |             21.5 |             21.5 |            -103.1 |            -101.9 |   21.50 |  -102.50 |        0.000 |   0.849 |
 | 04 | 03-10-2019 | 07:55:33.551 |  7:55:33.550 |       0.085 |       0.127 | 0.106 | 0.0297 |             25.6 |             25.7 |             -96.8 |             -95.7 |   25.65 |   -96.25 |        0.071 |   0.778 |
 | 05 | 09-10-2019 | 06:08:11.205 | 06:08:11.206 |       0.108 |       0.097 | 0.103 | 0.0078 |             23.6 |             23.6 |            -112.1 |            -111.8 |   23.60 |  -111.95 |        0.000 |   0.212 |
-| 06 | 12-10-2019 | 11:12:27.296 |          N/A |       0.006 |         N/A |       |        |             28.8 |              N/A |            -111.3 |               N/A |    28.8 |   -111.3 |        0.000 |         |
+| 06 | 12-10-2019 | 11:12:27.296 |          N/A |       0.006 |         N/A | 0.006 | 0.0000 |             28.8 |              N/A |            -111.3 |               N/A |    28.8 |   -111.3 |        0.000 |   0.000 |
 | 07 | 16-11-2019 | 09:36:04.204 | 09:36:04.187 |       0.386 |       0.405 | 0.396 | 0.0134 |             20.3 |             20.3 |            -101.2 |             -99.9 |   20.30 |  -100.55 |        0.000 |   0.919 |
 | 08 | 17-11-2019 | 15:36:01.594 | 15:36:01.584 |       0.113 |       0.118 | 0.116 | 0.0035 |             31.7 |             31.7 |            -118.5 |            -116.9 |   31.70 |  -117.70 |        0.000 |   1.131 |
 | 09 | 19-11-2019 | 07:57:40.100 | 07:57:40.118 |       0.177 |       0.016 | 0.097 | 0.1138 |             20.0 |             20.0 |             -89.2 |             -87.6 |   20.00 |   -88.40 |        0.000 |   1.131 |
@@ -41,8 +42,105 @@
 
 * TODO list
   - [X] update journal.org to github
-  - [ ] Obtain relevant statistical parameters and graphs
-    - [ ] Average duration of events (and std)
-    - [ ] dispersion of latitude and longitude
-  - [ ] Plot positions of events in a map
+  - [X] Obtain relevant statistical parameters and graphs
+    - [X] Average duration of events (and std)
+    - [X] dispersion of latitude and longitude
+  - [-] Plot positions of events in a map
+    - [X] Add ID numbers to events
+    - [ ] More aestetic improvements
+    - [ ] Add to paper
   - [X] Update table in paper
+  - [ ] Work in presentation
+    - [ ] General structure
+    - [ ] Work in individual sections
+* Codes
+** Statistics of events parameters
++ Tangle with C-c C-v t
+#+NAME: events_statistics
+#+BEGIN_SRC python :eval no :tangle ./events_statistics.py
+
+import numpy as np
+from astropy.table import Table
+import statistics as stats
+import matplotlib.pyplot as plt
+
+# Code goal: Extract basic statistics of events sample
+
+# Step 1: Read data from table
+
+tab_data = Table.read("meteors_database.tab", format="ascii")
+
+duration = tab_data["dt"]
+s_dur = tab_data["s_dt"]
+lat = tab_data["Latitud"]
+lon = tab_data["Longitud"]
+s_lat = tab_data["sig_latitude"]
+s_lon = tab_data["sig_lon"]
+
+# Step 2: Obtain relevant statistics
+
+## Mean duration
+
+mean_duration = stats.mean(duration)
+mean_s_lat = stats.mean(s_lat)
+mean_s_lon = stats.mean(s_lon)
+
+# Plot data in scatter plots or similar
+plt.scatter(s_lon, s_lat, c="r")
+plt.scatter(mean_s_lon, mean_s_lat, c="b")
+plt.xlabel(r"$\sigma_{lon}$ (deg)")
+plt.ylabel(r"$\sigma_{lat}$ (deg)")
+plt.savefig("events_statistics.pdf")
+#+END_SRC
+** Plot Mexico map with events
+
+#+NAME: plot_mex_map
+#+BEGIN_SRC python :eval no :tangle ./plot_meteors.py
+
+# Mexico map plotter
+# The main idea of this program was taken from 
+# https://towardsdatascience.com/mapping-with-matplotlib-pandas-geopandas-and-basemap-in-python-d11b57ab5dac
+# By Ashwani Dhankhar 
+# And the shape file for Mexico from CONABIO
+# http://www.conabio.gob.mx/informacion/metadata/gis/destdv250k_2gw.xml?_xsl=/db/meadata/xsl/fgdc_html.xsl&_indent=no
+
+import seaborn as sns
+import numpy as np
+import pandas as pd
+import shapefile as shp
+import matplotlib.pyplot as plt
+from plotfullmap import plot_map
+import argparse
+from astropy.table import Table
+import glob
+import matplotlib.cm as cm
+
+
+# set figure style
+sns.set_style("whitegrid") 
+sns.mpl.rc("figure", figsize=(10,6))
+
+# Read shape file of Mexico map
+sf = shp.Reader("map.shp")
+plot_map(sf)
+
+
+# Read meteors_database
+
+f = Table.read("meteors_database.tab", format="ascii")
+
+# plot positions plus uncertainties in the map
+
+plt.errorbar(f["Longitud"], f["Latitud"], xerr=f["sig_lon"], yerr=f["sig_latitude"], fmt="bo", capsize=3)
+# Offset of labels
+x_off = [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, -10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10]
+y_off = [10, 10, -10, 10, -10, 10, 10, 10, 10, -10, 10, -10, 10, 10, 10, 10, -10, 10, 10, -10, 10, 10, 10, -10, 10, 10, 10, 10, 10, -10, 10, 10, 10, 10, 10]
+for i in range(len(f["ID"])):
+    plt.annotate(f["ID"][i], (f["Longitud"][i], f["Latitud"][i]), textcoords="offset points", color="w",
+    xytext=(x_off[i], y_off[i]), ha="center", bbox=dict(boxstyle="round", pad=0.5, fc="b", alpha=0.7))
+ax = plt.gca()
+ax.set_aspect('equal', adjustable='box')
+
+plt.savefig("meteors_map.pdf")
+
+#+END_SRC
