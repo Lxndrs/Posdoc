@@ -276,7 +276,7 @@ plt.savefig("meteors_map.pdf")
 
   plt.plot(stations_pos["Longitude"], stations_pos["Latitude"], "ro")
   for i in range(len(stations_pos["Site"])):
-      plt.annotate(stations_pos["Site"], (stations_pos["Longitude"], stations_pos["Latitude"]),
+      plt.annotate(stations_pos["Site"][i], (stations_pos["Longitude"][i], stations_pos["Latitude"][i]),
 		   textcoords="offset points", color="w", xytext=(5, 5), ha="center",
 		   bbox=dict(boxstyle="round", pad=0.5, fc="b", alpha=0.7))
 
