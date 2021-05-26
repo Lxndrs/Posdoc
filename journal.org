@@ -143,10 +143,14 @@
     - [ ] More aestetic improvements
     - [ ] Add to paper
   - [X] Update table in paper
-  - [ ] Work in presentation
+  - [-] Work in presentation
     - [ ] General structure
     - [ ] Work in individual sections
-    - [ ] Figure with GPS stations 
+      - [ ] Introduction
+      - [ ] Database
+      - [ ] Preliminary results
+      - [ ] Future Work
+    - [X] Table(s) with GPS stations 
 * Codes
 ** Statistics of events parameters
 + Tangle with C-c C-v t
