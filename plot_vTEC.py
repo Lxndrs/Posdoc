@@ -50,6 +50,16 @@ std_files = glob.glob(directory+"/*.Std")
 load_dirs = [open(rinex_files[i], "r") for i in range(len(rinex_files))]
 load_std = [Table.read(std_files[i], format="ascii") for i in range(len(std_files))]
 
+# Load and plot event position
+
+load_meteor_pos = Table.read("meteors_database.tab", format="ascii")
+meteor_mask = load_meteor_pos["Fecha"] == date
+plt.plot(load_meteor_pos["Longitud"][meteor_mask], load_meteor_pos["Latitud"][meteor_mask], "ro")
+plt.annotate(date, (load_meteor_pos["Latitud"][meteor_mask], load_meteor_pos["Longitud"][meteor_mask]),
+	     textcoords="offset points", color="w", xytext=(10, 10), ha="center", bbox=dict(boxstyle="round", pad=0.5, fc="r", alpha=0.7))
+
+# Plot vTEC map
+
 for f, g in zip(load_dirs, load_std):
     header = f.readline()
     h1, h2 = header.split(",")
@@ -79,6 +89,7 @@ for f, g in zip(load_dirs, load_std):
 ax = plt.gca()
 ax.set_aspect('equal', adjustable='box')
 plt.legend()
-plt.colorbar()
+cbar = plt.colorbar()
+cbar.set_label("vTEC (TECU)")
 
 plt.savefig(directory+"/"+date+"-GLM_map.pdf")
