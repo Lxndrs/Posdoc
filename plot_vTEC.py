@@ -88,7 +88,7 @@ for f, g in zip(load_dirs, load_std):
 
 ax = plt.gca()
 ax.set_aspect('equal', adjustable='box')
-plt.legend()
+#plt.legend()
 cbar = plt.colorbar()
 cbar.set_label("vTEC (TECU)")
 

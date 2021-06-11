@@ -83,7 +83,7 @@ x = np.arange(len(Kp))
 bar = plt.bar(x, Kp, width=0.5)
 
 ## Set graph limits
-plt.xlim(0, 24)
+plt.xlim(-0.5, 24)
 plt.ylim(0, 9)
 
 ## Set ticks in both axis

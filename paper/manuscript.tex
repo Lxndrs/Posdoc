@@ -1,0 +1,383 @@
+%% This is file `jasr-template.tex',
+%% 
+%% Copyright 2019-2020 Elsevier Ltd
+%% 
+%% This file is part of the 'Elsarticle Bundle'.
+%% ---------------------------------------------
+%% 
+%% It may be distributed under the conditions of the LaTeX Project Public
+%% License, either version 1.2 of this license or (at your option) any
+%% later version.  The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.2 or later is part of all distributions of LaTeX
+%% version 1999/12/01 or later.
+%% 
+%% The list of all files belonging to the 'Elsarticle Bundle' is
+%% given in the file `manifest.txt'.
+%% 
+%% Template article for Elsevier's document class `elsarticle'
+%% with harvard style bibliographic references
+%%
+%% $Id: jasr-template.tex 188 2020-11-16 05:18:23Z rishi $
+%%
+%% Use the option review to obtain double line spacing
+%\documentclass[times,review,preprint,authoryear]{elsarticle}
+
+%% Use the options `twocolumn,final' to obtain the final layout
+%% Use longtitle option to break abstract to multiple pages if overfull.
+%% For Review pdf (With double line spacing)
+%\documentclass[times,twocolumn,review]{elsarticle}
+%% For abstracts longer than one page.
+%\documentclass[times,twocolumn,review,longtitle]{elsarticle}
+%% For Review pdf without preprint line
+%\documentclass[times,twocolumn,review,nopreprintline]{elsarticle}
+%% Final pdf
+\documentclass[times,twocolumn,final,authoryear]{elsarticle}
+%%
+%\documentclass[times,twocolumn,final,longtitle]{elsarticle}
+%%
+
+%%
+%% Stylefile to load JASR template
+\usepackage{jasr}
+\usepackage{framed,multirow}
+
+%% The amssymb package provides various useful mathematical symbols
+\usepackage{amssymb}
+\usepackage{latexsym}
+
+%% For line numbers
+%\usepackage[switch]{lineno}
+
+% Following three lines are needed for this document.
+% If you are not loading colors or url, then these are
+% not required.
+\usepackage{url}
+\usepackage{xcolor}
+\usepackage{multirow}
+\definecolor{newcolor}{rgb}{.8,.349,.1}
+
+\usepackage[citebordercolor=white]{hyperref}
+
+\journal{Advances in Space Research}
+
+\begin{document}
+
+\verso{Given-name Surname \textit{etal}}
+
+\begin{frontmatter}
+
+\title{Ionospheric Disturbances in Mexican Territory Produced by Objects Entering the Athmosphere from Space \tnoteref{tnote1}}%
+%\tnotetext[tnote1]{This is an example for title footnote coding.}
+
+\author[1]{Jorge \snm{Tarango-Yong}\corref{cor1}}
+\cortext[cor1]{Tel.: +52-443-476-5525;  \\
+  email: jorge.tarango@comunidad.unam.mx
+}
+
+\author[1]{Mario \snm{Rodriguez-Martinez}\corref{cor2}}
+\cortext[cor2]{email: m.rodriguez@enesmorelia.unam.mx}
+%\fntext[fn1]{This is author footnote for second author.}
+\author[1]{Raul \snm{Gutierrez}\fnref{fn1}}
+%% Third author's email
+%\ead{author3@author.com}
+%\author[2]{Given-name4 \snm{Surname4}}
+
+\address[1]{Escuela Nacional de Estudios Superiores, UNAM, campus Morelia, Antigua Carretera a P\'atzcuaro No. 8701
+Col. Ex Hacienda de San Jos\'e de la Huerta, Morelia, Michoac\'an, 58190, M\'exico}
+%\address[2]{}
+
+\received{1 May 2013}
+\finalform{10 May 2013}
+\accepted{13 May 2013}
+\availableonline{15 May 2013}
+\communicated{S. Sarkar}
+
+
+\begin{abstract}
+%%%
+Please type your abstract here, and the rest of the text, figures,
+tables, equations etc. in the main body. Please do not modify LaTeX\ 
+commands unless you need to modify them and know how to do it.
+%%%%
+\end{abstract}
+
+\begin{keyword}
+%% MSC codes here, in the form: \MSC code \sep code
+%% or \MSC[2008] code \sep code (2000 is the default)
+%\MSC 41A05\sep 41A10\sep 65D05\sep 65D17
+%% Keywords
+\KWD Space Sciences\sep Atmosphere%\sep Keyword3
+\end{keyword}
+
+\end{frontmatter}
+
+%% For linenumbers
+%\linenumbers
+
+%% main text
+\section{Introduction}
+\label{sec1}
+Please use \verb+elsarticle.cls+ for typesetting your paper. Additionally,
+make sure not to remove the package \verb+jasr.sty+ already included in the
+preamble:
+%\begin{verbatim} 
+%  \usepackage{jasr}
+%\end{verbatim}
+
+Make sure to have the file \verb+model5-names.bst+ to produce the references in
+the correct format. 
+
+Any instructions relevant to the \verb+elsarticle.cls+ are
+applicable here as well. See the online instruction available at:
+\makeatletter
+\if@twocolumn
+\begin{verbatim}
+ https://support.stmdocs.in/wiki/
+ index.php?title=Elsarticle.cls
+\end{verbatim}
+\else
+\begin{verbatim}
+ https://support.stmdocs.in/wiki/index.php?title=Elsarticle.cls
+ \end{verbatim}
+\fi
+\makeatother
+
+Following commands are defined for this journal which are not in
+\verb+elsarticle.cls+. 
+\begin{verbatim}
+  \received{}
+  \finalform{}
+  \accepted{}
+  \availableonline{}
+  \communicated{}
+\end{verbatim}
+
+
+\subsection{Subsection}
+This is only a \LaTeX\ template if you need one. 
+See the detailed guidelines for manuscript preparation 
+and submission at:
+\begin{verbatim}
+https://ees.elsevier.com/asr
+\end{verbatim}
+
+\section{Meteors Database}
+
+We selected a sample of meteors which were observed in mexican territory from the Geostationary Lightning Mapper \citep{GOODMAN:2013}. The sample was selected in such way we chose the most probable obects to be detected by GPS sources in mexican territory: 
+
+\begin{itemize}
+    \item The objects were detected inside mexican territory.
+    \item The objects were detected by both satellites GOES 16 and GOES 17 (stereo)
+    \item The detection has been assigned a high confidence ratio.
+\end{itemize}
+
+ For the selected sample, shown in , we obtained RINEX data from the TLALOCNet and UNAVCO network databases \citep{Cabral-Cano:2018} to study potential alterations in the ionospehre due to the presence of the passing meteor in the day the meteor was reported. The list of the sample meteors is shown in table \ref{tab:table-meteors}.
+
+
+\begin{table*}
+\centering
+\caption{List of meteors passing through Mexico.}
+\label{tab:table-meteors}
+\begin{tabular}{|r|r|r|r|r|r|}
+\hline
+ID & Fecha & Start Time (UT)  & Duration (seconds) & Latitud & Longitud \\
+\hline
+01 & 23-05-2019 & 16:36:18 & $0.197\pm 0.0000$ & $24.30 \pm 0.000$ & $-101.60 \pm 0.849$\\
+02 & 18-07-2019 & 14:30:30 & $0.058\pm 0.0000$ & $27.20 \pm 0.000$ & $-103.15 \pm 0.778$\\
+03 & 10-08-2019 & 11:18:48 & $0.199\pm 0.0757$ & $21.50 \pm 0.000$ & $-102.50  \pm 0.849$\\
+04 & 03-10-2019 & 07:55:33 & $0.106\pm 0.0297$ & $25.65 \pm 0.071$ & $-96.25 \pm   0.778$\\
+05 & 09-10-2019 & 06:08:11 & $0.103\pm 0.0078$ & $23.60 \pm 0.000$ & $-111.95 \pm  0.212$\\
+06 & 12-10-2019 & 11:12:27 & $0.006\pm 0.0000$ & $28.8 \pm 0.000$ & $-111.3 \pm 0.000$\\
+07 & 16-11-2019 & 09:36:04 & $0.396\pm 0.0134$ & $20.30 \pm 0.000$ & $-100.55 \pm  0.919$\\
+08 & 17-11-2019 & 15:36:01 & $0.116\pm 0.0035$ & $31.70 \pm 0.000$ & $-117.70 \pm  1.131$\\
+09 & 19-11-2019 & 07:57:40 & $0.097\pm 0.1138$ & $20.00 \pm 0.000$ & $-88.40 \pm  1.131$\\
+10 & 26-11-2019 & 13:23:20 & $0.078\pm 0.0290$ & $23.90 \pm 0.000$ & $-108.70 \pm  0.849$\\
+11 & 04-12-2019 & 09:42:54 & $0.173\pm 0.0028$ & $31.50 \pm 0.000$ & $-113.65 \pm  0.919$\\
+12 & 15-12-2019 & 14:50:49 & $0.127\pm 0.0134$ & $27.70 \pm 0.000$ & $-114.10 \pm  0.849$\\
+13 & 29-12-2019 & 16:16:35 & $0.062\pm 0.0134$ & $29.60 \pm 0.000$ & $-116.35 \pm  0.919$\\
+14 & 03-01-2020 & 14:10:17 & $0.113\pm 0.0085$ & $30.20 \pm 0.000$ & $-117.65 \pm  0.919$\\
+15 & 06-01-2020 & 16:39:27 & $0.118\pm 0.0042$ & $31.40 \pm 0.000$ & $-108.20 \pm  0.990$\\
+16 & 15-01-2020 & 15:00:33 & $0.213\pm 0.1351$ & $19.45 \pm 0.071$ & $-95.55 \pm   0.919$\\
+17 & 12-02-2020 & 09:25:40 & $0.210\pm 0.0226$ & $18.90 \pm 0.000$ & $-93.50 \pm   0.849$\\
+18 & 03-03-2020 & 12:33:27 & $0.062\pm 0.0007$ & $18.25 \pm 0.071$ & $-106.35 \pm 0.636$\\
+19 & 31-03-2020 & 19:31:52 & $0.105\pm 0.0573$ & $28.45 \pm 0.071$ & $-112.05 \pm  0.636$\\
+20 & 08-04-2020 & 16:25:28 & $0.120\pm 0.0926$ & $26.10 \pm 0.000$ & $-93.90 \pm   0.849$\\
+21 & 18-04-2020 & 17:43:25 & $0.139\pm 0.0106$ & $29.00 \pm 0.000$ & $-106.55 \pm  0.919$\\
+22 & 20-04-2020 & 16:05:22 & $0.318\pm 0.1655$ & $28.15 \pm 0.071$ & $-97.85 \pm   1.061$\\
+23 & 25-04-2020 & 11:03:09 & $0.323\pm 0.0813$ & $32.15 \pm 0.071$ & $-111.60 \pm  1.131$\\
+24 & 28-04-2020 & 19:31:52 & $0.105\pm 0.0573$ & $28.45 \pm 0.071$ & $-112.05 \pm  0.636$\\
+25 & 08-05-2020 & 10:06:16 & $0.490\pm 0.0750$ & $21.60 \pm 0.000$ & $-92.40 \pm   0.849$\\
+26 & 15-07-2020 & 19:58:28 & $0.693\pm 0.0495$ & $24.00 \pm 0.000$ & $-108.35 \pm  0.495$\\
+27 & 07-08-2020 & 13:29:57 & $0.163\pm 0.0057$ & $28.80 \pm 0.000$ & $-106.05 \pm  0.919$\\
+28 & 13-09-2020 & 16:41:59 & $0.184\pm 0.0078$ & $28.45 \pm 0.071$ & $-113.75 \pm  0.919$\\
+29 & 30-09-2020 & 12:28:11 & $0.100\pm 0.0078$ & $24.90 \pm 0.000$ & $-110.90 \pm  0.849$\\
+30 & 16-11-2020 & 12:28:11 & $0.100\pm 0.0078$ & $24.90 \pm 0.000$ & $-110.90 \pm  0.849$\\
+31 & 17-11-2020 & 12:53:41 & $0.404\pm 0.0262$ & $23.00 \pm 0.000$ & $-102.45 \pm  0.919$\\
+32 & 19-12-2020 & 10:18:14 & $0.407\pm 0.0110$ & $21.95 \pm 0.071$ & $-101.60 \pm  0.990$\\
+33 & 23-12-2020 & 09:43:01 & $0.148\pm 0.0014$ & $25.75 \pm 0.071$ & $-111.25 \pm  0.778$\\
+34 & 29-12-2020 & 15:20:54 & $0.118\pm 0.0014$ & $16.80 \pm 0.000$ & $-102.20 \pm  0.707$\\
+35 & 31-03-2021 & 09:01:17 & $0.753\pm 0.3083$ & $20.15 \pm 0.071$ & $-92.95 \pm  0.212$\\\hline
+\end{tabular}
+\end{table*}
+
+%\begin{table*}
+%\centering
+%\caption{List of meteors passing through Mexico.}
+%\label{tab:table-meteors}
+%\begin{tabular}{|l|l|l|l|l|l|}
+%\hline
+%\multirow{2}{2.5cm}{Date (yyyy-mm-dd)} & \multirow{2}{*}{Time (UT)} & \multirow{2}{*}{Latitude} & %\multirow{2}{*}{Longitude} & \multirow{2}{*}{$\Delta t$ (seconds)}   & \multirow{2}{*}{Location}\\
+% & & & &  & \\
+%\hline
+%2015-07-19 & 07:06:26 & 20.6 & -87.6 & 7.5 & Quintana Roo, Mx. \\
+%\hline
+%2017-07-31 & 22:01:34 & 24.8 & -118.6 & 1.1 & Pacific Ocean, Near Baja California, Mx. \\
+%\hline
+%2017-10-01 & 12:43:53 & 36.2 & -111.4 & 0.1 & Arizona, USA \\
+%\hline
+%2017-11-15 & 03:26:46 & 34.2 & -111.4 & 0.08 & Arizona, USA \\
+%\hline
+%2019-02-01 & 18:17:10 & 22.5 & -83.8 & 2.3 & La Habana, Cuba \\
+%\hline
+%2020-02-19 & 2:10 & 19.68 & -101.2 & 3.5 & Michoac\'an, Mx. \\
+%\hline
+%2020-04-28 & 05:43:17 & 19.9 & -110.2 & 0.8 &  Pacific Ocean, near Colima, Mx. \\
+%\hline
+%2020-10-17 & 03:14:23 & 26.1 & -100.1 & 0.04 & Nuevo Le\'on, Mx. \\
+%\hline 
+%2020-11-20 & 2:57:10 & 26.5 & -98.7 & 0.01 & Tamaulipas, Mx.\\
+%\hline
+%\end{tabular}
+%\end{table*}
+
+
+%Final idea: use GOPI software to get the vTEC data from the day of each event and the previous days.
+
+\section{Ionospheric background}
+
+
+
+\section{How to include a figure?}
+Change the file name of the figure below with your own 
+figure. And remember to change the figure caption too!
+\begin{verbatim}
+\begin{figure}
+  \centering
+  \includegraphics[scale=0.5]{fig01}
+  \caption{Write the figure caption here.}
+  \label{fig:pendulum}
+\end{figure}
+\end{verbatim}
+
+%\begin{figure}
+%\centering
+%\includegraphics[scale=0.5]{fig01.pdf}
+%\caption{Write the figure caption here.}
+%\label{fig:pendulum}
+%\end{figure}
+
+\subsection{And a table?}
+Just replace the text/values in the template table below 
+with your own. You can change the number of 
+lines/rows as necessary.
+
+%\begin{table*}
+%\centering
+%\caption{Title of the table should be at the top}
+%\begin{tabular}{|l|l|l|l|}
+%\hline
+%Column Name1    & Column Name2 & Column Name3 & Column Name4 \\
+%\hline
+%Parameter Name1 & Value        & Value        & Value        \\
+%\hline
+%Parameter Name2 & Value        & Value        & Value        \\
+%\hline
+%Parameter Name3 & Value        & Value        & Value        \\
+%\hline
+%\end{tabular}
+%\end{table*}
+
+\subsection{Equations}
+Conventionally, in mathematical equations, variables and
+anything that represents a value appear in italics. 
+All equations should be numbered for easy referencing. 
+The number should appear at the right margin.
+\begin{eqnarray}
+S'_{\mathrm{pg}} = \frac{S_{\mathrm{pg}} - \mathrm{min}(S_{\mathrm{pG}})}
+  {\mathrm{max}(S_{\mathrm{pG}} - \mathrm{min}(S_{\mathrm{pG}}))}
+\end{eqnarray}
+In mathematical expressions 
+in running text "/" should be used
+for division (not a horizontal line).
+
+\section{Citations}
+%Citations in the text can be made using\\[6pt]
+%\verb+\citet{NewmanGirvan2004}+\\[6pt]
+%for citation in running text like in 
+%\citet{NewmanGirvan2004} or using\\[6pt]
+%\verb+\citep{Vehlowetal2013,NewmanGirvan2004}+\\[6pt]
+%for citation within parentheses like in 
+%\citep{Vehlowetal2013,NewmanGirvan2004}.
+
+%Please use the actual \verb+\cite+ command in the text.
+%Also, please double-check the \verb+\citep+ command.
+
+\section{Reference style}
+You can include the references in the main text file in \LaTeX
+format. Alternately, you can include a separate bibliography
+file (refs.bib in this example) and run the following set of 
+commands:
+\begin{verbatim}
+==================
+
+pdflatex myfile.tex
+
+bibtex myfile (no extension in this line!)
+
+pdflatex myfile.tex
+
+pdflatex myfile.tex
+
+==================
+\end{verbatim}
+
+\section{A sample entry in the bibliography file}
+%{\fontsize{7.5pt}{9.6pt}\selectfont
+\begin{verbatim}
+==================
+
+@ARTICLE{NewmanGirvan2004,
+  author  = {Newman, M. E. J. and Girvan, M.},
+  title   = {Finding and evaluating community 
+               structure in networks},
+  journal = {Phys. Rev. E.},
+  volume  = {69},
+  number  = {21},
+  year    = {2004},
+  pages   = {026113}
+}
+
+==================
+\end{verbatim}
+%}
+
+\section{Acknowledgments}
+
+The RINEX data used in this paper were obtained from the Trans-boundary, Land and Atmosphere Long-term Observational and Collaborative Network (TLALOCNet, \citet{Cabral-Cano:2018}), operated by the Servicio de Geodesia Satelital (SGS) at the Instituto de Geofísica-Universidad Nacional Autónoma de México (UNAM) in collaboration with UNAVCO Inc. 
+
+We are deeply grateful to all personnel from SGS, SSN and UNAVCO for station installation, maintenance, data acquisition, IT support and data curation and distribution for these networks and in particular to the following individuals and institutions, and those whose hard field work and resourcefulness were central to the success of this project: Bill Douglass, Neal Lord and Bill Unger at UW-Madison, Oscar Diaz-Molina and Luis Salazar-Tlaczani at SGS, John Galetzka, Adam Wallace, Shawn Lawrence, Sean Malloy and Chris Walls at UNAVCO, Jesus Pacheco-Martínez at Universidad Autónoma de Aguascalientes, Bertha Marquez-Azúa and personnel at the Universidad de Guadalajara at campus Guadalajara, Mascota and Ameca, Protección Civil de Jalisco, Universidad de Colima at campus Colima and campus El Naranjo and Centro de Geociencias, Centro de Ciencias de la Atmosfera Instituto de Biología Estacion Chamela at UNAM.
+TLALOCNet, SSN-TLALOCNet and other GPS related operations from SGS are supported by CONACyT projects 253760, 256012 and 2017-01-5955, UNAM-PAPIIT projects IN104213, IN111509, IN109315-3, IN104818-3, NSF grant 2025104, NASA-ROSES grant NNX12AQ08G and supplemental support from UNAM-Instituto de Geofísica. UNAVCO's initial support for TLALOCNet (some of its stations now part of the GAGE Facility-NOTA) was performed under EAR-1338091 and is currently supported by NSF and NASA under NSF Cooperative Agreement EAR-1724794.
+
+Also we are grateful with the Direcci\'on General de Asuntos Acad\'emicos (DGAPA) of the Universidad Nacional Aut\'onoma de M\'exico and the Programa de Becas Posdoctorales for funding this project.
+
+%% Bibliography
+%% Author year style
+\bibliographystyle{model5-names}
+\biboptions{authoryear}
+\bibliography{bibliography}
+
+\end{document}
+
+%%
+
