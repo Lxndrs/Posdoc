@@ -15,7 +15,9 @@ import argparse
 from astropy.table import Table
 import glob
 import matplotlib.cm as cm
+import matplotlib.colors as colors
 from scipy.interpolate import interp1d
+from midpoint import MidpointNormalize
 
 
 
@@ -78,11 +80,12 @@ for f, g in zip(load_dirs, load_std):
     cmn_time[mask] = cmn_time[mask] + 24.
     mask2 = cmn_time < max(std_time)
     dTEC = obs_tab["Vtec"][mask2] - mean_TEC_int(cmn_time[mask2])
+    norm = MidpointNormalize(midpoint=0)
     plt.plot(float(s_longitude)-360, float(s_latitude), "r*")
     plt.text(float(s_longitude)-360+0.5, float(s_latitude)-0.5, station.upper(),
 	     bbox=dict(boxstyle='round', pad=0.5, fc='blue', alpha=1))
 
-    plt.scatter(obs_tab["Lon"][mask2]-360, obs_tab["Lat"][mask2], s=1, c=dTEC, cmap="plasma",alpha=0.8)
+    plt.scatter(obs_tab["Lon"][mask2]-360, obs_tab["Lat"][mask2], s=1, c=dTEC, cmap="plasma",alpha=0.8, norm=norm)
 
 # Plot settings
 

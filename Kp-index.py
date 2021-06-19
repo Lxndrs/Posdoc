@@ -114,4 +114,4 @@ plt.title("Estimated Planetary K Index (3 hours data). Begin {} UTC".format(date
 
 # Save graph
 
-plt.savefig(date+" Kp index.pdf")
+plt.savefig("./Kp index/"+date+" Kp index.pdf")
