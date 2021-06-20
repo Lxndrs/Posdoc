@@ -26,7 +26,7 @@ parser = argparse.ArgumentParser(
 
 
 parser.add_argument('--date', type=str, default='2000-01-01',
-		    help='Choose date. Format: yyyy-mm-dd')
+		       help='Choose date. Format: yyyy-mm-dd')
 
 
 
@@ -38,11 +38,11 @@ directory = "./data/"+date
 
 # set figure style
 sns.set_style("whitegrid") 
-sns.mpl.rc("figure", figsize=(10,6))
+#sns.mpl.rc("figure", figsize=(10,6))
 
-# Read shape file of Mexico map
-sf = shp.Reader("map.shp")
-plot_map(sf)
+# Read shape file of Mexico map (deprecated)
+#sf = shp.Reader("map.shp")
+#plot_map(sf)
 
 
 # Load RINEX capabilities
@@ -52,15 +52,20 @@ std_files = glob.glob(directory+"/*.Std")
 load_dirs = [open(rinex_files[i], "r") for i in range(len(rinex_files))]
 load_std = [Table.read(std_files[i], format="ascii") for i in range(len(std_files))]
 
+# Plot vTEC map
+fig = plt.figure()
+ax = fig.add_subplot(1, 2, 1, adjustable="box", aspect="equal")
+ax1 = fig.add_subplot(1, 2, 2, adjustable="box")
+
 # Load and plot event position
 
 load_meteor_pos = Table.read("meteors_database.tab", format="ascii")
 meteor_mask = load_meteor_pos["Fecha"] == date
-plt.plot(load_meteor_pos["Longitud"][meteor_mask], load_meteor_pos["Latitud"][meteor_mask], "ro")
-plt.annotate(date, (load_meteor_pos["Latitud"][meteor_mask], load_meteor_pos["Longitud"][meteor_mask]),
-	     textcoords="offset points", color="w", xytext=(10, 10), ha="center", bbox=dict(boxstyle="round", pad=0.5, fc="r", alpha=0.7))
+ax.plot(load_meteor_pos["Longitud"][meteor_mask], load_meteor_pos["Latitud"][meteor_mask], "mo")
+ax.annotate("Event", (load_meteor_pos["Longitud"][meteor_mask], load_meteor_pos["Latitud"][meteor_mask]),
+		textcoords="offset points", color="w", xytext=(10, 10), ha="center", bbox=dict(boxstyle="round", pad=0.5, fc="r", alpha=0.7))
 
-# Plot vTEC map
+
 
 for f, g in zip(load_dirs, load_std):
     header = f.readline()
@@ -81,18 +86,28 @@ for f, g in zip(load_dirs, load_std):
     mask2 = cmn_time < max(std_time)
     dTEC = obs_tab["Vtec"][mask2] - mean_TEC_int(cmn_time[mask2])
     norm = MidpointNormalize(midpoint=0)
-    plt.plot(float(s_longitude)-360, float(s_latitude), "r*")
-    plt.text(float(s_longitude)-360+0.5, float(s_latitude)-0.5, station.upper(),
-	     bbox=dict(boxstyle='round', pad=0.5, fc='blue', alpha=1))
+    ax.plot(float(s_longitude)-360, float(s_latitude), "r*")
+    ax.text(float(s_longitude)-360+3, float(s_latitude), station.upper(), c="w",
+		bbox=dict(boxstyle='round', pad=0.5, fc='blue', alpha=0.3))
+    im=ax.scatter(obs_tab["Lon"][mask2]-360, obs_tab["Lat"][mask2], s=1, c=dTEC, cmap="viridis",alpha=0.8, norm=norm)
+    im1=ax1.scatter(cmn_time[mask2], obs_tab["Lat"][mask2], s=1, c=dTEC, cmap="viridis", alpha=0.8, norm=norm)
 
-    plt.scatter(obs_tab["Lon"][mask2]-360, obs_tab["Lat"][mask2], s=1, c=dTEC, cmap="plasma",alpha=0.8, norm=norm)
 
 # Plot settings
 
-ax = plt.gca()
-ax.set_aspect('equal', adjustable='box')
+#ax = plt.gca()
+#ax.set_aspect('equal', adjustable='box')
 #plt.legend()
-cbar = plt.colorbar()
-cbar.set_label("vTEC (TECU)")
-
-plt.savefig(directory+"/"+date+"-GLM_map.pdf")
+cbar = fig.colorbar(im, ax=ax)
+cbar.set_label("Delta vTEC (TECU)")
+cbar1 = fig.colorbar(im1, ax=ax1)
+cbar1.set_label("Delta vTEC (TECU)")
+out_dir = "./vTEC-maps/"
+ax.set_xlabel("Longitude (deg)")
+ax.set_ylabel("Latitude (deg)")
+ax1.set_xlabel("Time (UT)")
+plt.suptitle(date+" vTEC map")
+ax1.set_ylabel("Laitude (deg)")
+fig.tight_layout()
+fig.set_size_inches(18, 9)
+plt.savefig(out_dir+date+"-vTEC_map.pdf")
