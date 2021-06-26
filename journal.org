@@ -6,9 +6,9 @@
 | 01 | 2019-05-23 | **        | **           |              | 16:36:18.147 | 16:36:18.155 |       0.197 |       0.197 | 0.197 | 0.0000 |             24.3 |             24.3 |            -102.2 |            -101.0 |   24.30 |  -101.60 |        0.000 |   0.849 |
 | 02 | 2019-07-18 | **        | **           |              | 14:30:30.131 | 14:30:30:131 |       0.058 |       0.058 | 0.058 | 0.0000 |             27.2 |             27.2 |            -103.7 |            -102.6 |   27.20 |  -103.15 |        0.000 |   0.778 |
 | 03 | 2019-08-10 | **        | **           |              | 11:18:48.726 | 11:18:48.632 |       0.145 |       0.252 | 0.199 | 0.0757 |             21.5 |             21.5 |            -103.1 |            -101.9 |   21.50 |  -102.50 |        0.000 |   0.849 |
-| 04 | 2019-10-03 |           | **           |              | 07:55:33.551 | 07:55:33.550 |       0.085 |       0.127 | 0.106 | 0.0297 |             25.6 |             25.7 |             -96.8 |             -95.7 |   25.65 |   -96.25 |        0.071 |   0.778 |
-| 05 | 2019-10-09 |           | **           |              | 06:08:11.205 | 06:08:11.206 |       0.108 |       0.097 | 0.103 | 0.0078 |             23.6 |             23.6 |            -112.1 |            -111.8 |   23.60 |  -111.95 |        0.000 |   0.212 |
-| 06 | 2019-10-12 |           | **           |              | 11:12:27.296 |          N/A |       0.006 |         N/A | 0.006 | 0.0000 |             28.8 |              N/A |            -111.3 |               N/A |    28.8 |   -111.3 |        0.000 |   0.000 |
+| 04 | 2019-10-03 | **        | **           |              | 07:55:33.551 | 07:55:33.550 |       0.085 |       0.127 | 0.106 | 0.0297 |             25.6 |             25.7 |             -96.8 |             -95.7 |   25.65 |   -96.25 |        0.071 |   0.778 |
+| 05 | 2019-10-09 | **        | **           |              | 06:08:11.205 | 06:08:11.206 |       0.108 |       0.097 | 0.103 | 0.0078 |             23.6 |             23.6 |            -112.1 |            -111.8 |   23.60 |  -111.95 |        0.000 |   0.212 |
+| 06 | 2019-10-12 | **        | **           |              | 11:12:27.296 |          N/A |       0.006 |         N/A | 0.006 | 0.0000 |             28.8 |              N/A |            -111.3 |               N/A |    28.8 |   -111.3 |        0.000 |   0.000 |
 | 07 | 2019-11-16 |           | **           |              | 10:14:13.554 | 10:14:13.656 |       0.102 |       0.103 | 0.103 | 0.0007 |             29.2 |             29.2 |            -103.3 |            -102.0 |   29.20 |  -102.65 |        0.000 |   0.919 |
 | 08 | 2019-11-17 |           | **           |              | 15:36:01.594 | 15:36:01.584 |       0.113 |       0.118 | 0.116 | 0.0035 |             31.7 |             31.7 |            -118.5 |            -116.9 |   31.70 |  -117.70 |        0.000 |   1.131 |
 | 09 | 2019-11-19 | **        | **           |              | 07:57:40.100 | 07:57:40.118 |       0.177 |       0.016 | 0.097 | 0.1138 |             20.0 |             20.0 |             -89.2 |             -87.6 |   20.00 |   -88.40 |        0.000 |   1.131 |
@@ -134,7 +134,7 @@
 | Zamora             |    19.99 |   -102.28 |
 
 * TODO list 
-  - [X] update journal.org to github
+  - [X] upload journal.org to github
   - [X] Obtain relevant statistical parameters and graphs
     - [X] Average duration of events (and std)
     - [X] dispersion of latitude and longitude
@@ -151,11 +151,11 @@
       - [X] Preliminary results
       - [X] Future Work
     - [X] Table(s) with GPS stations
-    - [ ] TEC maps like Chelyabinsk paper
-      - [ ] Add title, labels and other improvements
+    - [-] TEC maps like Chelyabinsk paper
+      - [X] Add title, labels and other improvements
       - [ ] Deal with No data rows
       - [ ] Download and process with GPS Gopi the remaining events
-      - [ ] Latitude vs time plots
+      - [X] Latitude vs time plots
     - [X] Get Kp index data
       - [X] Code to plot Kp index for desired dates
       - [X] Obtain graphs for meteors sample
@@ -163,7 +163,7 @@
     - [ ] Work in wavelet transforms
       - [ ] Study paper
       - [ ] Adapt code to our work
-** TODO Documentos para ingreso al SNI
+** DONE Documentos para ingreso al SNI
    - [ ] Publicaciones
    - [X] Documentación que pruebe que impartí clases en:
      - [X] Liceo
@@ -338,7 +338,7 @@ parser = argparse.ArgumentParser(
 
 
 parser.add_argument('--date', type=str, default='2000-01-01',
-		       help='Choose date. Format: yyyy-mm-dd')
+			 help='Choose date. Format: yyyy-mm-dd')
 
 
 
@@ -375,7 +375,7 @@ load_meteor_pos = Table.read("meteors_database.tab", format="ascii")
 meteor_mask = load_meteor_pos["Fecha"] == date
 ax.plot(load_meteor_pos["Longitud"][meteor_mask], load_meteor_pos["Latitud"][meteor_mask], "mo")
 ax.annotate("Event", (load_meteor_pos["Longitud"][meteor_mask], load_meteor_pos["Latitud"][meteor_mask]),
-		textcoords="offset points", color="w", xytext=(10, 10), ha="center", bbox=dict(boxstyle="round", pad=0.5, fc="r", alpha=0.7))
+		  textcoords="offset points", color="w", xytext=(10, 10), ha="center", bbox=dict(boxstyle="round", pad=0.5, fc="r", alpha=0.7))
 
 
 
@@ -391,7 +391,11 @@ for f, g in zip(load_dirs, load_std):
     obs_tab = Table.read(data, format="ascii")
     std_time = g["col1"]
     std_TEC = g["col2"]
-    mean_TEC_int = interp1d(std_time, std_TEC)
+    for i in range(len(obs_tab["Vtec"])): # Replace "-" into NaN since there is no data
+        if obs_tab["Vtec"][i] == "-":
+            obs_tab["Vtec"][i] = np.nan
+    std_mask = std_TEC == "-" # Mask data with "-"
+    mean_TEC_int = interp1d(std_time[~std_mask], std_TEC[~std_mask])
     cmn_time = obs_tab["Time"]
     mask = cmn_time < 0
     cmn_time[mask] = cmn_time[mask] + 24.
@@ -400,7 +404,7 @@ for f, g in zip(load_dirs, load_std):
     norm = MidpointNormalize(midpoint=0)
     ax.plot(float(s_longitude)-360, float(s_latitude), "r*")
     ax.text(float(s_longitude)-360+3, float(s_latitude), station.upper(), c="w",
-		bbox=dict(boxstyle='round', pad=0.5, fc='blue', alpha=0.3))
+		  bbox=dict(boxstyle='round', pad=0.5, fc='blue', alpha=0.3))
     im=ax.scatter(obs_tab["Lon"][mask2]-360, obs_tab["Lat"][mask2], s=1, c=dTEC, cmap="viridis",alpha=0.8, norm=norm)
     im1=ax1.scatter(cmn_time[mask2], obs_tab["Lat"][mask2], s=1, c=dTEC, cmap="viridis", alpha=0.8, norm=norm)
 

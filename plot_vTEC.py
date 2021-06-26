@@ -26,7 +26,7 @@ parser = argparse.ArgumentParser(
 
 
 parser.add_argument('--date', type=str, default='2000-01-01',
-		       help='Choose date. Format: yyyy-mm-dd')
+			 help='Choose date. Format: yyyy-mm-dd')
 
 
 
@@ -63,7 +63,7 @@ load_meteor_pos = Table.read("meteors_database.tab", format="ascii")
 meteor_mask = load_meteor_pos["Fecha"] == date
 ax.plot(load_meteor_pos["Longitud"][meteor_mask], load_meteor_pos["Latitud"][meteor_mask], "mo")
 ax.annotate("Event", (load_meteor_pos["Longitud"][meteor_mask], load_meteor_pos["Latitud"][meteor_mask]),
-		textcoords="offset points", color="w", xytext=(10, 10), ha="center", bbox=dict(boxstyle="round", pad=0.5, fc="r", alpha=0.7))
+		  textcoords="offset points", color="w", xytext=(10, 10), ha="center", bbox=dict(boxstyle="round", pad=0.5, fc="r", alpha=0.7))
 
 
 
@@ -79,7 +79,11 @@ for f, g in zip(load_dirs, load_std):
     obs_tab = Table.read(data, format="ascii")
     std_time = g["col1"]
     std_TEC = g["col2"]
-    mean_TEC_int = interp1d(std_time, std_TEC)
+    for i in range(len(obs_tab["Vtec"])): # Replace "-" into NaN since there is no data
+        if obs_tab["Vtec"][i] == "-":
+            obs_tab["Vtec"][i] = np.nan
+    std_mask = std_TEC == "-" # Mask data with "-"
+    mean_TEC_int = interp1d(std_time[~std_mask], std_TEC[~std_mask])
     cmn_time = obs_tab["Time"]
     mask = cmn_time < 0
     cmn_time[mask] = cmn_time[mask] + 24.
@@ -88,7 +92,7 @@ for f, g in zip(load_dirs, load_std):
     norm = MidpointNormalize(midpoint=0)
     ax.plot(float(s_longitude)-360, float(s_latitude), "r*")
     ax.text(float(s_longitude)-360+3, float(s_latitude), station.upper(), c="w",
-		bbox=dict(boxstyle='round', pad=0.5, fc='blue', alpha=0.3))
+		  bbox=dict(boxstyle='round', pad=0.5, fc='blue', alpha=0.3))
     im=ax.scatter(obs_tab["Lon"][mask2]-360, obs_tab["Lat"][mask2], s=1, c=dTEC, cmap="viridis",alpha=0.8, norm=norm)
     im1=ax1.scatter(cmn_time[mask2], obs_tab["Lat"][mask2], s=1, c=dTEC, cmap="viridis", alpha=0.8, norm=norm)
 
