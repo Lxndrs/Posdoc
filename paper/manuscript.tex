@@ -55,6 +55,7 @@
 \usepackage{url}
 \usepackage{xcolor}
 \usepackage{multirow}
+\usepackage{tablefootnote}
 \definecolor{newcolor}{rgb}{.8,.349,.1}
 
 \usepackage[citebordercolor=white]{hyperref}
@@ -78,7 +79,7 @@
 \author[1]{Mario \snm{Rodriguez-Martinez}\corref{cor2}}
 \cortext[cor2]{email: m.rodriguez@enesmorelia.unam.mx}
 %\fntext[fn1]{This is author footnote for second author.}
-\author[1]{Raul \snm{Gutierrez}\fnref{fn1}}
+\author[1]{Raul \snm{Guti\'errez-Zalapa}\fnref{fn1}}
 %% Third author's email
 %\ead{author3@author.com}
 %\author[2]{Given-name4 \snm{Surname4}}
@@ -162,17 +163,21 @@ commands unless you need to modify them and know how to do it.
 %https://ees.elsevier.com/asr
 %\end{verbatim}
 
-\section{Meteors Database}
 
-We selected a sample of meteors which were observed in mexican territory from the Geostationary Lightning Mapper \citep{GOODMAN:2013}. We used the interactive database available at \url{https://neo-bolide.ndc.nasa.gov/#/} to get the events positions presented in this section. The sample was selected in such way we chose the most probable objects to be detected by GPS sources in mexican territory: 
+\section{Metodology}
+\subsection{Meteors Database}
+
+We selected a sample of meteors which were observed in mexican territory from the Geostationary Lightning Mapper \citep{GOODMAN:2013}. Orignally this project was designed to detect ligthning activity in earth's athmosphere, but has been proven that also can detect bolides entering the athmosphere. The detection comes from two satellites called GOES-16 and GOES-17 orbiting the earth in geostationary orbits. We used the interactive database available at \url{https://neo-bolide.ndc.nasa.gov/#/} to get the events positions presented in this section, as well we obtained data about the bolid trajectory detected and energy released. The sample was chosen following the next criteria:%selected in such way we chose the most probable objects to be detected by GPS sources in mexican territory and its surroundings: 
 
 \begin{itemize}
-    \item The objects were detected inside mexican territory.
+    \item The objects were detected inside mexican territory and its surroundings.
     \item The objects were detected by both satellites GOES 16 and GOES 17 (stereo)
     \item The detection has been assigned a high confidence ratio.
 \end{itemize}
 
- For the selected sample, we obtained RINEX data from the TlalocNet \citep{Cabral-Cano:2018} and UNAVCO network databases to study potential alterations in the ionospehre due to the presence of the passing meteor at the day the meteor was reported. The list of the sample meteors is shown in table \ref{tab:table-meteors}. The events are in chronological order. The reported duration, latitude and longitude correspond to the mean between measurements from satellites GOES-16 and GOES 17; in the same way, the uncertainties correspond to the standard deviation. Also their respective positions are available in figure \ref{fig:meteors-map}, where each label correspond to the ID (first column) of table \ref{tab:table-meteors}.
+
+
+ 
 
 
 
@@ -189,7 +194,7 @@ ID & Date of event & Start Time (UT)  & Duration (seconds) & Latitude (deg) & Lo
 03 & 2019-08-10 & 11:18:48 & $0.199\pm 0.0757$ & $21.50 \pm 0.000$ & $-102.50  \pm 0.849$\\
 04 & 2019-10-03 & 07:55:33 & $0.106\pm 0.0297$ & $25.65 \pm 0.071$ & $-96.25 \pm   0.778$\\
 05 & 2019-10-09 & 06:08:11 & $0.103\pm 0.0078$ & $23.60 \pm 0.000$ & $-111.95 \pm  0.212$\\
-06 & 2019-10-12 & 11:12:27 & $0.006\pm 0.0000$ & $28.8 \pm 0.000$ & $-111.3 \pm 0.000$\\
+06\tablefootnote{This object was only detected by GOES-16 satellite} & 2019-10-12 & 11:12:27 & $0.006\pm 0.0000$ & $28.8 \pm 0.000$ & $-111.3 \pm 0.000$\\
 07 & 2019-11-16 & 09:36:04 & $0.396\pm 0.0134$ & $20.30 \pm 0.000$ & $-100.55 \pm  0.919$\\
 08 & 2019-11-17 & 15:36:01 & $0.116\pm 0.0035$ & $31.70 \pm 0.000$ & $-117.70 \pm  1.131$\\
 09 & 2019-11-19 & 07:57:40 & $0.097\pm 0.1138$ & $20.00 \pm 0.000$ & $-88.40 \pm  1.131$\\
@@ -229,11 +234,17 @@ ID & Date of event & Start Time (UT)  & Duration (seconds) & Latitude (deg) & Lo
   \label{fig:meteors-map}
 \end{figure}
 
+\subsection{GPS data}
 
+For the selected sample, we obtained RINEX data from the TlalocNet \citep{Cabral-Cano:2018} and UNAVCO network databases to study potential alterations in the ionospehre due to the presence of the passing meteor at the day the meteor was reported. For each event, we downloaded data from stations that surrounds the place where the event was detected (usually 3 to 5 stations. )The list of the sample meteors is shown in table \ref{tab:table-meteors}. The events are in chronological order. The reported duration, latitude and longitude correspond to the mean between measurements from satellites GOES-16 and GOES 17; in the same way, the uncertainties correspond to the standard deviation. Also their respective positions are available in figure \ref{fig:meteors-map}, where each label correspond to the ID (first column) of table \ref{tab:table-meteors}.
+
+Using the data provided by TlalocNet and UNAVCO, we procceeded to obtain TEC parameters with the GPS\_GOPI software, available at \url{https://seemala.blogspot.com/}. This software takes as input the RINEX data (the navigation file is no strictly neccesary), and the outuput consists in in the vTEC and sTEC measurements for the PRNs of the whole day the event occurred, as well as the averaged TEC as function of time. We obtained vTEC maps for the events in table (\ref{tab:table-meteors}) and their respective next and previous day.
 
 %Final idea: use GOPI software to get the vTEC data from the day of each event and the previous days.
 
 \section{Ionospheric background and vTEC maps}
+
+Ionospheric perturbations also can take place due to space weather and geomagnetic storms. So, in order to discard such events we investigated the space weather in the day each event occured. In figure (name) we present the geomagnetic \textit{Kp} index for some events. We discarded events whose Kp index is equal or grater than 4 in the day of the event or shortly before. Also we present in figure (name) the vTEC perturbation maps for the same events in a three day series, centered in the event date. The estimated meteor trajectory, obtained from the GLM data is presented in black, continous line, while the linear fit to the GOES-16 and GOES-17 data are presented with the red dashed line, and work as boudary errors.
 
 
 \section{Frecuency Analysis}
