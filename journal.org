@@ -17,44 +17,54 @@
 * Base de datos meteoros (definitivo)						
 + Press C-c C-x C-c for full view. Press q in highlighted text to return to normal
 + Press C-x spc for selecting a rectangle						
-| ID |      Fecha | Got RINEX | Got Kp index | Got GLM data | T_0 (GLM-16) | T_0 (GLM-17) | dt (GLM-16) | dt (GLM-17) |    dt |   s_dt | Latitud (GLM-16) | Latitud (GLM-17) | Longitud (GLM-16) | Longitud (GLM-17) | Latitud | Longitud | sig_latitude | sig_lon |
-|----+------------+-----------+--------------+--------------+--------------+--------------+-------------+-------------+-------+--------+------------------+------------------+-------------------+-------------------+---------+----------+--------------+---------|
-| 01 | 2019-05-23 | **        | **           | **           | 16:36:18.147 | 16:36:18.155 |       0.197 |       0.197 | 0.197 | 0.0000 |             24.3 |             24.3 |            -102.2 |            -101.0 |   24.30 |  -101.60 |        0.000 |   0.849 |
-| 02 | 2019-07-18 | **        | **           | **           | 14:30:30.131 | 14:30:30.131 |       0.058 |       0.058 | 0.058 | 0.0000 |             27.2 |             27.2 |            -103.7 |            -102.6 |   27.20 |  -103.15 |        0.000 |   0.778 |
-| 03 | 2019-08-10 | **        | **           | **           | 11:18:48.726 | 11:18:48.632 |       0.145 |       0.252 | 0.199 | 0.0757 |             21.5 |             21.5 |            -103.1 |            -101.9 |   21.50 |  -102.50 |        0.000 |   0.849 |
-| 04 | 2019-10-03 | **        | **           | **           | 07:55:33.551 | 07:55:33.550 |       0.085 |       0.127 | 0.106 | 0.0297 |             25.6 |             25.7 |             -96.8 |             -95.7 |   25.65 |   -96.25 |        0.071 |   0.778 |
-| 05 | 2019-10-09 | **        | **           | **           | 06:08:11.205 | 06:08:11.206 |       0.108 |       0.097 | 0.103 | 0.0078 |             23.6 |             23.6 |            -112.1 |            -111.8 |   23.60 |  -111.95 |        0.000 |   0.212 |
-| 06 | 2019-10-12 | **        | **           | **           | 11:12:27.296 |          N/A |       0.006 |         N/A | 0.006 | 0.0000 |             28.8 |              N/A |            -111.3 |               N/A |    28.8 |   -111.3 |        0.000 |   0.000 |
-| 07 | 2019-11-16 | **        | **           | **           | 10:14:13.554 | 10:14:13.656 |       0.102 |       0.103 | 0.103 | 0.0007 |             29.2 |             29.2 |            -103.3 |            -102.0 |   29.20 |  -102.65 |        0.000 |   0.919 |
-| 08 | 2019-11-17 | **        | **           | **           | 15:36:01.594 | 15:36:01.584 |       0.113 |       0.118 | 0.116 | 0.0035 |             31.7 |             31.7 |            -118.5 |            -116.9 |   31.70 |  -117.70 |        0.000 |   1.131 |
-| 09 | 2019-11-19 | **        | **           | **           | 07:57:40.100 | 07:57:40.118 |       0.177 |       0.016 | 0.097 | 0.1138 |             20.0 |             20.0 |             -89.2 |             -87.6 |   20.00 |   -88.40 |        0.000 |   1.131 |
-| 10 | 2019-11-26 | **        | **           | **           | 13:23:20.453 | 13:23:20.437 |       0.098 |       0.057 | 0.078 | 0.0290 |             23.9 |             23.9 |            -109.3 |            -108.1 |   23.90 |  -108.70 |        0.000 |   0.849 |
-| 11 | 2019-12-04 | **        | **           | **           | 09:42:54.880 | 09:42:54.877 |       0.171 |       0.175 | 0.173 | 0.0028 |             31.5 |             31.5 |            -114.3 |            -113.0 |   31.50 |  -113.65 |        0.000 |   0.919 |
-| 12 | 2019-12-15 | **        | **           | **           | 14:50:49.779 | 14:50:49.915 |       0.136 |       0.117 | 0.127 | 0.0134 |             27.7 |             27.7 |            -114.7 |            -113.5 |   27.70 |  -114.10 |        0.000 |   0.849 |
-| 13 | 2019-12-29 | **        | **           | **           | 16:16:35.527 | 16:16:35.598 |       0.071 |       0.052 | 0.062 | 0.0134 |             29.6 |             29.6 |            -117.0 |            -115.7 |   29.60 |  -116.35 |        0.000 |   0.919 |
-| 14 | 2020-01-03 | **        | **           | **           | 14:10:17.704 | 14:10:17.584 |       0.119 |       0.107 | 0.113 | 0.0085 |             30.2 |             30.2 |            -118.3 |            -117.0 |   30.20 |  -117.65 |        0.000 |   0.919 |
-| 15 | 2020-01-06 | **        | **           | **           | 16:39:27.920 | 16:39:27.917 |       0.115 |       0.121 | 0.118 | 0.0042 |             31.4 |             31.4 |            -108.9 |            -107.5 |   31.40 |  -108.20 |        0.000 |   0.990 |
-| 16 | 2020-01-15 | **        | **           | **           | 15:00:33.695 | 15:00:34.003 |       0.308 |       0.117 | 0.213 | 0.1351 |             19.4 |             19.5 |             -96.2 |             -94.9 |   19.45 |   -95.55 |        0.071 |   0.919 |
-| 17 | 2020-02-12 | **        | **           | **           | 09:25:40.508 | 09:25:40.490 |       0.194 |       0.226 | 0.210 | 0.0226 |             18.9 |             18.9 |             -94.1 |             -92.9 |   18.90 |   -93.50 |        0.000 |   0.849 |
-| 18 | 2020-03-03 | **        | **           | **           | 12:33:27.284 | 12:33:27.282 |       0.062 |       0.061 | 0.062 | 0.0007 |             18.2 |             18.3 |            -106.8 |            -105.9 |   18.25 |  -106.35 |        0.071 |   0.636 |
-| 19 | 2020-03-31 | **        | **           | **           | 19:31:52.080 | 19:31:52.103 |       0.145 |       0.064 | 0.105 | 0.0573 |             28.5 |             28.4 |            -112.5 |            -111.6 |   28.45 |  -112.05 |        0.071 |   0.636 |
-| 20 | 2020-04-08 | **        | **           | **           | 16:25:28.094 | 16:25:28.182 |       0.185 |       0.054 | 0.120 | 0.0926 |             26.1 |             26.1 |             -94.5 |             -93.3 |   26.10 |   -93.90 |        0.000 |   0.849 |
-| 21 | 2020-04-18 | **        | **           | **           | 17:43:25.270 | 17:43:25.268 |       0.146 |       0.131 | 0.139 | 0.0106 |             29.0 |             29.0 |            -107.2 |            -105.9 |   29.00 |  -106.55 |        0.000 |   0.919 |
-| 22 | 2020-04-20 | **        | **           | **           | 16:05:22.001 | 16:05:22:191 |       0.435 |       0.201 | 0.318 | 0.1655 |             28.1 |             28.2 |             -98.6 |             -97.1 |   28.15 |   -97.85 |        0.071 |   1.061 |
-| 23 | 2020-04-25 | **        | **           | **           | 11:03:09.626 | 11:03:09.530 |       0.265 |       0.380 | 0.323 | 0.0813 |             32.1 |             32.2 |            -112.4 |            -110.8 |   32.15 |  -111.60 |        0.071 |   1.131 |
-| 24 | 2020-04-28 | **        | **           | **           | 05:43:16.682 | 05:43:16.676 |       0.801 |       0.818 | 0.810 | 0.0120 |             19.9 |             19.9 |            -110.2 |            -110.0 |   19.90 |  -110.10 |        0.000 |   0.141 |
-| 25 | 2020-05-08 | **        | **           | **           | 10:06:16.988 | 10:06:16.942 |       0.437 |       0.543 | 0.490 | 0.0750 |             21.6 |             21.6 |             -93.0 |             -91.8 |   21.60 |   -92.40 |        0.000 |   0.849 |
-| 26 | 2020-07-15 | **        | **           | **           | 19:58:28.112 | 19:58:28.173 |       0.728 |       0.658 | 0.693 | 0.0495 |             24.0 |             24.0 |            -108.7 |            -108.0 |   24.00 |  -108.35 |        0.000 |   0.495 |
-| 27 | 2020-08-07 | **        | **           | **           | 13:29:57.252 | 13:29:57:071 |       0.167 |       0.159 | 0.163 | 0.0057 |             28.8 |             28.8 |            -106.7 |            -105.4 |   28.80 |  -106.05 |        0.000 |   0.919 |
-| 28 | 2020-09-13 | **        | **           | **           | 16:41:59.056 | 16:41:59.051 |       0.178 |       0.189 | 0.184 | 0.0078 |             28.4 |             28.5 |            -114.4 |            -113.1 |   28.45 |  -113.75 |        0.071 |   0.919 |
-| 29 | 2020-09-30 | **        | **           | **           | 12:28:11.755 | 12:28:11.748 |       0.094 |       0.105 | 0.100 | 0.0078 |             24.9 |             24.9 |            -111.5 |            -110.3 |   24.90 |  -110.90 |        0.000 |   0.849 |
-| 30 | 2020-11-16 | **        | **           | **           | 09:36:04.204 | 09:36:04.187 |       0.386 |       0.405 | 0.396 | 0.0134 |             20.3 |             20.3 |            -101.2 |             -99.9 |   20.30 |  -100.55 |        0.000 |   0.919 |
-| 31 | 2020-11-17 | **        | **           | **           | 12:53:41.826 | 12:53:41.816 |       0.385 |       0.422 | 0.404 | 0.0262 |             23.0 |             23.0 |            -103.1 |            -101.8 |   23.00 |  -102.45 |        0.000 |   0.919 |
-| 32 | 2020-12-19 | **        | **           | **           | 10:18:14.250 | 10:18:14.614 |       0.328 |       0.485 | 0.407 | 0.1110 |             21.9 |             22.0 |            -102.3 |            -100.9 |   21.95 |  -101.60 |        0.071 |   0.990 |
-| 33 | 2020-12-23 | **        | **           | **           | 09:43:01.374 | 09:43:01.375 |       0.147 |       0.149 | 0.148 | 0.0014 |             25.8 |             25.7 |            -111.8 |            -110.7 |   25.75 |  -111.25 |        0.071 |   0.778 |
-| 34 | 2020-12-29 | **        | **           | **           | 15:20:54.399 | 15:20:54.282 |       0.117 |       0.119 | 0.118 | 0.0014 |             16.8 |             16.8 |            -102.7 |            -101.7 |   16.80 |  -102.20 |        0.000 |   0.707 |
-| 35 | 2021-03-31 | **        | **           | **           | 09:01:17.547 | 09:01:17.978 |       0.971 |       0.535 | 0.753 | 0.3083 |             20.1 |             20.2 |             -93.1 |             -92.8 |   20.15 |   -92.95 |        0.071 |   0.212 |
-#+TBLFM: $10=vmean($8..$9);f3::$11=vsdev($8..$9);f4::$16=vmean($12..$13);f2::$17=vmean($14..$15);f2::$18=vsdev($12..$13);f3::$19=vsdev($14..$15);f3
++ List of constants:
+  - Re: Radius of earth (in km)
+  - hG: height of GLM satellites (in km)
+  - phiG16: longitude of GLM-16 (in deg)
+  - phiG17: longitude of GLM-17 (in deg)
+  - A: constant to integrate GLM energy over space (normalized to Rn (see below)) (Jenniskens et al. 2018), doi: 100.1111/maps.13137
+  - Rn: Distance from GLM satellite to lightning ellipsoid at nadir
+  - rad: degrees to radians conversion factor
+  - k: correction factor for considering the contribution of the band pass of GLM over the complete blackbody continuum curve (Jenniskens et al. 2018), doi: 100.1111/maps.13137
+#+CONSTANTS: Re=6371 :: hG=35786.02 :: phiG16=-75.2 :: A=1.695e18 :: Rn=35780 :: phiG17=-137.2 :: rad=3.1416/180 :: k=1.018e3
+| ID |      Fecha |      GLM-16 energy (J) |      GLM-17-energy (J) | Got RINEX | Got Kp index | Got GLM data | T_0 (GLM-16) | T_0 (GLM-17) | dt (GLM-16) | dt (GLM-17) |     dt |   s_dt | Latitud (GLM-16) | Latitud (GLM-17) | Longitud (GLM-16) | Longitud (GLM-17) | Latitud | Longitud | sig_latitude | sig_lon | f(lat, long, long_GLM16) | f(lat, long, long_GLM17) | Height (km) | R^2_GLM16 | R^2_GLM17 | Radiated Energy GLM-16 (J) | Radiated Energy GLM-17 (J) |
+|----+------------+------------------------+------------------------+-----------+--------------+--------------+--------------+--------------+-------------+-------------+--------+--------+------------------+------------------+-------------------+-------------------+---------+----------+--------------+---------+--------------------------+--------------------------+-------------+-----------+-----------+----------------------------+----------------------------|
+| 01 | 2019-05-23 |  7.080500719563272e-13 |  4.150638352847435e-13 | **        | **           | **           | 16:36:18.147 | 16:36:18.155 |       0.197 |       0.197 |  0.197 | 0.0000 |             24.3 |             24.3 |            -102.2 |            -101.0 |   24.30 |  -101.60 |        0.000 |   0.849 |               0.99993878 |               0.99991181 |          28 |    1.28e9 |    1.28e9 |                     1.22e9 |               2.5621350e13 |
+| 02 | 2019-07-18 | 3.1129787646355764e-13 | 3.0977190648089314e-13 | **        | **           | **           | 14:30:30.131 | 14:30:30.131 |       0.058 |       0.058 |  0.058 | 0.0000 |             27.2 |             27.2 |            -103.7 |            -102.6 |   27.20 |  -103.15 |        0.000 |   0.778 |               0.99992799 |               0.99991013 |          72 |    1.28e9 |    1.28e9 |                     5.37e8 |               1.9121816e13 |
+| 03 | 2019-08-10 |  6.210697829444508e-13 | 1.0712309278304778e-12 | **        | **           | **           | 11:18:48.726 | 11:18:48.632 |       0.145 |       0.252 |  0.199 | 0.0757 |             21.5 |             21.5 |            -103.1 |            -101.9 |   21.50 |  -102.50 |        0.000 |   0.849 |               0.99994244 |               0.99992074 |          92 |    1.27e9 |    1.27e9 |                     1.06e9 |               6.5609083e13 |
+| 04 | 2019-10-03 |  1.479303483161672e-13 |  2.770259572442234e-13 | **        | **           | **           | 07:55:33.551 | 07:55:33.550 |       0.085 |       0.127 |  0.106 | 0.0297 |             25.6 |             25.7 |             -96.8 |             -95.7 |   25.65 |   -96.25 |        0.071 |   0.778 |               0.99994795 |               0.99988945 |          74 |    1.28e9 |    1.28e9 |                     2.55e8 |               1.7100452e13 |
+| 05 | 2019-10-09 | 1.3955176168359046e-12 |  8.595560315017904e-13 | **        | **           | **           | 06:08:11.205 | 06:08:11.206 |       0.108 |       0.097 |  0.103 | 0.0078 |             23.6 |             23.6 |            -112.1 |            -111.8 |   23.60 |  -111.95 |        0.000 |   0.212 |               0.99991099 |               0.99994423 |          32 |    1.28e9 |    1.28e9 |                     2.41e9 |               5.3059274e13 |
+| 06 | 2019-10-12 |  4.232787697851629e-13 |                     -- | **        | **           | **           | 11:12:27.296 |           -- |       0.006 |          -- | #ERROR | #ERROR |             28.8 |               -- |            -111.3 |                -- |  #ERROR |   #ERROR |       #ERROR |  #ERROR |               0.99990106 |                   #ERROR |          -- |    #ERROR |    #ERROR |                     #ERROR |                     #ERROR |
+| 07 | 2019-11-16 |  1.449666669545249e-12 | 3.9114560059171877e-13 | **        | **           | **           | 10:14:13.554 | 10:14:13.656 |       0.102 |       0.103 |  0.103 | 0.0007 |             29.2 |             29.2 |            -103.3 |            -102.0 |   29.20 |  -102.65 |        0.000 |   0.919 |               0.99992381 |               0.99990296 |          82 |    1.27e9 |    1.27e9 |                     2.48e9 |               2.3956276e13 |
+| 08 | 2019-11-17 |  6.833250825127828e-14 |  5.117496236627764e-13 | **        | **           | **           | 15:36:01.594 | 15:36:01.584 |       0.113 |       0.118 |  0.116 | 0.0035 |             31.7 |             31.7 |            -118.5 |            -116.9 |   31.70 |  -117.70 |        0.000 |   1.131 |               0.99986640 |               0.99993426 |          88 |    1.27e9 |    1.27e9 |                     1.17e8 |               3.1342844e13 |
+| 09 | 2019-11-19 |  2.634275895650217e-13 | 4.4376146917849163e-14 | **        | **           | **           | 07:57:40.100 | 07:57:40.118 |       0.177 |       0.016 |  0.097 | 0.1138 |             20.0 |             20.0 |             -89.2 |             -87.6 |   20.00 |   -88.40 |        0.000 |   1.131 |               0.99997235 |               0.99986730 |          99 |    1.27e9 |    1.27e9 |                     4.51e8 |               2.7178811e12 |
+| 10 | 2019-11-26 |  1.938622765895668e-12 |  8.954477775527033e-14 | **        | **           | **           | 13:23:20.453 | 13:23:20.437 |       0.098 |       0.057 |  0.078 | 0.0290 |             23.9 |             23.9 |            -109.3 |            -108.1 |   23.90 |  -108.70 |        0.000 |   0.849 |               0.99991955 |               0.99993421 |          81 |    1.27e9 |    1.27e9 |                     3.32e9 |               5.4842991e12 |
+| 11 | 2019-12-04 |  6.161296992576752e-13 |  1.524757629654727e-12 | **        | **           | **           | 09:42:54.880 | 09:42:54.877 |       0.171 |       0.175 |  0.173 | 0.0028 |             31.5 |             31.5 |            -114.3 |            -113.0 |   31.50 |  -113.65 |        0.000 |   0.919 |               0.99988304 |               0.99992679 |          77 |    1.28e9 |    1.28e9 |                     1.06e9 |               9.4121303e13 |
+| 12 | 2019-12-15 |   2.17488682754591e-13 | 2.9770126480938705e-13 | **        | **           | **           | 14:50:49.779 | 14:50:49.915 |       0.136 |       0.117 |  0.127 | 0.0134 |             27.7 |             27.7 |            -114.7 |            -113.5 |   27.70 |  -114.10 |        0.000 |   0.849 |               0.99989201 |               0.99993834 |          78 |    1.28e9 |    1.28e9 |                     3.75e8 |               1.8376711e13 |
+| 13 | 2019-12-29 |  6.855139495591029e-13 |   7.41910681307072e-14 | **        | **           | **           | 16:16:35.527 | 16:16:35.598 |       0.071 |       0.052 |  0.062 | 0.0134 |             29.6 |             29.6 |            -117.0 |            -115.7 |   29.60 |  -116.35 |        0.000 |   0.919 |               0.99987829 |               0.99993790 |          79 |    1.28e9 |    1.28e9 |                     1.18e9 |               4.5797180e12 |
+| 14 | 2020-01-03 |  9.521115792786327e-13 | 3.1314754237003386e-13 | **        | **           | **           | 14:10:17.704 | 14:10:17.584 |       0.119 |       0.107 |  0.113 | 0.0085 |             30.2 |             30.2 |            -118.3 |            -117.0 |   30.20 |  -117.65 |        0.000 |   0.919 |               0.99987150 |               0.99993875 |          74 |    1.28e9 |    1.28e9 |                     1.64e9 |               1.9330190e13 |
+| 15 | 2020-01-06 |  7.533539117646777e-13 |  6.275060969231533e-13 | **        | **           | **           | 16:39:27.920 | 16:39:27.917 |       0.115 |       0.121 |  0.118 | 0.0042 |             31.4 |             31.4 |            -108.9 |            -107.5 |   31.40 |  -108.20 |        0.000 |   0.990 |               0.99990157 |               0.99991333 |          81 |    1.27e9 |    1.27e9 |                     1.29e9 |               3.8432516e13 |
+| 16 | 2020-01-15 |  4.662846866251004e-13 |  5.875405258747977e-13 | **        | **           | **           | 15:00:33.695 | 15:00:34.003 |       0.308 |       0.117 |  0.213 | 0.1351 |             19.4 |             19.5 |             -96.2 |             -94.9 |   19.45 |   -95.55 |        0.071 |   0.919 |               0.99996208 |               0.99989934 |          93 |    1.27e9 |    1.27e9 |                     7.98e8 |               3.5984767e13 |
+| 17 | 2020-02-12 | 1.7320510377282553e-13 |   7.11847788770303e-13 | **        | **           | **           | 09:25:40.508 | 09:25:40.490 |       0.194 |       0.226 |  0.210 | 0.0226 |             18.9 |             18.9 |             -94.1 |             -92.9 |   18.90 |   -93.50 |        0.000 |   0.849 |               0.99996685 |               0.99989238 |          90 |    1.27e9 |    1.27e9 |                     2.96e8 |               4.3598144e13 |
+| 18 | 2020-03-03 |  4.019331742446309e-13 | 1.9590237923737543e-13 | **        | **           | **           | 12:33:27.284 | 12:33:27.282 |       0.062 |       0.061 |  0.062 | 0.0007 |             18.2 |             18.3 |            -106.8 |            -105.9 |   18.25 |  -106.35 |        0.071 |   0.636 |               0.99993830 |               0.99993901 |          77 |    1.28e9 |    1.28e9 |                     6.93e8 |               1.2092799e13 |
+| 19 | 2020-03-31 | 2.0687508876245494e-13 |  1.087721013104986e-13 | **        | **           | **           | 19:31:52.080 | 19:31:52.103 |       0.145 |       0.064 |  0.105 | 0.0573 |             28.5 |             28.4 |            -112.5 |            -111.6 |   28.45 |  -112.05 |        0.071 |   0.636 |               0.99989777 |               0.99993217 |          61 |    1.28e9 |    1.28e9 |                     3.57e8 |               6.7143601e12 |
+| 20 | 2020-04-08 | 3.1668414423809794e-13 |  4.214678296162302e-14 | **        | **           | **           | 16:25:28.094 | 16:25:28.182 |       0.185 |       0.054 |  0.120 | 0.0926 |             26.1 |             26.1 |             -94.5 |             -93.3 |   26.10 |   -93.90 |        0.000 |   0.849 |               0.99995111 |               0.99987898 |          78 |    1.28e9 |    1.28e9 |                     5.46e8 |               2.6016660e12 |
+| 21 | 2020-04-18 | 2.1191121272541304e-12 |   3.10458970407003e-13 | **        | **           | **           | 17:43:25.270 | 17:43:25.268 |       0.146 |       0.131 |  0.139 | 0.0106 |             29.0 |             29.0 |            -107.2 |            -105.9 |   29.00 |  -106.55 |        0.000 |   0.919 |               0.99991347 |               0.99991553 |          82 |    1.27e9 |    1.27e9 |                     3.63e9 |               1.9014507e13 |
+| 22 | 2020-04-20 |  1.417340866060915e-12 |  1.825984418477952e-12 | **        | **           | **           | 16:05:22.001 | 16:05:22:191 |       0.435 |       0.201 |  0.318 | 0.1655 |             28.1 |             28.2 |             -98.6 |             -97.1 |   28.15 |   -97.85 |        0.071 |   1.061 |               0.99993796 |               0.99988850 |          88 |    1.27e9 |    1.27e9 |                     2.43e9 |               1.1183505e14 |
+| 23 | 2020-04-25 | 1.0178255724628665e-11 |  2.232950304524486e-12 | **        | **           | **           | 11:03:09.626 | 11:03:09.530 |       0.265 |       0.380 |  0.323 | 0.0813 |             32.1 |             32.2 |            -112.4 |            -110.8 |   32.15 |  -111.60 |        0.071 |   1.131 |               0.99988799 |               0.99991956 |          84 |    1.27e9 |    1.27e9 |                    1.74e10 |               1.3676026e14 |
+| 24 | 2020-04-28 | 2.2619171697132558e-12 |  9.224888665035712e-12 | **        | **           | **           | 05:43:16.682 | 05:43:16.676 |       0.801 |       0.818 |  0.810 | 0.0120 |             19.9 |             19.9 |            -110.2 |            -110.0 |   19.90 |  -110.10 |        0.000 |   0.141 |               0.99992479 |               0.99994730 |          29 |    1.28e9 |    1.28e9 |                     3.90e9 |               5.6944036e14 |
+| 25 | 2020-05-08 | 1.3059874702513091e-12 |  6.268410264980247e-12 | **        | **           | **           | 10:06:16.988 | 10:06:16.942 |       0.437 |       0.543 |  0.490 | 0.0750 |             21.6 |             21.6 |             -93.0 |             -91.8 |   21.60 |   -92.40 |        0.000 |   0.849 |               0.99996365 |               0.99988273 |          81 |    1.27e9 |    1.27e9 |                     2.24e9 |               3.8391783e14 |
+| 26 | 2020-07-15 |  8.954331725010835e-13 |  6.913835089355929e-13 | **        | **           | **           | 19:58:28.112 | 19:58:28.173 |       0.728 |       0.658 |  0.693 | 0.0495 |             24.0 |             24.0 |            -108.7 |            -108.0 |   24.00 |  -108.35 |        0.000 |   0.495 |               0.99992121 |               0.99993372 |          53 |    1.28e9 |    1.28e9 |                     1.54e9 |               4.2678204e13 |
+| 27 | 2020-08-07 |  8.547862356231333e-13 |  6.352236706573085e-13 | **        | **           | **           | 13:29:57.252 | 13:29:57:071 |       0.167 |       0.159 |  0.163 | 0.0057 |             28.8 |             28.8 |            -106.7 |            -105.4 |   28.80 |  -106.05 |        0.000 |   0.919 |               0.99991548 |               0.99991460 |          89 |    1.27e9 |    1.27e9 |                     1.46e9 |               3.8905190e13 |
+| 28 | 2020-09-13 |                        |                        | **        | **           | **           | 16:41:59.056 | 16:41:59.051 |       0.178 |       0.189 |  0.184 | 0.0078 |             28.4 |             28.5 |            -114.4 |            -113.1 |   28.45 |  -113.75 |        0.071 |   0.919 |               0.99989129 |               0.99993537 |          85 |    1.27e9 |    1.27e9 |                        0e0 |                         0. |
+| 29 | 2020-09-30 |  3.754678744599022e-12 |   7.27027492615035e-13 | **        | **           | **           | 12:28:11.755 | 12:28:11.748 |       0.094 |       0.105 |  0.100 | 0.0078 |             24.9 |             24.9 |            -111.5 |            -110.3 |   24.90 |  -110.90 |        0.000 |   0.849 |               0.99991010 |               0.99993766 |          83 |    1.27e9 |    1.27e9 |                     6.43e9 |               4.4527847e13 |
+| 30 | 2020-11-16 |  4.463608461879112e-12 |  5.319998241614338e-12 | **        | **           | **           | 09:36:04.204 | 09:36:04.187 |       0.386 |       0.405 |  0.396 | 0.0134 |             20.3 |             20.3 |            -101.2 |             -99.9 |   20.30 |  -100.55 |        0.000 |   0.919 |               0.99994952 |               0.99991633 |         106 |    1.27e9 |    1.27e9 |                     7.64e9 |               3.2583096e14 |
+| 31 | 2020-11-17 |  4.433293600678048e-12 |  5.623754358386713e-12 | **        | **           | **           | 12:53:41.826 | 12:53:41.816 |       0.385 |       0.422 |  0.404 | 0.0262 |             23.0 |             23.0 |            -103.1 |            -101.8 |   23.00 |  -102.45 |        0.000 |   0.919 |               0.99993934 |               0.99991732 |          93 |    1.27e9 |    1.27e9 |                     7.59e9 |               3.4443495e14 |
+| 32 | 2020-12-19 |  7.955155609684707e-13 |  4.773030608716246e-12 | **        | **           | **           | 10:18:14.250 | 10:18:14.614 |       0.328 |       0.485 |  0.407 | 0.1110 |             21.9 |             22.0 |            -102.3 |            -100.9 |   21.95 |  -101.60 |        0.071 |   0.990 |               0.99994368 |               0.99991641 |          98 |    1.27e9 |    1.27e9 |                     1.36e9 |               2.9233114e14 |
+| 33 | 2020-12-23 |                        |                        | **        | **           | **           | 09:43:01.374 | 09:43:01.375 |       0.147 |       0.149 |  0.148 | 0.0014 |             25.8 |             25.7 |            -111.8 |            -110.7 |   25.75 |  -111.25 |        0.071 |   0.778 |               0.99990697 |               0.99993678 |          81 |    1.27e9 |    1.27e9 |                        0e0 |                         0. |
+| 34 | 2020-12-29 | 3.9079678172826326e-12 |  7.937009630068694e-13 | **        | **           | **           | 15:20:54.399 | 15:20:54.282 |       0.117 |       0.119 |  0.118 | 0.0014 |             16.8 |             16.8 |            -102.7 |            -101.7 |   16.80 |  -102.20 |        0.000 |   0.707 |               0.99995182 |               0.99992844 |          81 |    1.27e9 |    1.27e9 |                     6.69e9 |               4.8611360e13 |
+| 35 | 2021-03-31 |                        |                        | **        | **           | **           | 09:01:17.547 | 09:01:17.978 |       0.971 |       0.535 |  0.753 | 0.3083 |             20.1 |             20.2 |             -93.1 |             -92.8 |   20.15 |   -92.95 |        0.071 |   0.212 |               0.99996639 |               0.99988961 |          24 |    1.28e9 |    1.28e9 |                        0e0 |                         0. |
+#+TBLFM: $12=vmean($10..$11);f3::$13=vsdev($10..$11);f4::$18=vmean($14..$15);f2::$19=vmean($16..$17);f2::$20=vsdev($14..$15);f3::$21=vsdev($16..$17);f3::$22=cos($rad*$14)*cos($rad*($phiG16-$16))::$23=cos($rad*$15)*cos($rad*($phiG17-$17))::$25=2*$Re**2*(1-$22)*2+$Re*$hG*(1-$22)+$hG**2-2*$hG*$22*$24;s3::$26=2*$Re**2*(1-$23)+2*$Re*$hG*(1-$23)+$hG**2-2*$hG*$24*$23;s3::$27=$3*$A*$k*$25/$Rn**2;s3::$28=$4*$A*$k*$26/$Rn
 
 * Base de datos de estaciones de GPS
 + Press C-c C-x C-c for full view. Press q in highlighted text to return to normal
@@ -186,14 +196,16 @@
       - [ ] Plot trajectory into vTEC maps
 	- [ ] Use stereo data. Use mean for position and standard deviation for error margins
     - [ ] Try solutions of the 2D wave equation in polar coordinates.
+    - [ ] Include enrgy otput to meteors table and send to Raul
+    - [ ] Estimate break point height
 ** DONE Documentos para ingreso al SNI
    - [ ] Publicaciones
    - [X] Documentación que pruebe que impartí clases en:
      - [X] Liceo
      - [X] ENES
 * Codes
-** Statistics of events parameters
 + Tangle with C-c C-v t
++ Use C-c ' to edit code
 #+NAME: events_statistics
 #+BEGIN_SRC python :eval no :tangle ./events_statistics.py
 
@@ -230,7 +242,6 @@ plt.xlabel(r"$\sigma_{lon}$ (deg)")
 plt.ylabel(r"$\sigma_{lat}$ (deg)")
 plt.savefig("events_statistics.pdf")
 #+END_SRC
-** Plot Mexico map with events
 
 #+NAME: plot_mex_map
 #+BEGIN_SRC python :eval no :tangle ./plot_meteors.py
@@ -281,9 +292,8 @@ ax.set_aspect('equal', adjustable='box')
 
 plt.savefig("meteors_map.pdf")
 
-#+END_SRC
-** Plot Mexico map with GPS stations
-+ Use C-c ' to edit code 
+#+END_SRC 
+
 #+NAME: plot_GPS_map
 #+BEGIN_SRC python :eval no :tangle ./plot_stations.py
   # Mexico map plotter
@@ -327,12 +337,10 @@ plt.savefig("meteors_map.pdf")
   ax = plt.gca()
   ax.set_aspect("equal", adjustable="box")
   plt.savefig("stations_map.pdf")
-#+END_SRC
-** Plot vTEC maps
-+ Use C-c ' to edit code 
+#+END_SRC 
+
 #+NAME: plot_vTEC_map
 #+BEGIN_SRC python :eval no :tangle ./plot_vTEC.py
-
 # Mexico map plotter
 # The main idea of this program was taken from 
 # https://towardsdatascience.com/mapping-with-matplotlib-pandas-geopandas-and-basemap-in-python-d11b57ab5dac
@@ -586,9 +594,7 @@ fig.tight_layout()
 fig.set_size_inches(18, 12)
 plt.savefig(out_dir+date+"-vTEC_map.pdf")
 
-#+END_SRC
-** Kp index
-+ Use C-c ' to edit code 
+#+END_SRC 
 #+NAME: Kp_index
 #+BEGIN_SRC python :eval no :tangle ./Kp-index.py
 
@@ -710,4 +716,250 @@ plt.savefig(out_dir+date+"-vTEC_map.pdf")
 
   plt.savefig("./Kp index/"+date+" Kp index.pdf")
 
+#+END_SRC
+
+#+NAME: TEC vs Time
+#+BEGIN_SRC python :eval no :tangle ./TEC_vs_time.py
+
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from astropy.table import Table
+import argparse
+import glob
+
+# Goal of this program: Obtain TEC vs time plots and analyze them in order to check if we can derive some kind
+# of parameter to quantify the TEC perturbations
+
+# We must recycle a lot of the code lines from plot_vTEC.py
+
+parser = argparse.ArgumentParser(
+    description=""" Choose a file to work""")
+
+
+parser.add_argument('--date', type=str, default='2000-01-01',
+				   help='Choose date. Format: yyyy-mm-dd')
+
+
+
+cmd_args = parser.parse_args()
+date = cmd_args.date
+
+
+directory = "./data/"+date
+p_directory = directory + "/previous/"
+n_directory = directory+ "/next/"
+
+# set figure style
+sns.set_style("whitegrid") 
+
+# Load RINEX capabilities
+
+rinex_files = glob.glob(directory+"/*.Cmn")
+std_files = glob.glob(directory+"/*.Std")
+load_dirs = [open(rinex_files[i], "r") for i in range(len(rinex_files))]
+load_std = [Table.read(std_files[i], format="ascii") for i in range(len(std_files))]
+
+rinex_p = glob.glob(p_directory+"*.Cmn")
+std_p = glob.glob(p_directory+"*.Std")
+rinex_n = glob.glob(n_directory+"*.Cmn")
+std_n = glob.glob(n_directory+"*.Std")
+
+load_dir_p = [open(rinex_p[i], "r") for i in range(len(rinex_p))]
+load_std_p = [Table.read(std_p[i], format="ascii") for i in range(len(std_p))]
+load_dir_n = [open(rinex_n[i], "r") for i in range(len(rinex_n))]
+load_std_n = [Table.read(std_n[i], format="ascii") for i in range(len(std_n))]
+
+# Get the data and plot
+
+fig = plt.figure()
+j=1
+for f, g, fp, gp, fn, gn in zip(load_dirs, load_std, load_dir_p, load_std_p, load_dir_n, load_std_n):
+    header = f.readline()
+    header_p = fp.readline()
+    header_n = fn.readline()
+    h1, h2 = header.split(",")
+    station = h2.split("\\")[-1][0:4]
+    blank = f.readline()
+    blank = fp.readline()
+    blank = fn.readline()
+    s_coords = f.readline()
+    s_coords_p = fp.readline()
+    s_coords_n = fn.readline()
+    s_latitude, s_longitude, s_altitude = s_coords.split()
+    blank = f.readline()
+    blank = fp.readline()
+    blank = fn.readline()
+    data  = f.readlines()
+    data_p = fp.readlines()
+    data_n = fn.readlines()
+    obs_tab = Table.read(data, format="ascii")
+    obs_tab_p = Table.read(data_p, format="ascii")
+    obs_tab_n = Table.read(data_n, format="ascii")
+    std_time = g["col1"]
+    std_time_p = gp["col1"]
+    std_time_n = gn["col1"]
+    std_TEC = g["col2"]
+    std_TEC_p = gp["col2"]
+    std_TEC_n = gn["col2"]
+    for i in range(len(obs_tab["Vtec"])): # Replace "-" into NaN since there is no data
+        if obs_tab["Vtec"][i] == "-":
+            obs_tab["Vtec"][i] = np.nan
+    for i in range(len(obs_tab_p["Vtec"])):
+        if obs_tab_p["Vtec"][i] == "-":
+            obs_tab_p["Vtec"][i] = np.nan
+    for i in range(len(obs_tab_n["Vtec"])):
+        if obs_tab_n["Vtec"][i] == "-":
+            obs_tab_n["Vtec"][i] = np.nan
+
+    for i in range(len(std_TEC)):
+        if std_TEC[i] == "-":
+            std_TEC[i]=np.nan
+    for i in range(len(std_TEC_p)):
+        if std_TEC_p[i] == "-":
+            std_TEC_p[i]=np.nan
+    for i in range(len(std_TEC_n)):
+        if std_TEC_n[i] == "-":
+            std_TEC_n[i]=np.nan
+
+    avg_TEC = np.array([std_TEC_p, std_TEC, std_TEC_n])
+    avg_TEC = np.reshape(avg_TEC, len(std_TEC_p)+len(std_TEC)+len(std_TEC_n))
+
+    avg_time = np.array([std_time_p, std_time+24.0, std_time_n+48.0])
+    avg_time = np.reshape(avg_time, len(std_time_p)+len(std_time)+len(std_time_n))
+    ax = fig.add_subplot(len(rinex_files), 1, j)
+    ax.plot(avg_time, avg_TEC, "r")
+  
+    j = j+1
+    ax.set_ylim(0, 40)
+
+fig.savefig("TEC.pdf")
+#+END_SRC
+
+#+NAME: Meteor Energy
+#+BEGIN_SRC python :eval no :tangle ./GLM_energy.py
+
+import numpy as np
+from astropy.table import Table
+import glob
+
+# The goal of this program is to estimate the total energy and peak energy
+# from GLM data
+
+# Methodology: sum all the values from the energy column of GLM data and also
+# get the maximum value. Both should be outputs of the program
+
+# Get a list of the paths of al GLM data
+
+dates = ["2019-05-23", "2019-07-18", "2019-08-10", "2019-10-03", "2019-10-09", "2019-11-16", "2019-11-17", "2019-11-19", "2019-11-26", "2019-12-04", "2019-12-15", "2019-12-29", "2020-01-03", "2020-01-06", "2020-01-15", "2020-02-12", "2020-03-03", "2020-03-31", "2020-04-08", "2020-04-18", "2020-04-20", "2020-04-25", "2020-04-28", "2020-05-08", "2020-07-15", "2020-08-07", "2020-09-13","2020-09-30", "2020-11-16", "2020-11-17", "2020-12-19","2020-12-23", "2020-12-29", "2021-03-31"]
+
+G16_dirs = [] 
+G17_dirs = []
+root_folder = "./data/"
+common_folder = "/GLM/"
+for date in dates:
+    g16 = glob.glob(root_folder+date+common_folder+"*16*")
+    g17 = glob.glob(root_folder+date+common_folder+"*17*")
+    G16_dirs.append(g16[0])
+    G17_dirs.append(g17[0])
+# initialize output arrays
+g16_total_energy_array = []
+g17_total_energy_array = []
+
+
+#initialize loop for data adquisition
+
+for g16, g17 in zip(G16_dirs, G17_dirs):
+    data16 = open(g16, "r")
+    data17 = open(g17, "r")
+
+    for i in range(10): # skip unneded data
+        data16.readline()
+        data17.readline()
+
+    # gather the table with meteor info
+    g16data = data16.readlines()
+    g17data = data17.readlines()
+
+    g16table = Table.read(g16data, format="ascii")
+    g17table = Table.read(g17data, format="ascii")
+
+    # estimate peak energy and total energy for each satellite
+    g16_total_energy = np.sum(g16table["energy (joules)"])
+    g16_total_energy_array.append(g16_total_energy)
+    g17_total_energy = np.sum(g17table["energy (joules)"])
+    g17_total_energy_array.append(g17_total_energy)
+
+
+print("Date (yyyy-mm-dd)", "GLM-16 total energy (joules)","GLM-17 total energy (joules)")
+for date, g16_total, g17_total in zip(dates, g16_total_energy_array, g17_total_energy_array):
+    print(date, g16_total, g17_total)
+  
+#+END_SRC
+
+#+NAME: Change coordinates
+#+BEGIN_SRC python :eval no :tangle ./h_to_eq.py
+
+  # This program is aimed to change from horizontal coordinates to equatorial coordinates
+  # Horizontal coordinates of events are got from AMS data and equatorial coordinates would give us 
+  # the place where the event could be seen at the zenith. If we get an event with two or more
+  # witnesses we could find a parallax and thus estimate the altitude
+
+  import numpy as np
+  from scipy.optimize import fsolve
+  import argparse
+
+
+  def equations(q, Al, Az, Lat):
+      """
+      Set of equations to solve
+      """
+
+      x, y, z = q
+      k1 = np.sin(Az)*np.cos(Al)
+      k2 = np.cos(Az)*np.cos(Al)*np.sin(Lat) + np.sin(Al)*np.cos(Lat)
+      k3 = -np.cos(Az)*np.cos(Al)*np.cos(Lat) + np.sin(Al)*np.sin(Lat)
+      return (x*z - k1, y*z - k2, 1 - z**2 - k3**2) 
+
+  # Input data
+
+  parser = argparse.ArgumentParser(description= "Insert local coordinates of events")
+  parser.add_argument("--latitude", type=float, help="Local latitude of observer (in degrees)")
+  parser.add_argument("--longitude", type=float, help="Local longitude of observer (in degrees)")
+  parser.add_argument("--azimuth", type=float, help="Azimuth of the event (in degrees)")
+  parser.add_argument("--altitude", type=float, help="Altitude of the event (in degrees)")
+  parser.add_argument("--h0", type=float, default=0, help="Initial guess of hour angle (in degrees)")
+  parser.add_argument("-d0", type=float, help="Initial guess of declination (in degrees)")
+
+  cmd_args = parser.parser_args()
+  l_latitude = cmd_args.latitude
+  azimuth = cmd_args.azimuth
+  altitude = cmd_args.altitude
+  h0 = cmd_args.h0
+  delta0 = cmd_args.d0
+  l_longitude = cmd_args.longitude
+
+  # set initial guess
+
+  x0 = np.sin(np.radians(h0))
+  y0 = np.cos(np.radians(h0))
+  z0 = np.cos(np.radians(delta0))
+
+  # solve the system
+
+  sol = fsolve(equations, (x0, y0, z0), args=(np.radians(altitude), np.radians(azimuth), np.radians(l_latitude)))
+
+  # translate solution into (latitude, longitude)
+
+  latitude = np.degrees(np.arccos(z) -0.5*np.pi) # Arc cosine range is from 0 tp \pi and latitude is shifted 90 degrees
+
+  if x>=0: # if sin(h) is positive, then 0 <= h <= 180
+      h = np.arccos(y)
+  else: # if sin(h) is negative, then 180 < h < 360
+      h = np.arccos(y) + np.pi
+
+
+  # move to a longitude where h=0 (and thus we may see the event at the zenith)
+
+  longitude = l_longitude - np.degrees(h)
 #+END_SRC

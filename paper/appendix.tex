@@ -1,0 +1,55 @@
+\appendix
+% \appendixpage
+% \addappheadtotoc
+
+% This is tha appendix, where we may insert detailed mathematical proccedures or other data which may be useful but also will make the main
+% text too large so this should be consulted only in case of neccesity
+
+\section{Estimation of distances to meteors}
+
+The distance between the GOES satellite and the meteor, neccesary to estimate the radiated energy is calculated as follows:
+
+\begin{align}
+  R = \left|\vec{r}_{GLM} - \vec{r}_{obj} \right|
+\end{align}
+
+where $\vec{r}_{GLM}$ is the vector position of the GLM satellite and $\vec{r}_{obj}$ is the vector position of the meteor.
+
+In cartesian coordinates, the distance $R$ is given by:
+
+\begin{align}
+  R &= \left((x_{GLM}-x_{obj})^2 + (y_{GLM}-y_{obj})^2 + (z_{GLM}-z_{obj})^2\right)^{1/2} \label{eq:R}\\
+\end{align}
+
+The transformation to spherical coordinates is given by:
+
+\begin{align}
+  x = r\cos\phi\cos\theta \label{eq:xtoR}\\
+  y = r\sin\phi\cos\theta \label{eq:ytoR}\\
+  z = r\sin\theta \label{eq:ztoR}
+\end{align}
+
+Where $r$ is measured from the center of the earth, $ -180^\circ < phi <= 180^\circ$ represents the longitude; is positive at east of Greenwich meridian, and negative eastwards. $\-90^\circ <= \theta <= 90^\circ$ represents the latitude and is positive at the north of equator and negative southwards.
+
+Substituting the transform (\ref{eq:xtoR} - \ref{eq:ztoR}) into (\ref{eq:R}), using elemental trigonometry and considering both GLM satellites lie into the equator ($\theta_{GLM}=0$) we get:
+
+\begin{align}
+  R^2 &= r_{GLM}^2 + r_{obj}^2 - 2r_{GLM}r_{obj}f(\theta_{obj}, \phi_{obj}, \phi_{GLM}) \label{eq:R2}\\
+  \mathrm{where:} & f(\theta_{obj}, \phi_{obj}, \phi_{GLM}) = \cos\theta_{obj}\cos\left(\phi_{GLM}-\phi_{obj}\right)
+\end{align}
+
+Since $r_{GLM}$ and $r_{obj}$ are measured from the center of the arth ge find that:
+
+\begin{align}
+  r_{GLM} &= r_{earth} + h_{GLM} \label{eq:rg}\\
+  r_{obj} &= r_{earth} + h_{obj} \label{eq:ro}
+\end{align}
+
+Substituting (\ref{eq:rg}, \ref{eq:ro}) into \ref{eq:R2} and considering that $h_{obj} \ll h_{GLM}$ we get:
+
+\begin{align}
+  R^2 = 2r_{earth}^2\left(1-f(\theta_{obj}, \phi_{obj}, \phi_{GLM})\right) +2r_{earth}h_{GLM}\left(1-f(\theta_{obj}, \phi_{obj}, \phi_{GLM})\right) + h_{GLM}^2 - 2h_{GLM}h_{obj}f(\theta_{obj}, \phi_{obj}, \phi_{GLM})
+\end{align}
+
+
+\section{Useful databases}
