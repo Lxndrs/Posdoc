@@ -34,8 +34,8 @@ f = Table.read("meteors_database.tab", format="ascii")
 
 plt.errorbar(f["Longitud"], f["Latitud"], xerr=f["sig_lon"], yerr=f["sig_latitude"], fmt="bo", capsize=3)
 # Offset of labels
-x_off = [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, -10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10]
-y_off = [10, 10, -10, 10, -10, 10, 10, 10, 10, -10, 10, -10, 10, 10, 10, 10, -10, 10, 10, -10, 10, 10, 10, -10, 10, 10, 10, 10, 10, -10, 10, 10, 10, 10, 10]
+x_off = [10, 10, 10, 10, 10, 10, 10, 10, -10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, -10, -10, 10, 10, 10, 10, 10, 10, 10, 10, -10, 10, -10, 10, 10]
+y_off = [10, 10, -10, 10, -10, 10, 10, 10, 10, -10, -10, -10, 10, 10, 10, -10, -10, 10, 10, 10, 10, 10, 10, 10, -10, 10, 10, 10, 10, 10, 10, 10, 10, 10]
 for i in range(len(f["ID"])):
     plt.annotate(f["ID"][i], (f["Longitud"][i], f["Latitud"][i]), textcoords="offset points", color="w",
     xytext=(x_off[i], y_off[i]), ha="center", bbox=dict(boxstyle="round", pad=0.5, fc="b", alpha=0.7))

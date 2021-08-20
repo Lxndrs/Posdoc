@@ -28,12 +28,15 @@ parser = argparse.ArgumentParser(
 parser.add_argument('--date', type=str, default='2000-01-01',
 			       help='Choose date. Format: yyyy-mm-dd')
 
+parser.add_argument("--formato", type=str, default="pdf", choices=("pdf", "png", "jpg"), 
+                                help="Choose output format")
 
+parser.add_argument("--log", action="store_true", help="Use logarithmic scale for vTEC")
 
 cmd_args = parser.parse_args()
 date = cmd_args.date
-
-
+formato = cmd_args.formato
+log = cmd_args.log
 directory = "./data/"+date
 p_directory = directory + "/previous/"
 n_directory = directory+ "/next/"
@@ -97,7 +100,7 @@ else: # convert start time from string to float (in hours)
 
 t0_m1 = float(t0_m1_h) + float(t0_m1_m)/60. + float(t0_m1_s)/3600.
 t0_m2 = float(t0_m2_h) + float(t0_m2_m)/60. + float(t0_m2_s)/3600.
-
+#stations = []
 # Load and plot RINEX data
 
 for f, g, fp, gp, fn, gn in zip(load_dirs, load_std, load_dir_p, load_std_p, load_dir_n, load_std_n):
@@ -106,6 +109,7 @@ for f, g, fp, gp, fn, gn in zip(load_dirs, load_std, load_dir_p, load_std_p, loa
     header_n = fn.readline()
     h1, h2 = header.split(",")
     station = h2.split("\\")[-1][0:4]
+#    stations.append(station)
     blank = f.readline()
     blank = fp.readline()
     blank = fn.readline()
@@ -167,15 +171,21 @@ for f, g, fp, gp, fn, gn in zip(load_dirs, load_std, load_dir_p, load_std_p, loa
     dTEC_p = obs_tab_p["Vtec"][mask2_p] - mean_TEC_int_p(cmn_time_p[mask2_p])
     dTEC_n = obs_tab_n["Vtec"][mask2_n] - mean_TEC_int_n(cmn_time_n[mask2_n])
     norm = MidpointNormalize(midpoint=0)
-#    ax.plot(float(s_longitude)-360, float(s_latitude), "r*")
-#    ax.text(float(s_longitude)-360+3, float(s_latitude), station.upper(), c="w",
-#			bbox=dict(boxstyle='round', pad=0.5, fc='blue', alpha=0.3))
-    im=ax.scatter(obs_tab["Lon"][mask2]-360, obs_tab["Lat"][mask2], s=1, c=dTEC, cmap="viridis",alpha=0.6, norm=norm)
-    im1=ax1.scatter(cmn_time[mask2], obs_tab["Lat"][mask2], s=1, c=dTEC, cmap="viridis", alpha=0.6, norm=norm)
-    im_p = axp.scatter(obs_tab_p["Lon"][mask2_p]-360, obs_tab_p["Lat"][mask2_p], s=1, c=dTEC_p, cmap="viridis", alpha=0.6, norm=norm)
-    im1_p = axp1.scatter(cmn_time_p[mask2_p], obs_tab_p["Lat"][mask2_p], s=1, c=dTEC_p, cmap="viridis", alpha=0.6, norm=norm)
-    im_n = axn.scatter(obs_tab_n["Lon"][mask2_n]-360, obs_tab_n["Lat"][mask2_n], s=1, c=dTEC_n, cmap="viridis", alpha=0.6, norm=norm)
-    im1_n = axn1.scatter(cmn_time_n[mask2_n], obs_tab_n["Lat"][mask2_n], s=1, c=dTEC_n, cmap="viridis", alpha=0.6, norm=norm)
+    if log ==True: 
+        im1 = ax1.scatter(cmn_time[mask2], obs_tab["Lat"][mask2], s=1, c=dTEC, cmap="viridis", alpha=0.6, norm=colors.SymLogNorm(linthresh=0.03, linscale=0.03, base=10))
+        im1_p = axp1.scatter(cmn_time_p[mask2_p], obs_tab_p["Lat"][mask2_p], s=1, c=dTEC_p, cmap="viridis", alpha=0.6, norm=colors.SymLogNorm(linthresh=0.03, linscale=0.03, base=10))
+        im1_n = axn1.scatter(cmn_time_n[mask2_n], obs_tab_n["Lat"][mask2_n], s=1, c=dTEC_n, cmap="viridis", alpha=0.6, norm=colors.SymLogNorm(linthresh=0.03, linscale=0.03, base=10))
+        im=ax.scatter(obs_tab["Lon"][mask2]-360, obs_tab["Lat"][mask2], s=1, c=dTEC, cmap="viridis",alpha=0.6, norm=colors.SymLogNorm(linthresh=0.03, linscale=0.03, base=10))
+        im_p = axp.scatter(obs_tab_p["Lon"][mask2_p]-360, obs_tab_p["Lat"][mask2_p], s=1, c=dTEC_p, cmap="viridis", alpha=0.6, norm=colors.SymLogNorm(linthresh=0.03, linscale=0.03, base=10))
+        im_n = axn.scatter(obs_tab_n["Lon"][mask2_n]-360, obs_tab_n["Lat"][mask2_n], s=1, c=dTEC_n, cmap="viridis", alpha=0.6, norm=colors.SymLogNorm(linthresh=0.03, linscale=0.03, base=10))
+    else:
+        im1=ax1.scatter(cmn_time[mask2], obs_tab["Lat"][mask2], s=1, c=dTEC, cmap="viridis", alpha=0.6, norm=norm)
+        im1_p = axp1.scatter(cmn_time_p[mask2_p], obs_tab_p["Lat"][mask2_p], s=1, c=dTEC_p, cmap="viridis", alpha=0.6, norm=norm)
+        im1_n = axn1.scatter(cmn_time_n[mask2_n], obs_tab_n["Lat"][mask2_n], s=1, c=dTEC_n, cmap="viridis", alpha=0.6, norm=norm)
+        im=ax.scatter(obs_tab["Lon"][mask2]-360, obs_tab["Lat"][mask2], s=1, c=dTEC, cmap="viridis",alpha=0.6, norm=norm)
+        im_p = axp.scatter(obs_tab_p["Lon"][mask2_p]-360, obs_tab_p["Lat"][mask2_p], s=1, c=dTEC_p, cmap="viridis", alpha=0.6, norm=norm)
+        im_n = axn.scatter(obs_tab_n["Lon"][mask2_n]-360, obs_tab_n["Lat"][mask2_n], s=1, c=dTEC_n, cmap="viridis", alpha=0.6, norm=norm)
+
 
 
 # Plot bolide trajectory
@@ -199,16 +209,19 @@ f2_longitude, f2_latitude = GLM17_table["longitude"], GLM17_table["latitude"]
 fit_coord1 = np.polyfit(f1_longitude, f1_latitude, 1)#nomial.Polynomial.fit(f1_longitude, f1_latitude, 1)
 fit_coord2 = np.polyfit(f2_longitude, f2_latitude, 1)# polynomial.Polynomial.fit(f2_longitude, f2_latitude, 1)
 
-xfit1 = np.linspace(51*f1_longitude[0]-50*f1_longitude[-1], f1_longitude[-1])
-xfit2 = np.linspace(51*f2_longitude[0]-50*f2_longitude[-1], f2_longitude[-1])
-yfit1 = f1_latitude[-1] + fit_coord1[0]*(xfit1-f1_longitude[-1])
-yfit2 = f2_latitude[-1] + fit_coord2[0]*(xfit2-f2_longitude[-1])
+#xfit1 = np.linspace(51*f1_longitude[0]-50*f1_longitude[-1], f1_longitude[-1])
+#xfit2 = np.linspace(51*f2_longitude[0]-50*f2_longitude[-1], f2_longitude[-1])
+#yfit1 = f1_latitude[-1] + fit_coord1[0]*(xfit1-f1_longitude[-1])
+#yfit2 = f2_latitude[-1] + fit_coord2[0]*(xfit2-f2_longitude[-1])
 #xfit1, yfit1 = fit_coord1.linspace()
 #xfit2, yfit2 = fit_coord2.linspace()
-x_trajectory, y_trajectory = 0.5*(xfit1+xfit2), 0.5*(yfit1+yfit2)
-ax.plot(x_trajectory, y_trajectory, "k", lw=2)
-ax.plot(xfit1, yfit1, "r--")
-ax.plot(xfit2, yfit2, "r--")
+#x_trajectory, y_trajectory = 0.5*(xfit1+xfit2), 0.5*(yfit1+yfit2)
+
+poly1 = np.poly1d(fit_coord1)
+poly2 = np.poly1d(fit_coord2)
+ax.plot([0.5*(f1_longitude[0]+f2_longitude[0])-20, 0.5*(f1_longitude[-1]+f2_longitude[-1])], [0.5*(poly1(f1_longitude[0]-20)+poly2(f2_longitude[0]-20)), 0.5*(poly1(f1_longitude[-1])+poly2(f2_longitude[-1]))], "k", lw=2)
+ax.plot([f1_longitude[0]-20, f1_longitude[-1]], [poly1(f1_longitude[0]-20), poly1(f1_longitude[-1])], "r--")
+ax.plot([f2_longitude[0]-20, f2_longitude[-1]], [poly2(f2_longitude[0]-20), poly2(f2_longitude[-1])], "r--")
 
 # Show the interval of time the event started
 
@@ -216,21 +229,104 @@ ax1.axvline(x=t0_m1, ls="--", c="k")
 ax1.axvline(x=t0_m2, ls="--", c="k")
 ax1.axvspan(min((t0_m1, t0_m2)), max((t0_m1, t0_m2)), alpha=0.5, color="red")
 
+# add the second x-axis 
+
+newlabel = [0, 5, 10, 15, 20, 25]
+time_zone_dict = {"2019-05-23":-5, "2019-07-18":-5, "2019-08-10":-5, "2019-10-03":-5, "2019-10-09":-7, "2019-11-16":-6, "2019-11-17":-8, "2019-11-19":-7, "2019-11-26":-5, "2019-12-04":-7, "2019-12-15":-7, "2019-12-29":-8, "2020-01-03":-8, "2020-01-06":-7, "2020-01-15":-6, "2020-02-12":-6, "2020-03-03":-6, "2020-03-31":-7, "2020-04-08":-5, "2020-04-18":-6, "2020-04-20":-5, "2020-04-25":-7, "2020-04-28":-6, "2020-05-08":-5, "2020-07-15":-6, "2020-08-07":-6, "2020-09-13":-7, "2020-09-30":-7, "2020-11-16":-6, "2020-11-17":-6, "2020-12-19":-6, "2020-12-23":-7, "2020-12-29":-6, "2021-03-31":-6}
+
+local_time = np.array(newlabel) + time_zone_dict[date]
+for i in range(len(local_time)):
+    if local_time[i] < 0.:
+        local_time[i] = local_time[i] + 24.0
+ax2 = ax1.twiny()
+ax2.set_xticks(newlabel)
+ax2.set_xticklabels(local_time)
+#ax2.set_xlabel("Local Time (hours)")
+ax2.set_xlim(ax1.get_xlim())
+
+axp2 = axp1.twiny()
+axp2.set_xticks(newlabel)
+axp2.set_xticklabels(local_time)
+axp2.set_xlabel("Local Time (hours)")
+axp2.set_xlim(axp1.get_xlim())
+
+axn2 = axn1.twiny()
+axn2.set_xticks(newlabel)
+axn2.set_xticklabels(local_time)
+#axn2.set_xlabel("Local Time (hours)")
+axn2.set_xlim(axn1.get_xlim())
+
+# Daytime shaded in light yellow and night time in blue
+
+# local sunrise and sunset dictionaries 
+
+sunrise_p = {"2019-05-23":6+57./60, "2019-07-18":7+14./60, "2019-08-10":7+25./60, "2019-10-03":7+26/60., "2019-10-09":7+16./60, "2019-11-16": 7+18./60, "2019-11-17": 6+19/60., "2019-11-19": 7+ 6./60, "2019-11-26": 6+33/60., "2019-12-04": 7+17./60, "2019-12-15": 7+0./60, "2019-12-29": 6+46/60., "2020-01-03": 6+47./60, "2020-01-06": 7+ 7./60, "2020-01-15": 7+1./60, "2020-02-12": 6+41./60, "2020-03-03": 7+16./60, "2020-03-31": 6+16/60., "2020-04-08": 7+ 4./60, "2020-04-18": 6+37./60, "2020-04-20": 7+3./60, "2020-04-25": 5+44./60, "2020-04-28": 6+50./60, "2020-05-08": 6+42./60, "2020-07-15":6.5, "2020-08-07":6.5, "2020-09-13": 7+14./60, "2020-09-30":7+13./60, "2020-11-16": 6+52./60, "2020-11-17": 7+5./60, "2020-12-19":7+20./60, "2020-12-23": 7+ 1./60, "2020-12-29": 7+19/60., "2021-03-31": 6+ 8./60}
+
+
+sunset_p = {"2019-05-23":20+24./60, "2019-07-18":20+45./60, "2019-08-10":20+23./60, "2019-10-03":19+17/60., "2019-10-09":19, "2019-11-16":17+52./60, "2019-11-17":16+45/60., "2019-11-19":18+14./60, "2019-11-26":17+19/60., "2019-12-04":17.5, "2019-12-15":20+6./60, "2019-12-29":16+49/60., "2020-01-03":16+53./60, "2020-01-06":17+15./60, "2020-01-15":18+5./60, "2020-02-12":18+10./60, "2020-03-03":19+2./60, "2020-03-31":18+40/60., "2020-04-08":19+42./60, "2020-04-18":19.5, "2020-04-20":20+2./60, "2020-04-25":18+58./60, "2020-04-28":19+47./60, "2020-05-08":19+33./60, "2020-07-15":20, "2020-08-07":19+49./60, "2020-09-13":19+35./60, "2020-09-30":19+8./60, "2020-11-16":17+59./60, "2020-11-17":18+4./60, "2020-12-19":18+5./60, "2020-12-23":17+38./60, "2020-12-29":18+21/60., "2021-03-31":18+23./60}
+
+sunrise = {"2019-05-23":6+56./60, "2019-07-18":7+14./60, "2019-08-10":7+26./60, "2019-10-03":7+27/60., "2019-10-09":7+17./60, "2019-11-16": 7+19./60, "2019-11-17": 6+20/60., "2019-11-19": 7+ 6./60, "2019-11-26": 6+34/60., "2019-12-04": 7+18./60, "2019-12-15": 7+1./60, "2019-12-29": 6+46/60., "2020-01-03": 6+47./60, "2020-01-06": 7+ 7./60, "2020-01-15": 7+1./60, "2020-02-12": 6+41./60, "2020-03-03": 7+15./60, "2020-03-31": 6+15/60., "2020-04-08": 7+ 3./60, "2020-04-18": 6+36./60, "2020-04-20": 7+2./60, "2020-04-25": 5+43./60, "2020-04-28": 6+49./60, "2020-05-08": 6+42./60, "2020-07-15":6.5, "2020-08-07":6.5, "2020-09-13": 7+14./60, "2020-09-30":7+13./60, "2020-11-16": 6+53./60, "2020-11-17": 7+3./60, "2020-12-19":7+19./60, "2020-12-23": 7+ 2./60, "2020-12-29": 7+20/60., "2021-03-31": 6+ 7./60}
+
+sunset = {"2019-05-23":20+25./60, "2019-07-18":20+45./60, "2019-08-10":20+22./60, "2019-10-03":19+16/60., "2019-10-09":18+59./60, "2019-11-16":17+52./60, "2019-11-17":16+45/60., "2019-11-19":18+14./60, "2019-11-26":17+19/60., "2019-12-04":17.5, "2019-12-15":20+5./60, "2019-12-29":16+50/60., "2020-01-03":16+53./60, "2020-01-06":17+15./60, "2020-01-15":18+5./60, "2020-02-12":18+10./60, "2020-03-03":19+2./60, "2020-03-31":18+40/60., "2020-04-08":19+43./60, "2020-04-18":19.5, "2020-04-20":20+3./60, "2020-04-25":18+59./60, "2020-04-28":19+48./60, "2020-05-08":19+34./60, "2020-07-15":20, "2020-08-07":19+49./60, "2020-09-13":19+34./60, "2020-09-30":19+7./60, "2020-11-16":17+59./60, "2020-11-17":18+4./60, "2020-12-19":18+6./60, "2020-12-23":17+39./60, "2020-12-29":18+22/60., "2021-03-31":18+24./60}
+
+sunrise_n= {"2019-05-23":6+56./60, "2019-07-18":7+15./60, "2019-08-10":7+26./60, "2019-10-03":7+27/60., "2019-10-09":7+17./60, "2019-11-16": 7+20./60, "2019-11-17": 6+21/60., "2019-11-19": 7+ 6./60, "2019-11-26": 6+35/60., "2019-12-04": 7+19./60, "2019-12-15": 7+1./60, "2019-12-29": 6+46/60., "2020-01-03": 6+48./60, "2020-01-06": 7+ 7./60, "2020-01-15": 7+8./60, "2020-02-12": 6+40./60, "2020-03-03": 7+14./60, "2020-03-31": 6+13/60., "2020-04-08": 7+ 1./60, "2020-04-18": 6+35./60, "2020-04-20": 7+1./60, "2020-04-25": 5+42./60, "2020-04-28": 6+49./60, "2020-05-08": 6+41./60, "2020-07-15":6.5, "2020-08-07":6.5, "2020-09-13": 7+15./60, "2020-09-30":7+14./60, "2020-11-16": 6+53./60, "2020-11-17": 7+6./60, "2020-12-19":7+20./60, "2020-12-23": 7+ 2./60, "2020-12-29": 7+20/60., "2021-03-31": 6+ 6./60}
+
+sunset_n = {"2019-05-23":20+25./60, "2019-07-18":20+44./60, "2019-08-10":20+21./60, "2019-10-03":19+15/60., "2019-10-09":18+58./60, "2019-11-16":17+52./60, "2019-11-17":16+44/60., "2019-11-19":18+13./60, "2019-11-26":17+19/60., "2019-12-04":17.5, "2019-12-15":20+4./60, "2019-12-29":16+51/60., "2020-01-03":16+54./60, "2020-01-06":17+16./60, "2020-01-15":18+5./60, "2020-02-12":18+10./60, "2020-03-03":19+3./60, "2020-03-31":18+41/60., "2020-04-08":19+44./60, "2020-04-18":19.5, "2020-04-20":20+3./60, "2020-04-25":19, "2020-04-28":19+48./60, "2020-05-08":19+34./60, "2020-07-15":20, "2020-08-07":19+48./60, "2020-09-13":19+33./60, "2020-09-30":19+6./60, "2020-11-16":17+59./60, "2020-11-17":18+4./60, "2020-12-19":18+7./60, "2020-12-23":17+39./60, "2020-12-29":18+22/60., "2021-03-31":18+24./60}
+
+sunrise_p_UT = sunrise_p[date] - time_zone_dict[date]
+sunset_p_UT = sunset_p[date] - time_zone_dict[date]
+sunrise_UT = sunrise[date] - time_zone_dict[date]
+sunset_UT = sunset[date] - time_zone_dict[date]
+sunrise_n_UT = sunrise_n[date] - time_zone_dict[date]
+sunset_n_UT = sunset_n[date] - time_zone_dict[date]
+
+
+axp1.axvspan(0, sunrise_p_UT, alpha=0.1, color="cyan")
+axp1.axvspan(sunrise_p_UT, min(sunset_p_UT, 24.0), alpha=0.1, color="yellow")
+if sunset_p_UT < 24.0:
+    axp1.axvspan(sunset_p_UT, 24.0, alpha=0.1, color="cyan")
+ax1.axvspan(max(0, sunset_p_UT-24.0), sunrise_UT, alpha=0.1, color="cyan")
+if sunset_p_UT-24 > 0:
+    ax1.axvspan(0, sunset_p_UT-24, alpha=0.1, color="yellow")
+ax1.axvspan(sunrise_UT, min(sunset_UT, 24.0), alpha=0.1, color="yellow")
+if sunset_UT < 24.0:
+    ax1.axvspan(sunset_UT, 24.0, alpha=0.1, color="cyan")
+axn1.axvspan(max(0, sunset_UT-24.0), sunrise_n_UT, alpha=0.1, color="cyan")
+if sunset_UT - 24.0 >0:
+    axn1.axvspan(0, sunset_UT-24, alpha=0.1, color="yellow")
+axn1.axvspan(sunrise_n_UT, 24.0, alpha=0.1, color="yellow")
 
 # Plot settings
 
 #ax = plt.gca()
 #ax.set_aspect('equal', adjustable='box')
-#plt.legend()
-cbar = fig.colorbar(im, ax=ax)
-cbar_p = fig.colorbar(im_p, ax=axp)
-cbar_n = fig.colorbar(im_n, ax=axn)
+#plt.legend() 
+
+label = "Detrended TEC for {} stations".format(len(rinex_files))
+if log ==True:
+    cbar = fig.colorbar(im, ax=ax, ticks=[-1e1, -1, -1e-1, 1e-1, 1, 1e1])
+    cbar.ax.minorticks_on()
+    cbar_p = fig.colorbar(im_p, ax=axp, ticks=[-1e1, -1, -1e-1, 1e-1, 1, 1e1])
+    cbar_p.ax.minorticks_on()
+    cbar_n = fig.colorbar(im_n, ax=axn, ticks=[-1e1, -1, -1e-1, 1e-1, 1, 1e1])
+    cbar_n.ax.minorticks_on()
+    cbar1 = fig.colorbar(im1, ax=ax1, ticks=[-1e1, -1, -1e-1, 1e-1, 1, 1e1])
+    cbar1.ax.minorticks_on()
+    cbar1_p = fig.colorbar(im1_p, ax=axp1, ticks=[-1e1, -1, -1e-1, 1e-1, 1, 1e1])
+    cbar1_p.ax.minorticks_on()
+    cbar1_n = fig.colorbar(im1_n, ax=axn1, ticks=[-1e1, -1, -1e-1, 1e-1, 1, 1e1])
+    cbar1_n.ax.minorticks_on()
+else:
+    cbar = fig.colorbar(im, ax=ax)
+    cbar_p = fig.colorbar(im_p, ax=axp)
+    cbar_n = fig.colorbar(im_n, ax=axn)
+    cbar1 = fig.colorbar(im1, ax=ax1)
+    cbar1_p = fig.colorbar(im1_p, ax=axp1)
+    cbar1_n = fig.colorbar(im1_n, ax=axn1)
+
 cbar.set_label("Delta vTEC (TECU)")
 cbar_p.set_label("Delta vTEC (TECU)")
 cbar_n.set_label("Delta vTEC (TECU)")
-cbar1 = fig.colorbar(im1, ax=ax1)
-cbar1_p = fig.colorbar(im1_p, ax=axp1)
-cbar1_n = fig.colorbar(im1_n, ax=axn1)
 cbar1.set_label("Delta vTEC (TECU)")
 cbar1_p.set_label("Delta vTEC (TECU)")
 cbar1_n.set_label("Delta vTEC (TECU)")
@@ -239,14 +335,20 @@ axn.set_xlabel("Longitude (deg)")
 ax.set_ylabel("Latitude (deg)")
 axp.set_ylabel("Latitude (deg)")
 axn.set_ylabel("Latitude (deg)")
-axn1.set_xlabel("Time (UT)")
+axn1.set_xlabel("Universal Time (hours)")
 plt.suptitle(date+" vTEC map")
 ax1.set_ylabel("Latitude (deg)")
 axp1.set_ylabel("Latitude (deg)")
 axn1.set_ylabel("Latitude (deg)")
-axp.title.set_text("A. Previous day")
-ax.title.set_text("B. Event date")
-axn.title.set_text("C. Next day")
-fig.tight_layout()
-fig.set_size_inches(18, 12)
-plt.savefig(out_dir+date+"-vTEC_map.pdf")
+axp.title.set_text(label + ". Previous day")
+axp1.title.set_text(label)
+ax.title.set_text(label + ". Event date")
+#ax1.title.set_text(label)
+axn.title.set_text(label+". Next day")
+#axn1.title.set_text(label)
+fig.set_size_inches(22, 18)
+#fig.tight_layout()
+if log ==True:
+    plt.savefig(out_dir+date+"-vTEC_logmap."+formato)
+else:
+    plt.savefig(out_dir+date+"-vTEC_map."+formato)
