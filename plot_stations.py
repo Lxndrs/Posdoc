@@ -48,6 +48,12 @@ plot_map(sf)
 
 stations_pos = Table.read("station_data.tab", format="ascii")
 
+# Load and plot event position
+load_meteor_pos = Table.read("meteors_database.tab", format="ascii")
+meteor_mask = load_meteor_pos["Fecha"] == date
+plt.plot(load_meteor_pos["Longitud"][meteor_mask], load_meteor_pos["Latitud"][meteor_mask], "mo")
+
+
 # Develop dictionaries with events positions, their respective stations.
 
 dates_stations_dict = {"2019-05-23":("KVTX", "TNCU", "UAGU"), "2019-07-18":("KVTX", "MDO1", "TNCU", "UAGU"), "2019-08-10":("KVTX", "TNCU", "UAGU", "UCOE", "UGEO"), "2019-10-03":("KVTX", "UAGU", "UXAL"), "2019-10-09":("GUAX", "TNBA", "TNHM","TNMS"), "2019-11-17":("GUAX", "TNBA", "PTEX", "TSFX", "TNPP", "P001", "BAR1", "WWMT"), "2019-11-16":("KVTX", "P807", "SG33", "TNCU", "UAGU"), "2019-11-19": ("CN23", "GCFS", "UNPM"), "2019-11-26":("TNBA", "TNHM", "TNMS", "UAGU", "YESX"), "2019-12-04":("GMPK", "IAGX", "P014", "PLPX", "TNHM", "TNPP"), "2019-12-15":("GUAX", "TNBA", "TNCU", "TNHM", "TNMS", "UAGU", "YESX"), "2019-12-29":("BAR1", "BLYT", "GUAX", "P014", "PTEX", "TNBA", "TNHM", "USMX", "WWMT"), "2020-01-03":("BAR1", "BLYT", "GUAX", "P014", "PTEX", "TNBA", "TNHM", "USMX", "WWMT"), "2020-01-06":("P014", "P807", "RG07", "TNCU", "USMX", "YESX"), "2020-01-15":("CN23", "CN25", "OXTH", "TNAT", "TNNX", "UNPM", "UXAL"), "2020-02-12":("CN23", "GUAT", "UNPM", "OXTH", "TNNX", "UXAL"), "2020-03-03":("TNAM", "TNCC", "TNCM", "TNMS"), "2020-03-31":("GUAX", "TNCU", "TNHM", "TNPP"), "2020-04-08":("KVTX", "MGW3", "UHSL", "UNPM", "UXAL"), "2020-04-18":("KVTX", "SG33", "TNCU", "TNHM", "UAGU", "YESX"), "2020-04-20":("KVTX", "MGO5", "MGW3", "P807", "WEPD", "WMOK"), "2020-04-25":("P001", "P014", "RG06", "TNPP", "USMX"), "2020-04-28":("TNCM", "TNNP", "YESX"), "2020-05-08":("KVTX", "MGW3", "UNPM", "UXAL"), "2020-07-15":("GUAX", "INEG", "TNAM", "TNCU", "TNHM", "TNMS", "YESX"), "2020-08-07":("INEG", "KVTX", "MGO5", "SG33", "TNCU", "USMX"), "2020-09-13":("GUAX", "PTEX", "TNHM", "TSFX"), "2020-09-30":("GUAX", "INEG", "TNAM", "TNCU", "TNHM", "USMX"), "2020-11-16":("INEG", "TNAM", "TNCN", "TNGF", "UCOE"), "2020-11-17":("INEG", "P807", "TNAM", "TNCU", "UCOE"), "2020-12-19":("INEG", "TNAM", "TNCU", "UCOE", "UHWL", "UXAL"), "2020-12-23":("GUAX", "PTEX", "TNHM", "TSFX"), "2020-12-29":("TNCN", "TNGF", "TNNX", "TNSJ"), "2021-03-31":("OXUM", "TGMX", "TNNX", "UXAL")}
@@ -88,10 +94,21 @@ fit_coord2 = np.polyfit(f2_longitude, f2_latitude, 1)
 poly1 = np.poly1d(fit_coord1)
 poly2 = np.poly1d(fit_coord2)
 
-plt.plot([f1_longitude[0]-2, f1_longitude[-1]], [poly1(f1_longitude[0]-2), poly1(f1_longitude[-1])], "r--")
-plt.plot([f2_longitude[0]-2, f2_longitude[-1]], [poly2(f2_longitude[0]-2), poly2(f2_longitude[-1])], "r--")
+if f1_longitude[-1] > f1_longitude[0]:
+    step1 = -2
+else:
+    step1 = 2
 
-plt.plot([0.5*(f1_longitude[0]+f2_longitude[0])-2, 0.5*(f1_longitude[-1]+f2_longitude[-1])], [0.5*(poly1(f1_longitude[0]-2)+poly2(f2_longitude[0]-2)), 0.5*(poly1(f1_longitude[-1])+poly2(f2_longitude[-1]))], "k", lw=2)
+if f2_longitude[-1] > f2_longitude[0]:
+    step2 = -2
+else:
+    step2 = 2
+#step = 0.5*(step1+step2)
+
+plt.plot([f1_longitude[0]+step1, f1_longitude[-1]], [poly1(f1_longitude[0]+step1), poly1(f1_longitude[-1])], "r--")
+plt.plot([f2_longitude[0]+step2, f2_longitude[-1]], [poly2(f2_longitude[0]+step2), poly2(f2_longitude[-1])], "r--")
+
+#plt.plot([0.5*(f1_longitude[0]+f2_longitude[0])+step, 0.5*(f1_longitude[-1]+f2_longitude[-1])], [0.5*(poly1(f1_longitude[0]-2)+poly2(f2_longitude[0]+step)), 0.5*(poly1(f1_longitude[-1])+poly2(f2_longitude[-1]))], "k", lw=2)
 plt.annotate(date, (0.5*(f1_longitude[-1]+f2_longitude[-1]), 0.5*(poly1(f1_longitude[-1])+poly2(f2_longitude[-1]))),
 			  textcoords="offset points", color="w", xytext=(10, 10), ha="center", bbox=dict(boxstyle="round", pad=0.5, fc="r", alpha=0.7))
 
