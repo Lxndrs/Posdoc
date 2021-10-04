@@ -1,9 +1,13 @@
-# Mexico map plotter
-# The main idea of this program was taken from 
-# https://towardsdatascience.com/mapping-with-matplotlib-pandas-geopandas-and-basemap-in-python-d11b57ab5dac
-# By Ashwani Dhankhar 
-# And the shape file for Mexico from CONABIO
-# http://www.conabio.gob.mx/informacion/metadata/gis/destdv250k_2gw.xml?_xsl=/db/meadata/xsl/fgdc_html.xsl&_indent=no
+# To check if vTEC is strongly perturbed (as we may expect from a meteor entrance), we may calculate the parameter
+# \delta, defined as:
+
+#             (vTEC_max - <vTEC>)
+#   \delta = ---------------------- (Martinez et al. 2014)
+#                    <vTEC>
+# If \delta >~4 is an indication that the vTEC is strongly disturbed. But since the observed meteors in the GLM sample are small ( <~1m ), we will be less strict with this criteria
+# and set |\delta| >~ 2 and compute this parameter instead of vTEC itself
+
+# For this we will do a variant of the vTEC_maps program since we will compute \delta for each vTEC measurement. <vTEC> will be obtained from the average TEC in ths .Std file.
 
 import seaborn as sns
 import numpy as np
@@ -177,40 +181,33 @@ for f, g, fp, gp, fn, gn in zip(load_dirs, load_std, load_dir_p, load_std_p, loa
                 subs_TEC[i] = np.nan
         subs_TEC_int = interp1d(std_time, subs_TEC) # Maybe substract the mean TEC AND the background TEC is redundant
         if datatype == "vTEC":
-            dTEC =  obs_tab["Vtec"][mask2] - subs_TEC_int(cmn_time[mask2])
-            dTEC_p = obs_tab_p["Vtec"][mask2_p] -subs_TEC_int(cmn_time_p[mask2_p])
-            dTEC_n = obs_tab_n["Vtec"][mask2_n] -subs_TEC_int(cmn_time_n[mask2_n])
+            dTEC =  (obs_tab["Vtec"][mask2] - subs_TEC_int(cmn_time[mask2]))/subs_TEC_int(cmn_time[mask2])
+            dTEC_p = (obs_tab_p["Vtec"][mask2_p] -subs_TEC_int(cmn_time_p[mask2_p]))/subs_TEC_int(cmn_time_p[mask2_p])
+            dTEC_n = (obs_tab_n["Vtec"][mask2_n] -subs_TEC_int(cmn_time_n[mask2_n]))/subs_TEC_int(cmn_time_n[mask2_n])
         elif datatype == "sTEC":
-            dTEC =  obs_tab["Stec"][mask2] - subs_TEC_int(cmn_time[mask2])
-            dTEC_p = obs_tab_p["Stec"][mask2_p] -subs_TEC_int(cmn_time_p[mask2_p])
-            dTEC_n = obs_tab_n["Stec"][mask2_n] -subs_TEC_int(cmn_time_n[mask2_n])
+            dTEC =  (obs_tab["Stec"][mask2] - subs_TEC_int(cmn_time[mask2]))/subs_TEC_int(cmn_time[mask2])
+            dTEC_p = (obs_tab_p["Stec"][mask2_p] -subs_TEC_int(cmn_time_p[mask2_p]))/subs_TEC_int(cmn_time_p[mask2_p])
+            dTEC_n = obs_tab_n["Stec"][mask2_n] -subs_TEC_int(cmn_time_n[mask2_n])/subs_TEC_int(cmn_time_n[mask2_n])
 
     else:
         if datatype == "vTEC":
-            dTEC = obs_tab["Vtec"][mask2] - mean_TEC_int(cmn_time[mask2])
-            dTEC_p = obs_tab_p["Vtec"][mask2_p] - mean_TEC_int_p(cmn_time_p[mask2_p])
-            dTEC_n = obs_tab_n["Vtec"][mask2_n] - mean_TEC_int_n(cmn_time_n[mask2_n])
+            dTEC = (obs_tab["Vtec"][mask2] - mean_TEC_int(cmn_time[mask2]))/mean_TEC_int(cmn_time[mask2])
+            dTEC_p = (obs_tab_p["Vtec"][mask2_p] - mean_TEC_int_p(cmn_time_p[mask2_p]))/mean_TEC_int_p(cmn_time_p[mask2_p])
+            dTEC_n = (obs_tab_n["Vtec"][mask2_n] - mean_TEC_int_n(cmn_time_n[mask2_n]))/mean_TEC_int_n(cmn_time_n[mask2_n])
         elif datatype == "sTEC":
-            dTEC = obs_tab["Stec"][mask2] - mean_TEC_int(cmn_time[mask2])
-            dTEC_p = obs_tab_p["Stec"][mask2_p] - mean_TEC_int_p(cmn_time_p[mask2_p])
-            dTEC_n = obs_tab_n["Stec"][mask2_n] - mean_TEC_int_n(cmn_time_n[mask2_n])
-    norm = MidpointNormalize(midpoint=0)
+            dTEC = (obs_tab["Stec"][mask2] - mean_TEC_int(cmn_time[mask2]))/mean_TEC_int(cmn_time[mask2])
+            dTEC_p = (obs_tab_p["Stec"][mask2_p] - mean_TEC_int_p(cmn_time_p[mask2_p]))/mean_TEC_int_p(cmn_time_p[mask2_p])
+            dTEC_n = (obs_tab_n["Stec"][mask2_n] - mean_TEC_int_n(cmn_time_n[mask2_n]))/mean_TEC_int_n(cmn_time_n[mask2_n])
     if log ==True: 
-        im1 = ax1.scatter(cmn_time[mask2], obs_tab["Lat"][mask2], s=1, c=dTEC, cmap="viridis", alpha=0.6, norm=colors.SymLogNorm(linthresh=0.03, linscale=0.03, base=10))
-        im1_p = axp1.scatter(cmn_time_p[mask2_p], obs_tab_p["Lat"][mask2_p], s=1, c=dTEC_p, cmap="viridis", alpha=0.6, norm=colors.SymLogNorm(linthresh=0.03, linscale=0.03, base=10))
-        im1_n = axn1.scatter(cmn_time_n[mask2_n], obs_tab_n["Lat"][mask2_n], s=1, c=dTEC_n, cmap="viridis", alpha=0.6, norm=colors.SymLogNorm(linthresh=0.03, linscale=0.03, base=10))
-        im=ax.scatter(obs_tab["Lon"][mask2]-360, obs_tab["Lat"][mask2], s=1, c=dTEC, cmap="viridis",alpha=0.6, norm=colors.SymLogNorm(linthresh=0.03, linscale=0.03, base=10))
-        im_p = axp.scatter(obs_tab_p["Lon"][mask2_p]-360, obs_tab_p["Lat"][mask2_p], s=1, c=dTEC_p, cmap="viridis", alpha=0.6, norm=colors.SymLogNorm(linthresh=0.03, linscale=0.03, base=10))
-        im_n = axn.scatter(obs_tab_n["Lon"][mask2_n]-360, obs_tab_n["Lat"][mask2_n], s=1, c=dTEC_n, cmap="viridis", alpha=0.6, norm=colors.SymLogNorm(linthresh=0.03, linscale=0.03, base=10))
-    else:
-        im1=ax1.scatter(cmn_time[mask2], obs_tab["Lat"][mask2], s=1, c=dTEC, cmap="viridis", alpha=0.6, norm=norm)
-        im1_p = axp1.scatter(cmn_time_p[mask2_p], obs_tab_p["Lat"][mask2_p], s=1, c=dTEC_p, cmap="viridis", alpha=0.6, norm=norm)
-        im1_n = axn1.scatter(cmn_time_n[mask2_n], obs_tab_n["Lat"][mask2_n], s=1, c=dTEC_n, cmap="viridis", alpha=0.6, norm=norm)
-        im=ax.scatter(obs_tab["Lon"][mask2]-360, obs_tab["Lat"][mask2], s=1, c=dTEC, cmap="viridis",alpha=0.6, norm=norm)
-        im_p = axp.scatter(obs_tab_p["Lon"][mask2_p]-360, obs_tab_p["Lat"][mask2_p], s=1, c=dTEC_p, cmap="viridis", alpha=0.6, norm=norm)
-        im_n = axn.scatter(obs_tab_n["Lon"][mask2_n]-360, obs_tab_n["Lat"][mask2_n], s=1, c=dTEC_n, cmap="viridis", alpha=0.6, norm=norm)
-
-
+        norm = colors.SymLogNorm(linthresh=0.03, linscale=0.03, base=10)
+    else: 
+        norm = MidpointNormalize(midpoint=0)
+    im1=ax1.scatter(cmn_time[mask2], obs_tab["Lat"][mask2], s=1, c=dTEC, cmap="viridis", alpha=0.6, norm=norm)
+    im1_p = axp1.scatter(cmn_time_p[mask2_p], obs_tab_p["Lat"][mask2_p], s=1, c=dTEC_p, cmap="viridis", alpha=0.6, norm=norm)
+    im1_n = axn1.scatter(cmn_time_n[mask2_n], obs_tab_n["Lat"][mask2_n], s=1, c=dTEC_n, cmap="viridis", alpha=0.6, norm=norm)
+    im=ax.scatter(obs_tab["Lon"][mask2]-360, obs_tab["Lat"][mask2], s=1, c=dTEC, cmap="viridis",alpha=0.6, norm=norm)
+    im_p = axp.scatter(obs_tab_p["Lon"][mask2_p]-360, obs_tab_p["Lat"][mask2_p], s=1, c=dTEC_p, cmap="viridis", alpha=0.6, norm=norm)
+    im_n = axn.scatter(obs_tab_n["Lon"][mask2_n]-360, obs_tab_n["Lat"][mask2_n], s=1, c=dTEC_n, cmap="viridis", alpha=0.6, norm=norm)
 
 # Plot bolide trajectory
 
@@ -321,19 +318,19 @@ axn1.axvspan(sunrise_n_UT, 24.0, alpha=0.1, color="yellow")
 
 # Plot settings
 
-label = "Detrended {} for {} stations".format(datatype, len(rinex_files))
+label = r"$\delta$ parameter for {} for {} stations".format(datatype, len(rinex_files))
 if log ==True:
-    cbar = fig.colorbar(im, ax=ax, ticks=[-1e1, -1, -1e-1, 1e-1, 1, 1e1])
+    cbar = fig.colorbar(im, ax=ax, ticks=[-1, -1e-1, -1e-2, 1e-2, 1e-1, 1])
     cbar.ax.minorticks_on()
-    cbar_p = fig.colorbar(im_p, ax=axp, ticks=[-1e1, -1, -1e-1, 1e-1, 1, 1e1])
+    cbar_p = fig.colorbar(im_p, ax=axp, ticks=[-1, -1e-1, -1e-2, 1e-2, 1e-1, 1])
     cbar_p.ax.minorticks_on()
-    cbar_n = fig.colorbar(im_n, ax=axn, ticks=[-1e1, -1, -1e-1, 1e-1, 1, 1e1])
+    cbar_n = fig.colorbar(im_n, ax=axn, ticks=[-1, -1e-1, -1e-2, 1e-2, 1e-1, 1])
     cbar_n.ax.minorticks_on()
-    cbar1 = fig.colorbar(im1, ax=ax1, ticks=[-1e1, -1, -1e-1, 1e-1, 1, 1e1])
+    cbar1 = fig.colorbar(im1, ax=ax1, ticks=[-1, -1e-1, -1e-2, 1e-2, 1e-1, 1])
     cbar1.ax.minorticks_on()
-    cbar1_p = fig.colorbar(im1_p, ax=axp1, ticks=[-1e1, -1, -1e-1, 1e-1, 1, 1e1])
+    cbar1_p = fig.colorbar(im1_p, ax=axp1, ticks=[-1, -1e-1, -1e-2, 1e-2, 1e-1, 1])
     cbar1_p.ax.minorticks_on()
-    cbar1_n = fig.colorbar(im1_n, ax=axn1, ticks=[-1e1, -1, -1e-1, 1e-1, 1, 1e1])
+    cbar1_n = fig.colorbar(im1_n, ax=axn1, ticks=[-1, -1e-1, -1e-2, 1e-2, 1e-1, 1])
     cbar1_n.ax.minorticks_on()
 else:
     cbar = fig.colorbar(im, ax=ax)
@@ -343,19 +340,19 @@ else:
     cbar1_p = fig.colorbar(im1_p, ax=axp1)
     cbar1_n = fig.colorbar(im1_n, ax=axn1)
 
-cbar.set_label("Delta {} (TECU)".format(datatype))
-cbar_p.set_label("Delta {} (TECU)".format(datatype))
-cbar_n.set_label("Delta {} (TECU)".format(datatype))
-cbar1.set_label("Delta {} (TECU)".format(datatype))
-cbar1_p.set_label("Delta {} (TECU)".format(datatype))
-cbar1_n.set_label("Delta {} (TECU)".format(datatype))
-out_dir = "./vTEC-maps/"
+cbar.set_label(r"$\delta$ for {} (TECU)".format(datatype))
+cbar_p.set_label(r"\delta for {} (TECU)".format(datatype))
+cbar_n.set_label(r"\delta for {} (TECU)".format(datatype))
+cbar1.set_label(r"\delta for {} (TECU)".format(datatype))
+cbar1_p.set_label(r"\delta for {} (TECU)".format(datatype))
+cbar1_n.set_label(r"\delta for {} (TECU)".format(datatype))
+out_dir = "./delta-maps/"
 axn.set_xlabel("Longitude (deg)")
 ax.set_ylabel("Latitude (deg)")
 axp.set_ylabel("Latitude (deg)")
 axn.set_ylabel("Latitude (deg)")
 axn1.set_xlabel("Universal Time (hours)")
-plt.suptitle(date+" {} map".format(datatype))
+plt.suptitle(date+r" $\delta$  parameter for {} map".format(datatype))
 ax1.set_ylabel("Latitude (deg)")
 axp1.set_ylabel("Latitude (deg)")
 axn1.set_ylabel("Latitude (deg)")
@@ -369,11 +366,11 @@ fig.set_size_inches(22, 18)
 
 if substract == True:
     if log ==True:
-        plt.savefig(out_dir+date+"-{}_logmap_minus_background.".format(datatype)+formato)
+        plt.savefig(out_dir+date+r"-$\delta$_{}_logmap_minus_background.".format(datatype)+formato)
     else:
-        plt.savefig(out_dir+date+"-{}_map_minus_background.".format(datatype)+formato)
+        plt.savefig(out_dir+date+r"-$\delta$_{}_map_minus_background.".format(datatype)+formato)
 else:
     if log==True:
-        plt.savefig(out_dir+date+"-{}_logmap.".format(datatype)+formato)
+        plt.savefig(out_dir+date+r"-$\delta$_{}_logmap.".format(datatype)+formato)
     else:
-        plt.savefig(out_dir+date+"-{}_map.".format(datatype)+formato)
+        plt.savefig(out_dir+date+r"-$\delta$_{}_map.".format(datatype)+formato)

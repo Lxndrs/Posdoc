@@ -5,6 +5,9 @@
 # And the shape file for Mexico from CONABIO
 # http://www.conabio.gob.mx/informacion/metadata/gis/destdv250k_2gw.xml?_xsl=/db/meadata/xsl/fgdc_html.xsl&_indent=no
 
+# This is a clone of the vTEC_maps.py script except in this case we will compute the gradient of TEC instead of substracting the actual TEC from 
+# some backgrond (or not?)
+
 import seaborn as sns
 import numpy as np
 import pandas as pd
@@ -18,7 +21,6 @@ import matplotlib.cm as cm
 import matplotlib.colors as colors
 from scipy.interpolate import interp1d
 from midpoint import MidpointNormalize
-
 
 
 parser = argparse.ArgumentParser(
@@ -53,20 +55,20 @@ sns.set_style("whitegrid")
 # Load RINEX capabilities
 
 rinex_files = glob.glob(directory+"/*.Cmn")
-std_files = glob.glob(directory+"/*.Std")
+#std_files = glob.glob(directory+"/*.Std")
 load_dirs = [open(rinex_files[i], "r") for i in range(len(rinex_files))]
-load_std = [Table.read(std_files[i], format="ascii") for i in range(len(std_files))]
+#load_std = [Table.read(std_files[i], format="ascii") for i in range(len(std_files))]
 
 
 rinex_p = glob.glob(p_directory+"*.Cmn")
-std_p = glob.glob(p_directory+"*.Std")
+#std_p = glob.glob(p_directory+"*.Std")
 rinex_n = glob.glob(n_directory+"*.Cmn")
-std_n = glob.glob(n_directory+"*.Std")
+#std_n = glob.glob(n_directory+"*.Std")
 
 load_dir_p = [open(rinex_p[i], "r") for i in range(len(rinex_p))]
-load_std_p = [Table.read(std_p[i], format="ascii") for i in range(len(std_p))]
+#load_std_p = [Table.read(std_p[i], format="ascii") for i in range(len(std_p))]
 load_dir_n = [open(rinex_n[i], "r") for i in range(len(rinex_n))]
-load_std_n = [Table.read(std_n[i], format="ascii") for i in range(len(std_n))]
+#load_std_n = [Table.read(std_n[i], format="ascii") for i in range(len(std_n))]
 
 if substract ==True:
     load_back = glob.glob(directory+"/*.tab")
@@ -97,16 +99,16 @@ ax.plot(load_meteor_pos["Longitud"][meteor_mask], load_meteor_pos["Latitud"][met
 
 t0_meteor_1 = load_meteor_pos["T_0 (GLM-16)"][meteor_mask]
 t0_meteor_2 = load_meteor_pos["T_0 (GLM-17)"][meteor_mask]
-# convert start time from string to float (in hours)
+
 t0_m1_h, t0_m1_m, t0_m1_s = t0_meteor_1[0].split(":")
 t0_m2_h, t0_m2_m, t0_m2_s = t0_meteor_2[0].split(":")
 
 t0_m1 = float(t0_m1_h) + float(t0_m1_m)/60. + float(t0_m1_s)/3600.
 t0_m2 = float(t0_m2_h) + float(t0_m2_m)/60. + float(t0_m2_s)/3600.
-
+#stations = []
 # Load and plot RINEX data
 
-for f, g, fp, gp, fn, gn in zip(load_dirs, load_std, load_dir_p, load_std_p, load_dir_n, load_std_n):
+for f, fp, fn in zip(load_dirs, load_dir_p, load_dir_n):
     header = f.readline()
     header_p = fp.readline()
     header_n = fn.readline()
@@ -128,12 +130,12 @@ for f, g, fp, gp, fn, gn in zip(load_dirs, load_std, load_dir_p, load_std_p, loa
     obs_tab = Table.read(data, format="ascii")
     obs_tab_p = Table.read(data_p, format="ascii")
     obs_tab_n = Table.read(data_n, format="ascii")
-    std_time = g["col1"]
-    std_time_p = gp["col1"]
-    std_time_n = gn["col1"]
-    std_TEC = g["col2"]
-    std_TEC_p = gp["col2"]
-    std_TEC_n = gn["col2"]
+#    std_time = g["col1"]
+#    std_time_p = gp["col1"]
+#    std_time_n = gn["col1"]
+#    std_TEC = g["col2"]
+#    std_TEC_p = gp["col2"]
+#    std_TEC_n = gn["col2"]
     for i in range(len(obs_tab["Vtec"])): # Replace "-" into NaN since there is no data
         if obs_tab["Vtec"][i] == "-":
             obs_tab["Vtec"][i] = np.nan
@@ -144,19 +146,19 @@ for f, g, fp, gp, fn, gn in zip(load_dirs, load_std, load_dir_p, load_std_p, loa
         if obs_tab_n["Vtec"][i] == "-":
             obs_tab_n["Vtec"][i] = np.nan
 
-    for i in range(len(std_TEC)):
-        if std_TEC[i] == "-":
-            std_TEC[i]=np.nan
-    for i in range(len(std_TEC_p)):
-        if std_TEC_p[i] == "-":
-            std_TEC_p[i]=np.nan
-    for i in range(len(std_TEC_n)):
-        if std_TEC_n[i] == "-":
-            std_TEC_n[i]=np.nan
+#    for i in range(len(std_TEC)):
+#        if std_TEC[i] == "-":
+#            std_TEC[i]=np.nan
+#    for i in range(len(std_TEC_p)):
+#        if std_TEC_p[i] == "-":
+#            std_TEC_p[i]=np.nan
+#    for i in range(len(std_TEC_n)):
+#        if std_TEC_n[i] == "-":
+#            std_TEC_n[i]=np.nan
 
-    mean_TEC_int = interp1d(std_time, std_TEC)
-    mean_TEC_int_p = interp1d(std_time_p, std_TEC_p)
-    mean_TEC_int_n = interp1d(std_time_n, std_TEC_p)
+#    mean_TEC_int = interp1d(std_time, std_TEC)
+#    mean_TEC_int_p = interp1d(std_time_p, std_TEC_p)
+#    mean_TEC_int_n = interp1d(std_time_n, std_TEC_p)
     cmn_time = obs_tab["Time"]
     cmn_time_p = obs_tab_p["Time"]
     cmn_time_n = obs_tab_n["Time"]
@@ -166,49 +168,65 @@ for f, g, fp, gp, fn, gn in zip(load_dirs, load_std, load_dir_p, load_std_p, loa
     cmn_time[mask] = cmn_time[mask] + 24.
     cmn_time_p[mask_p] = cmn_time_p[mask_p] + 24.0
     cmn_time_n[mask_n] = cmn_time_n[mask_n] + 24.0
-    mask2 = cmn_time < max(std_time)
-    mask2_p = cmn_time_p < max(std_time_p)
-    mask2_n = cmn_time_n < max(std_time_n)
+#    mask2 = cmn_time < max(std_time)
+#    mask2_p = cmn_time_p < max(std_time_p)
+#    mask2_n = cmn_time_n < max(std_time_n)
     if substract==True:
         subs_tab = Table.read(directory+"/"+stations_dict[station], format="ascii")
         subs_TEC = subs_tab["Mean vTEC"]
+        std_time = subs_tab["Time (UT)"]
+        mask2 = cmn_time < max(std_time)
+        mask2_p = cmn_time_p < max(std_time)
+        mask2_n = cmn_time_n < max(std_time)
         for i in range(len(subs_TEC)):
             if subs_TEC[i] == "-":
                 subs_TEC[i] = np.nan
         subs_TEC_int = interp1d(std_time, subs_TEC) # Maybe substract the mean TEC AND the background TEC is redundant
+        time=cmn_time[mask2]
+        time_p = cmn_time_p[mask2_p]
+        time_n = cmn_time_n[mask2_n]
+        latitud = obs_tab["Lat"][mask2]
+        latitud_p = obs_tab_p["Lat"][mask2_p]
+        latitud_n =obs_tab_n["Lat"][mask2_n]
+        longitud = obs_tab["Lon"][mask2]      
+        longitud_p = obs_tab_p["Lon"][mask2_p]
+        longitud_n =obs_tab_n["Lon"][mask2_n] 
         if datatype == "vTEC":
-            dTEC =  obs_tab["Vtec"][mask2] - subs_TEC_int(cmn_time[mask2])
-            dTEC_p = obs_tab_p["Vtec"][mask2_p] -subs_TEC_int(cmn_time_p[mask2_p])
-            dTEC_n = obs_tab_n["Vtec"][mask2_n] -subs_TEC_int(cmn_time_n[mask2_n])
+            dTEC =  np.gradient(obs_tab["Vtec"][mask2] - subs_TEC_int(cmn_time[mask2]))/np.gradient(cmn_time[mask2])
+            dTEC_p = np.gradient(obs_tab_p["Vtec"][mask2_p]-subs_TEC_int(cmn_time_p[mask2_p]))/np.gradient(cmn_time_p[mask2_p])
+            dTEC_n = np.gradient(obs_tab_n["Vtec"][mask2_n]-subs_TEC_int(cmn_time_n[mask2_n]))/np.gradient(cmn_time_n[mask2_n])
         elif datatype == "sTEC":
-            dTEC =  obs_tab["Stec"][mask2] - subs_TEC_int(cmn_time[mask2])
-            dTEC_p = obs_tab_p["Stec"][mask2_p] -subs_TEC_int(cmn_time_p[mask2_p])
-            dTEC_n = obs_tab_n["Stec"][mask2_n] -subs_TEC_int(cmn_time_n[mask2_n])
-
+            dTEC =  np.gradient(obs_tab["Stec"][mask2]-subs_TEC_int(cmn_time[mask2]))/np.gradient(cmn_time[mask2]) 
+            dTEC_p = np.gradient(obs_tab_p["Stec"][mask2_p]-subs_TEC_int(cmn_time[mask2_p]))/np.gradient(cmn_time_p[mask2_p]) 
+            dTEC_n = np.gradient(obs_tab_n["Stec"][mask2_n]-subs_TEC_int(cmn_time[mask2_n]))/np.gradient(cmn_time_n[mask2_n]) 
     else:
+        time=cmn_time
+        time_p = cmn_time_p
+        time_n = cmn_time_n
+        latitud = obs_tab["Lat"]
+        latitud_p = obs_tab_p["Lat"]
+        latitud_n =obs_tab_n["Lat"]
+        longitud = obs_tab["Lon"]
+        longitud_p = obs_tab_p["Lon"]
+        longitud_n =obs_tab_n["Lon"]
         if datatype == "vTEC":
-            dTEC = obs_tab["Vtec"][mask2] - mean_TEC_int(cmn_time[mask2])
-            dTEC_p = obs_tab_p["Vtec"][mask2_p] - mean_TEC_int_p(cmn_time_p[mask2_p])
-            dTEC_n = obs_tab_n["Vtec"][mask2_n] - mean_TEC_int_n(cmn_time_n[mask2_n])
+            dTEC = np.gradient(obs_tab["Vtec"])/np.gradient(cmn_time)
+            dTEC_p = np.gradient(obs_tab_p["Vtec"])/np.gradient(cmn_time_p)
+            dTEC_n = np.gradient(obs_tab_n["Vtec"])/np.gradient(cmn_time_n)
         elif datatype == "sTEC":
-            dTEC = obs_tab["Stec"][mask2] - mean_TEC_int(cmn_time[mask2])
-            dTEC_p = obs_tab_p["Stec"][mask2_p] - mean_TEC_int_p(cmn_time_p[mask2_p])
-            dTEC_n = obs_tab_n["Stec"][mask2_n] - mean_TEC_int_n(cmn_time_n[mask2_n])
-    norm = MidpointNormalize(midpoint=0)
-    if log ==True: 
-        im1 = ax1.scatter(cmn_time[mask2], obs_tab["Lat"][mask2], s=1, c=dTEC, cmap="viridis", alpha=0.6, norm=colors.SymLogNorm(linthresh=0.03, linscale=0.03, base=10))
-        im1_p = axp1.scatter(cmn_time_p[mask2_p], obs_tab_p["Lat"][mask2_p], s=1, c=dTEC_p, cmap="viridis", alpha=0.6, norm=colors.SymLogNorm(linthresh=0.03, linscale=0.03, base=10))
-        im1_n = axn1.scatter(cmn_time_n[mask2_n], obs_tab_n["Lat"][mask2_n], s=1, c=dTEC_n, cmap="viridis", alpha=0.6, norm=colors.SymLogNorm(linthresh=0.03, linscale=0.03, base=10))
-        im=ax.scatter(obs_tab["Lon"][mask2]-360, obs_tab["Lat"][mask2], s=1, c=dTEC, cmap="viridis",alpha=0.6, norm=colors.SymLogNorm(linthresh=0.03, linscale=0.03, base=10))
-        im_p = axp.scatter(obs_tab_p["Lon"][mask2_p]-360, obs_tab_p["Lat"][mask2_p], s=1, c=dTEC_p, cmap="viridis", alpha=0.6, norm=colors.SymLogNorm(linthresh=0.03, linscale=0.03, base=10))
-        im_n = axn.scatter(obs_tab_n["Lon"][mask2_n]-360, obs_tab_n["Lat"][mask2_n], s=1, c=dTEC_n, cmap="viridis", alpha=0.6, norm=colors.SymLogNorm(linthresh=0.03, linscale=0.03, base=10))
+            dTEC = np.gradient(obs_tab["Vtec"])/np.gradient(cmn_time)
+            dTEC_p = np.gradient(obs_tab_p["Vtec"])/np.gradient(cmn_time_p)
+            dTEC_n = np.gradient(obs_tab_n["Vtec"])/np.gradient(cmn_time_n)
+    if log ==False:
+        norm = MidpointNormalize(midpoint=0)
     else:
-        im1=ax1.scatter(cmn_time[mask2], obs_tab["Lat"][mask2], s=1, c=dTEC, cmap="viridis", alpha=0.6, norm=norm)
-        im1_p = axp1.scatter(cmn_time_p[mask2_p], obs_tab_p["Lat"][mask2_p], s=1, c=dTEC_p, cmap="viridis", alpha=0.6, norm=norm)
-        im1_n = axn1.scatter(cmn_time_n[mask2_n], obs_tab_n["Lat"][mask2_n], s=1, c=dTEC_n, cmap="viridis", alpha=0.6, norm=norm)
-        im=ax.scatter(obs_tab["Lon"][mask2]-360, obs_tab["Lat"][mask2], s=1, c=dTEC, cmap="viridis",alpha=0.6, norm=norm)
-        im_p = axp.scatter(obs_tab_p["Lon"][mask2_p]-360, obs_tab_p["Lat"][mask2_p], s=1, c=dTEC_p, cmap="viridis", alpha=0.6, norm=norm)
-        im_n = axn.scatter(obs_tab_n["Lon"][mask2_n]-360, obs_tab_n["Lat"][mask2_n], s=1, c=dTEC_n, cmap="viridis", alpha=0.6, norm=norm)
+        norm = colors.SymLogNorm(linthresh=0.03, linscale=0.03, base=10)
+    im1 = ax1.scatter(time, latitud, s=1, c=dTEC, cmap="viridis", alpha=0.6, norm=norm)
+    im1_p = axp1.scatter(time_p, latitud_p, s=1, c=dTEC_p, cmap="viridis", alpha=0.6, norm=norm)
+    im1_n = axn1.scatter(time_n, latitud_n, s=1, c=dTEC_n, cmap="viridis", alpha=0.6, norm=norm)
+    im = ax.scatter(longitud-360, latitud, s=1, c=dTEC, cmap="viridis",alpha=0.6, norm=norm)
+    im_p = axp.scatter(longitud_p-360, latitud_p, s=1, c=dTEC_p, cmap="viridis", alpha=0.6, norm=norm)
+    im_n = axn.scatter(longitud_n-360, latitud_n, s=1, c=dTEC_n, cmap="viridis", alpha=0.6, norm=norm)
 
 
 
@@ -245,6 +263,7 @@ if f2_longitude[-1] > f2_longitude[0]:
     step2 = -20
 else:
     step2 = 20
+
 ax.plot([f1_longitude[0]+step1, f1_longitude[-1]], [poly1(f1_longitude[0]+step1), poly1(f1_longitude[-1])], "r--")
 ax.plot([f2_longitude[0]+step2, f2_longitude[-1]], [poly2(f2_longitude[0]+step2), poly2(f2_longitude[-1])], "r--")
 
@@ -321,7 +340,8 @@ axn1.axvspan(sunrise_n_UT, 24.0, alpha=0.1, color="yellow")
 
 # Plot settings
 
-label = "Detrended {} for {} stations".format(datatype, len(rinex_files))
+
+label = "Rate of {} for {} stations".format(datatype, len(rinex_files))
 if log ==True:
     cbar = fig.colorbar(im, ax=ax, ticks=[-1e1, -1, -1e-1, 1e-1, 1, 1e1])
     cbar.ax.minorticks_on()
@@ -343,37 +363,38 @@ else:
     cbar1_p = fig.colorbar(im1_p, ax=axp1)
     cbar1_n = fig.colorbar(im1_n, ax=axn1)
 
-cbar.set_label("Delta {} (TECU)".format(datatype))
-cbar_p.set_label("Delta {} (TECU)".format(datatype))
-cbar_n.set_label("Delta {} (TECU)".format(datatype))
-cbar1.set_label("Delta {} (TECU)".format(datatype))
-cbar1_p.set_label("Delta {} (TECU)".format(datatype))
-cbar1_n.set_label("Delta {} (TECU)".format(datatype))
-out_dir = "./vTEC-maps/"
+cbar.set_label("Rate of {} (TECU/s)".format(datatype))
+cbar_p.set_label("Rate of {} (TECU/s)".format(datatype))
+cbar_n.set_label("Rate of {} (TECU/s)".format(datatype))
+cbar1.set_label("Rate of {} (TECU/s)".format(datatype))
+cbar1_p.set_label("Rate of {} (TECU/s)".format(datatype))
+cbar1_n.set_label("Rate of {} (TECU/s)".format(datatype))
+out_dir = "./rTEC-maps/"
 axn.set_xlabel("Longitude (deg)")
 ax.set_ylabel("Latitude (deg)")
 axp.set_ylabel("Latitude (deg)")
 axn.set_ylabel("Latitude (deg)")
 axn1.set_xlabel("Universal Time (hours)")
-plt.suptitle(date+" {} map".format(datatype))
+plt.suptitle(date+"Rate of {} map".format(datatype))
 ax1.set_ylabel("Latitude (deg)")
 axp1.set_ylabel("Latitude (deg)")
 axn1.set_ylabel("Latitude (deg)")
 axp.title.set_text(label + ". Previous day")
 axp1.title.set_text(label)
 ax.title.set_text(label + ". Event date")
+#ax1.title.set_text(label)
 axn.title.set_text(label+". Next day")
-
+#axn1.title.set_text(label)
 fig.set_size_inches(22, 18)
-
+#fig.tight_layout()
 
 if substract == True:
     if log ==True:
-        plt.savefig(out_dir+date+"-{}_logmap_minus_background.".format(datatype)+formato)
+        plt.savefig(out_dir+date+"-Rate of {}_logmap_minus_background.".format(datatype)+formato)
     else:
-        plt.savefig(out_dir+date+"-{}_map_minus_background.".format(datatype)+formato)
+        plt.savefig(out_dir+date+"-Rate of {}_map_minus_background.".format(datatype)+formato)
 else:
     if log==True:
-        plt.savefig(out_dir+date+"-{}_logmap.".format(datatype)+formato)
+        plt.savefig(out_dir+date+"-Rate of {}_logmap.".format(datatype)+formato)
     else:
-        plt.savefig(out_dir+date+"-{}_map.".format(datatype)+formato)
+        plt.savefig(out_dir+date+"-Rate of {}_map.".format(datatype)+formato)
