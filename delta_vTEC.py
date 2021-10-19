@@ -7,7 +7,7 @@
 # If \delta >~4 is an indication that the vTEC is strongly disturbed. But since the observed meteors in the GLM sample are small ( <~1m ), we will be less strict with this criteria
 # and set |\delta| >~ 2 and compute this parameter instead of vTEC itself
 
-# For this we will do a variant of the vTEC_maps program since we will compute \delta for each vTEC measurement. <vTEC> will be obtained from the average TEC in ths .Std file.
+# For this we will do a variant of the vTEC_maps program since we will compute \delta for each vTEC measurement. <vTEC> will be obtained from the average TEC in the .Std file.
 
 import seaborn as sns
 import numpy as np

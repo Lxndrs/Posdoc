@@ -156,7 +156,7 @@ for f, g, fp, gp, fn, gn in zip(load_dirs, load_std, load_dir_p, load_std_p, loa
 
     mean_TEC_int = interp1d(std_time, std_TEC)
     mean_TEC_int_p = interp1d(std_time_p, std_TEC_p)
-    mean_TEC_int_n = interp1d(std_time_n, std_TEC_p)
+    mean_TEC_int_n = interp1d(std_time_n, std_TEC_n)
     cmn_time = obs_tab["Time"]
     cmn_time_p = obs_tab_p["Time"]
     cmn_time_n = obs_tab_n["Time"]
@@ -259,26 +259,28 @@ ax1.axvspan(min((t0_m1, t0_m2)), max((t0_m1, t0_m2)), alpha=0.5, color="red")
 newlabel = [0, 5, 10, 15, 20, 25]
 time_zone_dict = {"2019-05-23":-5, "2019-07-18":-5, "2019-08-10":-5, "2019-10-03":-5, "2019-10-09":-7, "2019-11-16":-6, "2019-11-17":-8, "2019-11-19":-7, "2019-11-26":-5, "2019-12-04":-7, "2019-12-15":-7, "2019-12-29":-8, "2020-01-03":-8, "2020-01-06":-7, "2020-01-15":-6, "2020-02-12":-6, "2020-03-03":-6, "2020-03-31":-7, "2020-04-08":-5, "2020-04-18":-6, "2020-04-20":-5, "2020-04-25":-7, "2020-04-28":-6, "2020-05-08":-5, "2020-07-15":-6, "2020-08-07":-6, "2020-09-13":-7, "2020-09-30":-7, "2020-11-16":-6, "2020-11-17":-6, "2020-12-19":-6, "2020-12-23":-7, "2020-12-29":-6, "2021-03-31":-6}
 
-local_time = np.array(newlabel) + time_zone_dict[date]
-for i in range(len(local_time)):
-    if local_time[i] < 0.:
-        local_time[i] = local_time[i] + 24.0
-ax2 = ax1.twiny()
-ax2.set_xticks(newlabel)
-ax2.set_xticklabels(local_time)
-ax2.set_xlim(ax1.get_xlim())
+try:
+    local_time = np.array(newlabel) + time_zone_dict[date]
+    for i in range(len(local_time)):
+        if local_time[i] < 0.:
+            local_time[i] = local_time[i] + 24.0
+    ax2 = ax1.twiny()
+    ax2.set_xticks(newlabel)
+    ax2.set_xticklabels(local_time)
+    ax2.set_xlim(ax1.get_xlim())
 
-axp2 = axp1.twiny()
-axp2.set_xticks(newlabel)
-axp2.set_xticklabels(local_time)
-axp2.set_xlabel("Local Time (hours)")
-axp2.set_xlim(axp1.get_xlim())
+    axp2 = axp1.twiny()
+    axp2.set_xticks(newlabel)
+    axp2.set_xticklabels(local_time)
+    axp2.set_xlabel("Local Time (hours)")
+    axp2.set_xlim(axp1.get_xlim())
 
-axn2 = axn1.twiny()
-axn2.set_xticks(newlabel)
-axn2.set_xticklabels(local_time)
-axn2.set_xlim(axn1.get_xlim())
-
+    axn2 = axn1.twiny()
+    axn2.set_xticks(newlabel)
+    axn2.set_xticklabels(local_time)
+    axn2.set_xlim(axn1.get_xlim())
+except KeyError: # if the desired date is not in our dictionaries, send an error message and continue
+    print("The entered date is not in the Local Time database, avoid upper x-axis")
 # Daytime shaded in light yellow and night time in blue
 
 # local sunrise and sunset dictionaries 
@@ -296,29 +298,30 @@ sunrise_n= {"2019-05-23":6+56./60, "2019-07-18":7+15./60, "2019-08-10":7+26./60,
 
 sunset_n = {"2019-05-23":20+25./60, "2019-07-18":20+44./60, "2019-08-10":20+21./60, "2019-10-03":19+15/60., "2019-10-09":18+58./60, "2019-11-16":17+52./60, "2019-11-17":16+44/60., "2019-11-19":18+13./60, "2019-11-26":17+19/60., "2019-12-04":17.5, "2019-12-15":20+4./60, "2019-12-29":16+51/60., "2020-01-03":16+54./60, "2020-01-06":17+16./60, "2020-01-15":18+5./60, "2020-02-12":18+10./60, "2020-03-03":19+3./60, "2020-03-31":18+41/60., "2020-04-08":19+44./60, "2020-04-18":19.5, "2020-04-20":20+3./60, "2020-04-25":19, "2020-04-28":19+48./60, "2020-05-08":19+34./60, "2020-07-15":20, "2020-08-07":19+48./60, "2020-09-13":19+33./60, "2020-09-30":19+6./60, "2020-11-16":17+59./60, "2020-11-17":18+4./60, "2020-12-19":18+7./60, "2020-12-23":17+39./60, "2020-12-29":18+22/60., "2021-03-31":18+24./60}
 
-sunrise_p_UT = sunrise_p[date] - time_zone_dict[date]
-sunset_p_UT = sunset_p[date] - time_zone_dict[date]
-sunrise_UT = sunrise[date] - time_zone_dict[date]
-sunset_UT = sunset[date] - time_zone_dict[date]
-sunrise_n_UT = sunrise_n[date] - time_zone_dict[date]
-sunset_n_UT = sunset_n[date] - time_zone_dict[date]
 
-
-axp1.axvspan(0, sunrise_p_UT, alpha=0.1, color="cyan")
-axp1.axvspan(sunrise_p_UT, min(sunset_p_UT, 24.0), alpha=0.1, color="yellow")
-if sunset_p_UT < 24.0:
-    axp1.axvspan(sunset_p_UT, 24.0, alpha=0.1, color="cyan")
-ax1.axvspan(max(0, sunset_p_UT-24.0), sunrise_UT, alpha=0.1, color="cyan")
-if sunset_p_UT-24 > 0:
-    ax1.axvspan(0, sunset_p_UT-24, alpha=0.1, color="yellow")
-ax1.axvspan(sunrise_UT, min(sunset_UT, 24.0), alpha=0.1, color="yellow")
-if sunset_UT < 24.0:
-    ax1.axvspan(sunset_UT, 24.0, alpha=0.1, color="cyan")
-axn1.axvspan(max(0, sunset_UT-24.0), sunrise_n_UT, alpha=0.1, color="cyan")
-if sunset_UT - 24.0 >0:
-    axn1.axvspan(0, sunset_UT-24, alpha=0.1, color="yellow")
-axn1.axvspan(sunrise_n_UT, 24.0, alpha=0.1, color="yellow")
-
+try:
+    sunrise_p_UT = sunrise_p[date] - time_zone_dict[date]
+    sunset_p_UT = sunset_p[date] - time_zone_dict[date]
+    sunrise_UT = sunrise[date] - time_zone_dict[date]
+    sunset_UT = sunset[date] - time_zone_dict[date]
+    sunrise_n_UT = sunrise_n[date] - time_zone_dict[date]
+    sunset_n_UT = sunset_n[date] - time_zone_dict[date]
+    axp1.axvspan(0, sunrise_p_UT, alpha=0.1, color="cyan")
+    axp1.axvspan(sunrise_p_UT, min(sunset_p_UT, 24.0), alpha=0.1, color="yellow")
+    if sunset_p_UT < 24.0:
+        axp1.axvspan(sunset_p_UT, 24.0, alpha=0.1, color="cyan")
+    ax1.axvspan(max(0, sunset_p_UT-24.0), sunrise_UT, alpha=0.1, color="cyan")
+    if sunset_p_UT-24 > 0:
+        ax1.axvspan(0, sunset_p_UT-24, alpha=0.1, color="yellow")
+    ax1.axvspan(sunrise_UT, min(sunset_UT, 24.0), alpha=0.1, color="yellow")
+    if sunset_UT < 24.0:
+        ax1.axvspan(sunset_UT, 24.0, alpha=0.1, color="cyan")
+    axn1.axvspan(max(0, sunset_UT-24.0), sunrise_n_UT, alpha=0.1, color="cyan")
+    if sunset_UT - 24.0 >0:
+        axn1.axvspan(0, sunset_UT-24, alpha=0.1, color="yellow")
+    axn1.axvspan(sunrise_n_UT, 24.0, alpha=0.1, color="yellow")
+except KeyError:
+    print("The entered date is not in our current database, avoid day-night shading")
 # Plot settings
 
 label = "Detrended {} for {} stations".format(datatype, len(rinex_files))

@@ -18,7 +18,7 @@ parser.add_argument('--datepp', type=str, default='2000-01-01',
 		      help='Choose date. Format: yyyy-mm-dd')
 
 
-parser.add_argument("--ftpfile", type=str, default="Q4", 
+parser.add_argument("--ftpfile", type=str, default="", 
 		    help="choose the file with the corresponding Kp index data")
 
 
