@@ -2898,6 +2898,17 @@ directory = "./data/"+date
 files = glob.glob(directory+"/*.Cmn")
 
 # f = open("./data/2019-02-01/unpm032-2019-02-01.Cmn") # Test file until the program works
+
+# ******************************* Set final output lists ******************************************
+
+stations = []
+final_time = []
+final_PRN = []
+final_lat = []
+final_lon = []
+final_vTEC = []
+
+
 for File in files:
     f = open(File, "r")
     for i in range(4):
@@ -2906,7 +2917,8 @@ for File in files:
     raw_data = f.readlines()
 
 # ****************************** Extract relevant information ***********************************
-
+    station = File[-22:-18] # Extract station name from file name(This should work in both
+                                          # windows and linux)
     data = Table.read(raw_data, format="ascii")
     hr, minute, sec = start_time.split(":")
     time_hours = float(hr)+float(minute)/60. + float(sec)/3600.
@@ -2923,14 +2935,6 @@ for File in files:
 #selected_time = time[time_mask]
 #selected_TEC = vTEC[time_mask]
 
-# ******************************* Set final output lists ******************************************
-
-
-    final_time = []
-    final_PRN = []
-    final_lat = []
-    final_lon = []
-    final_vTEC = []
 
 # ******************************* Start loop over PRNs ********************************************
 
@@ -2988,11 +2992,12 @@ for File in files:
                 final_PRN.append(p)
                 final_lat.append(flat) 
                 final_lon.append(flon) 
+                stations.append(station)
 
 # ***************************** Mask positions and save data to file *******************************
 
 #plt.plot(final_time, final_vTEC, ".")
-output_table = Table([final_time, final_PRN, final_lat, final_lon, final_vTEC], names=("Time", "PRN", "Latitude", "Longitude", "vTEC"))
+output_table = Table([stations, final_time, final_PRN, final_lat, final_lon, final_vTEC], names=("Station", "Time", "PRN", "Latitude", "Longitude", "vTEC"))
 #print(final_time.dtype)
 outfile = directory+"/detrended_TEC.csv" #File.replace("Cmn", "csv")
 output_table.write(outfile, format="csv", overwrite=True)
@@ -3122,4 +3127,49 @@ plt.title("Detrended TEC for 1 station for 2019-02-01")
 plt.gcf().set_size_inches(6, 6)
 outdir = "./TEC_grid_maps/"
 plt.savefig(outdir+date+"_TEC_map.pdf")
+#+END_SRC
+
+#+NAME TEC_series
+#+BEGIN_SRC python :eval no :tangle ./TEC_series.py
+import pandas as pd
+import argparse 
+import numpy as np
+import matplotlib.pyplot as plt
+
+parser = argparse.ArgumentParser(
+    description=""" Choose a file to work""")
+
+
+parser.add_argument('--date', type=str, default='2000-01-01',
+			       help='Choose date. Format: yyyy-mm-dd')
+
+#parser.add_argument("--formato", type=str, default="pdf", choices=("pdf", "png", "jpg"), 
+#                                help="Choose output format")
+parser.add_argument("--starttime", type=str, default="00:00:00", help="Select the event start time")
+parser.add_argument("--filterhigh", type=float, default=30, 
+                     help="Filter the upper time interval of the TEC curve (in ninutes)")
+parser.add_argument("--filterlow", type=float, default=10, 
+                     help="Filter the lower time interval of the TEC curve (in ninutes)")
+
+cmd_args = parser.parse_args()
+date = cmd_args.date
+start_time = cmd_args.starttime
+filter_high = cmd_args.filterhigh
+filter_low = cmd_args.filterlow
+
+infile="./data/"+date+"/detrended_TEC.csv"
+
+# ****************************** Read data file ************************************************
+
+csv_file = pd.read_csv(infile)
+prn_array = np.unique(csv_file["PRN"])
+station_array = np.unique(csv_file["Station"])
+for s in station_array:
+    for p in prn_array:
+        prn_mask = csv_file["PRN"] == p
+        plt.plot(csv_file["Time"][prn_mask], csv_file["vTEC"][prn_mask], ".")
+        plt.ylim(-0.3, 0.5)
+        plt.title(s.upper()+"-PRN{}".format(p))
+        plt.savefig("./TEC_series/"+date+"/{}-TEC_series_PRN_{}.pdf".format(s, p))
+        plt.clf()
 #+END_SRC
