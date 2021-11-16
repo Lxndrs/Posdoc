@@ -1,4 +1,4 @@
-}##############################        POSDOC JOURNAL. JORGE ALEJANDRO TARANGO YONG         ########################################
+##############################        POSDOC JOURNAL. JORGE ALEJANDRO TARANGO YONG         ########################################
 ##                                                                                                                               ##
 ## The purpose of this document is to record all (or at least the most) progress I've done during this investigation including:  ##
 ## - The main authors                                                                                                            ##
@@ -2978,14 +2978,17 @@ for File in files:
             y_trend = savitsky(tec, window_length=get_window_size(len(tec)), polyorder=7)
             residuals = np.sum((y_trend-tec)**2)/len(tec)
 #            ord=ord+1
-#        plt.plot(s, y_trend, "r--")
+            plt.plot(s, y_trend, "r--", label="Trend")
 #        print(residuals)
-# *********************************** Detrend signal ***********************************************
+# *********************************** Detrend signal and plot undetrended signal and trend************
             det_signal = tec - y_trend
-#        plt.plot(s, det_signal)
-
-#    plt.savefig("./TEC_tests/test_detrend_{}.pdf".format(p))
-#    plt.clf()
+            plt.plot(s, tec, label="original signal")
+            plt.xlabel("UT (hours)")
+            plt.ylabel("vTEC (TECU)")
+            plt.legend()
+            plt.title("{} PRN{}. Date: {}".format(station, p, date))
+            plt.savefig("./data/"+date+"/trends/{}.pdf".format(p))
+            plt.clf()
             for ft, flat, flon, d in zip(s, la, lo, det_signal): # Fill output lists
                 final_vTEC.append(d)
                 final_time.append(ft)          
@@ -3029,7 +3032,7 @@ output_table.write(outfile, format="csv", overwrite=True)
 #    plt.plot(X, Y, "g.")
 #    plt.plot(BRC_x, BRC_y, "r*")
 #    plt.fill_between(np.array(BRC_x), np.array(BRC_y)+1, np.array(BRC_y)-3, alpha=0.1) 
-#    plt.axvline(time_hours, ls="--", c="k")
+
 
 
 
@@ -3143,8 +3146,7 @@ parser = argparse.ArgumentParser(
 parser.add_argument('--date', type=str, default='2000-01-01',
 			       help='Choose date. Format: yyyy-mm-dd')
 
-#parser.add_argument("--formato", type=str, default="pdf", choices=("pdf", "png", "jpg"), 
-#                                help="Choose output format")
+
 parser.add_argument("--starttime", type=str, default="00:00:00", help="Select the event start time")
 parser.add_argument("--filterhigh", type=float, default=30, 
                      help="Filter the upper time interval of the TEC curve (in ninutes)")
@@ -3164,12 +3166,70 @@ infile="./data/"+date+"/detrended_TEC.csv"
 csv_file = pd.read_csv(infile)
 prn_array = np.unique(csv_file["PRN"])
 station_array = np.unique(csv_file["Station"])
+hr, minute, sec = start_time.split(":")
+time_hours = float(hr)+float(minute)/60. + float(sec)/3600.
+
 for s in station_array:
     for p in prn_array:
         prn_mask = csv_file["PRN"] == p
         plt.plot(csv_file["Time"][prn_mask], csv_file["vTEC"][prn_mask], ".")
+        plt.axvline(time_hours, ls="--", c="k")
         plt.ylim(-0.3, 0.5)
         plt.title(s.upper()+"-PRN{}".format(p))
         plt.savefig("./TEC_series/"+date+"/{}-TEC_series_PRN_{}.pdf".format(s, p))
         plt.clf()
+#+END_SRC
+
+#+NAME Wavelet Power spectrum
+#+BEGIN_SRC python :eval no :tangle ./wavelet_power.py
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import argparse
+import sys
+sys.path.insert(0, "./wavelets/wave_python/")
+from waveletFunctions import wavelet
+
+parser = argparse.ArgumentParser(
+    description=""" Choose a file to work""")
+
+
+parser.add_argument('--date', type=str, default='2000-01-01',
+			       help='Choose date. Format: yyyy-mm-dd')
+
+parser.add_argument("--frequency", type=float, default=15,
+                      help="Sampling time (in seconds)")
+parser.add_argument("--contour", action="store_true", help="Choose between image and contours")
+cmd_args = parser.parse_args()
+date = cmd_args.date
+dt = cmd_args.frequency/3600.
+contour = cmd_args.contour
+
+directory ="./data/"+date
+infile = directory + "/detrended_TEC.csv"
+df = pd.read_csv(infile)
+stations = np.unique(df["Station"])
+levels = [0, 0.5, 1, 2, 3, 4, 8, 10]
+
+for s in stations:
+    station_mask = df["Station"] ==s
+    PRNs = np.unique(df["PRN"][station_mask])
+    for p in PRNs:
+        print("station: {}, PRN: {}".format(s, p))
+        prn_mask = df["PRN"] ==p
+        TEC_series = df["vTEC"][station_mask & prn_mask]
+        time_series = df["Time"][station_mask & prn_mask]
+        w, periods, scales, COI = wavelet(TEC_series, dt, pad=1)
+
+        if contour:
+            plt.contourf(time_series, periods, np.abs(w)**2, len(levels))
+        else:
+            plt.imshow(np.abs(w)**2, extent=(min(time_series), max(time_series), min(periods), max(periods)))
+#        plt.plot(time_series, COI, "w--")
+        plt.title("{}-PRN{}. Date: {}".format(s, p, date))
+        if contour:
+            plt.savefig("./TEC_power_spectrum/"+date+"/{}-PRN{}-contour.pdf".format(s, p))
+        else:
+            plt.savefig("./TEC_power_spectrum/"+date+"/{}-PRN{}.pdf".format(s, p))
 #+END_SRC
