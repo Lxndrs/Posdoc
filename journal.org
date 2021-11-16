@@ -2841,33 +2841,6 @@ def discontinuity(x):
         else:
             flag = False
     return flag
-
-# **************************** Split discontine PRN *******************************************
-
-def split_PRN(t, TEC):
-    """
-    Split a discontinuos PRN into pieces and return the biggest ones
-    inputs:
-    t, TEC: arrays to be split. t --> time , TEC --> vTEC
-    outputs:
-    output_t, output_TEC --> 2D arrays which contain the fragmented curve
-    """
-
-    index_discontinuity =[]
-    gradient_t = np.gradient(t)
-    for i, dt in enumerate(gradient_t):
-        if dt > 0.01: # 0.01 is like 10 times the regular GPS frequency
-            index_discontinuity.append(i) # collect the indices where time gradient is big enough
-    split_t = np.split(t, index_discontinuity)
-    split_TEC = np.split(TEC, index_discontinuity)
-    output_t = []
-    output_TEC =[]
-    for s, tec in zip(split_t, split_TEC):
-        if len(s) > 20: #if the subarray contain too few elements will be discarded
-            output_t.append(s)
-            output_TEC.append(tec)
-    return output_t, output_TEC
-
 # *************************** Read inputs from command line ***********************************
 
 parser = argparse.ArgumentParser(
@@ -2876,6 +2849,7 @@ parser = argparse.ArgumentParser(
 
 parser.add_argument('--date', type=str, default='2000-01-01',
 			       help='Choose date. Format: yyyy-mm-dd')
+
 
 #parser.add_argument("--formato", type=str, default="pdf", choices=("pdf", "png", "jpg"), 
 #                                help="Choose output format")
@@ -2887,6 +2861,7 @@ parser.add_argument("--filterlow", type=float, default=10,
 
 cmd_args = parser.parse_args()
 date = cmd_args.date
+
 #formato = cmd_args.formato
 start_time = cmd_args.starttime
 filter_high = cmd_args.filterhigh
@@ -3010,6 +2985,7 @@ output_table.write(outfile, format="csv", overwrite=True)
  
 
 #    print(p, len(X))
+
 
 
 
@@ -3232,4 +3208,6 @@ for s in stations:
             plt.savefig("./TEC_power_spectrum/"+date+"/{}-PRN{}-contour.pdf".format(s, p))
         else:
             plt.savefig("./TEC_power_spectrum/"+date+"/{}-PRN{}.pdf".format(s, p))
+
+
 #+END_SRC

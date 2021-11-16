@@ -5,8 +5,8 @@ import statistics as stats
 import argparse
 
 # objetivo del programa: Obtener la curva TEC vs tiempo en diferentes fechas previas al evento
-# para una misma estación y obtener ~~un promedio~~ la mediana del comportamiento del TEC y restarlo a los datos
-# Observar si hay alguna fluctución inusual que sería nuestra detección.
+# para una misma estaciÃ³n y obtener ~~un promedio~~ la mediana del comportamiento del TEC y restarlo a los datos
+# Observar si hay alguna fluctuciÃ³n inusual que serÃ­a nuestra detecciÃ³n.
 
 
 parser = argparse.ArgumentParser(

@@ -6,7 +6,7 @@
 % text too large so this should be consulted only in case of neccesity
 
 \section{Estimation of distances to meteors}
-
+\label{app:distance}
 The distance between the GOES satellite and the meteor, neccesary to estimate the radiated energy is calculated as follows:
 
 \begin{align}
@@ -48,8 +48,26 @@ Since $r_{GLM}$ and $r_{obj}$ are measured from the center of the arth ge find t
 Substituting (\ref{eq:rg}, \ref{eq:ro}) into \ref{eq:R2} and considering that $h_{obj} \ll h_{GLM}$ we get:
 
 \begin{align}
-  R^2 = 2r_{earth}^2\left(1-f(\theta_{obj}, \phi_{obj}, \phi_{GLM})\right) +2r_{earth}h_{GLM}\left(1-f(\theta_{obj}, \phi_{obj}, \phi_{GLM})\right) + h_{GLM}^2 - 2h_{GLM}h_{obj}f(\theta_{obj}, \phi_{obj}, \phi_{GLM})
+  \begin{split}
+    R^2 = 2r_{earth}^2\left(1-f(\theta_{obj}, \phi_{obj}, \phi_{GLM})\right) +2r_{earth}h_{GLM}\\
+    \left(1-f(\theta_{obj}, \phi_{obj}, \phi_{GLM})\right) + h_{GLM}^2 - 2h_{GLM}h_{obj}f(\theta_{obj}, \phi_{obj}, \phi_{GLM})
+    \end{split}
 \end{align}
 
+\section{Energy estimation}
+\label{app:energy}
+The total radiant energy emmited is calculated integrating over all the time and all directions. The first is obtained simply summing all the light curve points. In the other hand, to integrate over all directions, we multiply the GLM event energies by the factor (\SI{1.695e18}{})(\SI{1.018e3}{})$\left(\frac{R}{35780~km}\right)^2$ \citep{Jenniskens:2018}. This factor also considers that the GLM only detects light from the OI line. Then, we obtain the luminous efficiency $\tau_1$ (i.e the fraction of the total energy converted into radiation) following \citet{Brown:2002}:
+\begin{align}
+  \tau_1 = (0.1212\pm 0.0043)E_0^{0.115\pm 0.075}
+\end{align}
 
-\section{Useful databases}
+Where $E_0$ is the luminous energy calculated from integrating GLM reported energies (in kilotons). Finally the total estimated energy is $E = E_0/\tau_1$. We may compare the resulting GLM energies with the energies reported by USG sensors using the events which belong to both samples, and we noticed that the energies obtained with GLM data is systematically lower than the energies reported by the USG sensors. In this work we assumed that this discrepancy is due to the GLM sensors does not detect the full meteor paths, just a fraction of the total radiated energy. To solve this problem we made a linear fit between the derived energies and the energies reported in the USG sample for the events which appear in both samples, and recallibrate the energies of the rest of the GLM sample. The linear fit is shown in figure \ref{fig:lin_fit}. We used the linear fit slope as the recallibration factor and the residuals as the error, we neglected the y-intercept term because this term is much larger than the most energies in the GLM sample and strongly affects the recallibrated energy.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\linewidth]{../energy_fit}
+  \caption{Left: Linear fit between energies calculated from GLM data and energies reported by USG sensors. Right: Residuals of the fit, used as error in the recallibration factor. The three events used for this linear fit are GLM-00 (the cuban meteoroid), GLM-23 and GLM-Ven (Venezolan meteoroid).}
+  \label{fig:lin_fit}
+\end{figure}
+
+
