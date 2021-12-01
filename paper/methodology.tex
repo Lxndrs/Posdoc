@@ -107,7 +107,8 @@ USG-10 & 2020-04-28    & 05:43:17         &      &         &           &        
 \label{ssec:GPS}
 %This material is based on services provided by the GAGE Facility, operated by UNAVCO, Inc., with support from the National Science Foundation and the National Aeronautics and Space Administration under NSF Cooperative Agreement EAR-1724794.
 
-%We got RINEX data from 3 to 7 stations depending of the event location and data availability that surround the event place in all directions as possible. A list of the stations where we got RINEX data is available in table \ref{tab:table-stations}. Most of the stations lie in mexican territory, but in some cases we required data from other stations to cover events near the mexican frontier at north or south.
+We got RINEX data from 3 to 7 stations depending of the event location and data availability that surround the event place in all directions as possible. A list of the stations where we got RINEX data is available in table%\ref{tab:table-stations}
+. Most of the stations lie in mexican territory, but in some cases we required data from other stations to cover events near the mexican frontier at north or south.
 
 %\clearpage
 %\onecolumn
@@ -277,7 +278,7 @@ USG-10 & 2020-04-28    & 05:43:17         &      &         &           &        
 %  \clearpage
 %  \twocolumn
 
-%  The obtained RINEX files are compressed in Hatanaka format, developed at the Geographical Survey Institute by Y. Hatanaka \citep{Kumar:2012}. From this files we may estimate the Slant Total Electron Content (sTEC) and the Vertical Total Electron Content (vTEC) which may be computed in the following way:
+  The obtained RINEX files are compressed in Hatanaka format, developed at the Geographical Survey Institute by Y. Hatanaka \citep{Kumar:2012}. From this files we may estimate the Slant Total Electron Content (sTEC) and the Vertical Total Electron Content (vTEC) which may be computed in the following way:
 
   The Total Electron content along the integrated path of the link $(s_i)$ at the frequency $f_i$ can be inferred from the phase delay $L_i$ of the frequency $f_i$ \citep{Emery:2017}:
   \begin{align}
@@ -302,7 +303,13 @@ USG-10 & 2020-04-28    & 05:43:17         &      &         &           &        
 
   Where $R_E$ is the Earth radius in km and $h=\SI{350}{km}$ is the ionospheric shell above the earth's surface.
 
-  Both parameters sTEC and vTEC are computed using a software developed by Gopi K. Seemala, publicly available at \url{https://seemala.blogspot.com/}.
+  % Both parameters sTEC and vTEC are computed
+ Using a software developed by Gopi K. Seemala, publicly available at \url{https://seemala.blogspot.com/}, we computed the slant TEC (TEC) and vertical TEC (vTEC) for a several number of GPS satellites, each one identified with a PseudoRandom Noise code (PRN). For each station, we filtered all the PRN and data that lie in a window of 30 minutes around the time the event was reported. Then we estimated the signal trend using a Savitsky-Golay filter and substracting the original signal from the trend.
+
+  
+ 
+  
+  \subsection{Wavelet analysis}
 
   
 %For the selected sample, we obtained RINEX data from the TlalocNet \citep{Cabral-Cano:2018} and UNAVCO network databases to study potential alterations in the ionospehre due to the presence of the passing meteor at the day the meteor was reported. For each event, we downloaded data from stations that surrounds the place where the event was detected (usually 3 to 5 stations. )The list of the sample meteors is shown in table \ref{tab:table-meteors}. The events are in chronological order. The reported duration, latitude and longitude correspond to the mean between measurements from satellites GOES-16 and GOES 17; in the same way, the uncertainties correspond to the standard deviation. Also their respective positions are available in figure \ref{fig:meteors-map}, where each label correspond to the ID (first column) of table \ref{tab:table-meteors}.

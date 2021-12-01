@@ -18,7 +18,6 @@
 + Press C-c C-x C-c for full view. Press q in highlighted text to return to normal
 + Press C-x spc for selecting a rectangle
 + Important note: Some events may be repeated
-
 ** GLM database						
 + List of constants:
   - Re: Radius of earth (in km)
@@ -135,88 +134,51 @@ Lon:
 | USG-09 | 2019-06-22 |        21:25:48 |    14.9 |    -66.2 |     14.9 | -13.4 |  6.0 | 2.5 |         25.0 |            294.7e10 |                6.0 |
 | USG-10 | 2020-04-28 |        05:43:17 |    20.1 |   -109.4 |          |       |      |     |              |              2.1e10 |              0.076 |
 
-* TODO list
-** Work
-  - [X] upload journal.org to github
-  - [X] Obtain relevant statistical parameters and graphs
-    - [X] Average duration of events (and std)
-    - [X] dispersion of latitude and longitude
-  - [-] Plot positions of events in a map
-    - [X] Add ID numbers to events
-    - [ ] More aestetic improvements
-    - [X] Add to paper
-  - [X] Update table in paper
-  - [-] Work in presentation
-    - [X] General structure
-    - [X] Work in individual sections
-      - [X] Introduction
-      - [X] Database
-      - [X] Preliminary results
-      - [X] Future Work
-    - [X] Table(s) with GPS stations
-    - [X] TEC maps like Chelyabinsk paper
-      - [X] Add title, labels and other improvements
-      - [X] Deal with No data rows.
-      - [X] Download and process with GPS Gopi the remaining events
-      - [X] Latitude vs time plots
-      - [X] Include previous and next day data
-      - [X] Add start time to second panel
-    - [X] Get Kp index data
-      - [X] Code to plot Kp index for desired dates
-      - [X] Obtain graphs for meteors sample
-    - [X] Correct typos in meteors data
-    - [ ] Work in wavelet transforms
-      - [ ] Study paper
-      - [ ] Adapt code to our work
-    - [-] Compute meteor trajectories with GLM data
-      - [X] Download GLM data
-      - [X] Plot trajectory into vTEC maps
-	- [X] Use stereo data. Use mean for position and standard deviation for error margins
-      - [ ] Discard events where the Kp index is too high
-      - [ ] Identify ionospheric perturbations in vTEC maps
-    - [ ] Try solutions of the 2D wave equation in polar coordinates.
-    - [X] Include enrgy otput to meteors table and send to Raul
-    - [X] Estimate break point height (taken from bolides descriptions)
-    - [X] Fill stations table in paper and give format
-    - [ ] Improve quality
-    - [ ] Write about meteor properties and the othe stuff i wrote in my report
-    - [X] Correct table
-    - [ ] Work in graphs TEC vs time and Dst index vs time
-    - [ ] Use vTEC data to estimate some scintillation parameter
-    - [ ] Create figure where GOES-16 and GOES-17 area coverage is shown
-    - [ ] Insert citations where needed
-    - [ ] Compute ROTI by downloading 1 Hz data
-    - [ ] Use sTEC maps along with vTEC maps
-    - [X] Compure rTEC instead of vTEC
-    - [ ] Make a new sample with AMS events
-    - [ ] Make a sample with USG events
-    - [ ] Plot energies vs time (events dates)
-    - [ ] Plot Kp index vs time (events dates)
-      
-** DONE Documentos para ingreso al SNI
-   - [ ] Publicaciones
-   - [X] Documentación que pruebe que impartí clases en:
-     - [X] Liceo
-     - [X] ENES
-** TODO Documentos renovación posdoc
-- [X] Formato de solicitud de beca
-  - [X] Datos
-  - [X] Resumen
-  - [X] Firmas
-- [-] Justificación académica
-  - [X] Redaccion
-  - [ ] Firmas
-- [-] Informe del trabajo realizado
-  - [X] Redaccion
-  - [ ] Firmas
-- [-] Proyecto de investigación que se realizará en el nuevo periodo
-  - [X] Formato
-  - [ ] Firmas
-- [-] Programa de actividades con cronograma
-  - [X] Cronograma
-  - [ ] Firmas
-- [X] Copia de los avances de productos obtenidos hasta el momento de la solicitud de renovación.
-- [X] Copia de los manuscritos de los productos obtenidos hasta el momento. (O bien especificar razones por las que no se han enviado y fecha probable de envio)
+** Detrended data for combined Sample
+
+| ID     |       Date | GPS Data | Correct Detrending |
+|--------+------------+----------+--------------------|
+| USG-04 | 2000-01-18 |          |                    |
+| USG-05 | 2000-08-25 |          |                    |
+| USG-06 | 2005-11-15 |          |                    |
+| USG-07 | 2015-07-19 |          |                    |
+| USG-08 | 2019-02-01 | OK       | OK                 |
+| GLM-01 | 2019-05-23 | OK       | OK                 |
+| USG-09 | 2019-06-22 | OK       | OK                 |
+| GLM-02 | 2019-07-18 | OK       | OK                 |
+| GLM-03 | 2019-08-10 | OK       | OK                 |
+| GLM-04 | 2019-10-03 | OK       | OK                 |
+| GLM-05 | 2019-10-09 | OK       | OK                 |
+| GLM-06 | 2019-11-16 | OK       | OK                 |
+| GLM-07 | 2019-11-17 | OK       | OK                 |
+| GLM-08 | 2019-11-19 | OK       | OK                 |
+| GLM-09 | 2019-11-26 | OK       | OK                 |
+| GLM-10 | 2019-12-04 | --       | --                 |
+| GLM-11 | 2019-12-15 | OK       | OK                 |
+| GLM-12 | 2019-12-29 | OK       |                    |
+| GLM-13 | 2020-01-03 | OK       |                    |
+| GLM-14 | 2020-01-06 | OK       |                    |
+| GLM-15 | 2020-01-15 | OK       |                    |
+| GLM-16 | 2020-02-12 | OK       |                    |
+| GLM-17 | 2020-03-03 | OK       |                    |
+| GLM-18 | 2020-03-31 | OK       |                    |
+| GLM-19 | 2020-04-08 | OK       |                    |
+| GLM-20 | 2020-04-18 | OK       |                    |
+| GLM-21 | 2020-04-20 | OK       |                    |
+| GLM-22 | 2020-04-25 | OK       |                    |
+| GLM-23 | 2020-04-28 | OK       |                    |
+| GLM-24 | 2020-05-08 | OK       |                    |
+| GLM-25 | 2020-07-15 | OK       |                    |
+| GLM-26 | 2020-08-07 | OK       |                    |
+| GLM-27 | 2020-09-13 | OK       |                    |
+| GLM-28 | 2020-09-30 | OK       |                    |
+| GLM-29 | 2020-11-16 | OK       |                    |
+| GLM-30 | 2020-11-17 | OK       |                    |
+| GLM-31 | 2020-12-19 | OK       |                    |
+| GLM-32 | 2020-12-23 | OK       |                    |
+| GLM-33 | 2020-12-29 | OK       |                    |
+| GLM-34 | 2021-03-31 | OK       |                    |
+
 * UNAVCO Data users resposibilities
 Responsibilities of the data users when writing scientiﬁc publications include the following: Data users that are identiﬁed in 
 the archive (i.e., UNAVCO) as part of an ongoing project should always consult the appropriate PI for permission. *If the data 
@@ -295,6 +257,9 @@ Kyoto 606-8502, JAPAN
   {: U-007B
   }: U-007D
 
+** Useful scipts
++ Here I will put all the scripts which resulted useful
+
 #+NAME: plot_mex_map
 #+BEGIN_SRC python :eval no :tangle ./plot_meteors.py
 
@@ -356,6 +321,695 @@ ax.set_aspect('equal', adjustable='box')
 plt.savefig("meteors_map.pdf")
 
 #+END_SRC 
+
+#+NAME: Kp_index
+#+BEGIN_SRC python :eval no :tangle ./Kp-index.py
+
+  import numpy as np
+  import matplotlib.pyplot as plt
+  import argparse
+
+  # Get and plot planetary K index for a determined set of dates
+
+  parser = argparse.ArgumentParser(
+	description=""" Choose a file to work""")
+
+
+  parser.add_argument('--date', type=str, default='2000-01-01',
+			help='Choose date. Format: yyyy-mm-dd')
+
+  parser.add_argument('--datep', type=str, default='2000-01-01',
+			help='Choose date. Format: yyyy-mm-dd')
+
+  parser.add_argument('--datepp', type=str, default='2000-01-01',
+			help='Choose date. Format: yyyy-mm-dd')
+
+
+  parser.add_argument("--ftpfile", type=str, default="", 
+		      help="choose the file with the corresponding Kp index data")
+
+
+  #Capture data from command line
+
+  cmd_args = parser.parse_args()
+  date = cmd_args.date
+  datep = cmd_args.datep # Previous day to impact date
+  datepp = cmd_args.datepp # 2 days before impact date
+  year = date.split("-")[0]
+  ftpfile = year+cmd_args.ftpfile+"_DGD.txt"
+
+  # Read and load data from Kp index text file
+
+  f = open(ftpfile, "r")
+
+  ## Skip first 12 rows
+
+  f.readline()
+  f.readline()
+  f.readline()
+  f.readline()
+  f.readline()
+  f.readline()
+  f.readline()
+  f.readline()
+  f.readline()
+  f.readline()
+  f.readline()
+  f.readline()
+
+  ## Load data
+
+  raw_data = f.readlines()
+
+  # Select desired dates from the whole data
+
+  kp = []
+
+  for d in raw_data:
+      k_date = d.split()[0:3]
+      kdate = k_date[0]+"-"+ k_date[1]+"-"+k_date[2]
+      if((kdate==date)|(kdate==datep)|(kdate==datepp)):
+	 kp.append(d.split()[-8:])
+
+
+  # Reshape array to be unidimensional
+
+  Kp = np.array(kp).reshape(24,)
+
+  # Convert array elements from strings to integers
+
+  Kp = [int(k) for k in Kp]
+
+  # Start plotting. The output will be a bar graph
+
+  ## Set x coords
+
+  x = np.arange(len(Kp))
+
+  ## Plot bar graph
+  bar = plt.bar(x, Kp, width=0.5)
+
+  ## Set graph limits
+  plt.xlim(-0.5, 24)
+  plt.ylim(0, 9)
+
+  ## Set ticks in both axis
+
+  plt.xticks([0, 7.5, 15.5], [datepp, datep, date])
+  plt.yticks(np.arange(10))
+
+  ## Set vertical lines at the beginning of each day (00:00 UTC)
+
+  plt.axvline(x=7.5, ls="--", c="k")
+  plt.axvline(x=15.5, ls="--", c="k")
+
+
+  ## Set different color to bars according to Kp index value
+
+  for i in range(24):
+      if Kp[i]==4:
+	 bar[i].set_color("y")
+      elif Kp[i] > 4:
+	 bar[i].set_color("r")
+      else:
+	 bar[i].set_color("g")
+
+  ## Set label to axis and graph title
+
+  plt.ylabel("Kp Index")
+  plt.title("Estimated Planetary K Index (3 hours data). Begin {} UTC".format(datepp))
+
+  # Save graph
+
+  plt.savefig("./Kp index/"+date+" Kp index.pdf")
+
+#+END_SRC
+
+#+NAME Energy Factor
+#+BEGIN_SRC python :eval no :tangle ./energy_factor.py
+
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# The goal of this program is to estime the discrepancy factor between GLM energy estimations
+# and the energy estimations by USG instruments in order to calibrate uncertainties to other
+# events only registered by the GLM. For this we will make a linear fit between GLM and USG
+# energies for events where data is available in both the GLM website and CNEOS fireballs website
+# (Only three events meet this criteria: GLM-00, GLM-23 and GLM-Ven).
+# The slope will be the correction factor and the residuals the uncertainties. 
+
+sns.set_style("whitegrid")
+
+# insert meteor energies
+
+GLM_energies = np.array([1.0763569, 0.065099193, 3.1305469])
+USG_energies = np.array([1.4, 0.076, 6])
+
+GLM_uncertainties = np.array([0.18966796, 0.026813257, 0.28006880])
+weights = 1./(1+GLM_uncertainties)
+
+# Do the fit: p is an array with the fit coefficients, res is the residuals, rank, single values 
+# and rcond are other outputs not used
+p, res, rank, s_values, rcond = np.polyfit(GLM_energies, USG_energies, 1, w=weights, full=True)
+
+# make a linar polynomial with the coefficients
+poly = np.poly1d(p)
+#poly_plus = np.poly1d([p[0]+res[0], p[1]])
+#poly_minus = np.poly1d([p[0]-res[0], p[1]])
+
+# make the plot
+f = plt.figure()
+ax1 = f.add_subplot(1, 2, 1)
+ax2 = f.add_subplot(1, 2, 2)
+ax1.errorbar(GLM_energies, USG_energies, xerr=GLM_uncertainties, fmt="g.", label="data points")
+ax1.plot(GLM_energies, poly(GLM_energies), "k-", label="linear fit")
+#ax1.set_xlabel("Meteor estimated kinetic energy by GLM (kilotons)", fontsize="small")
+ax1.set_ylabel("Meteor estimated kinetic energy by USG sensors (kilotons)", fontsize="small")
+ax1.text(0, 6.5, r"Linear fit: $y={:.3f}x - {:.3f}$".format(p[0], np.abs(p[1])), fontsize="small")
+ax2.plot(GLM_energies, USG_energies-poly(GLM_energies), "go")
+ax2.plot([GLM_energies[0], GLM_energies[0]], [0, USG_energies[0]-poly(GLM_energies[0])], "b--")
+ax2.plot([GLM_energies[1], GLM_energies[1]], [0, USG_energies[1]-poly(GLM_energies[1])], "b--")
+ax2.plot([GLM_energies[2], GLM_energies[2]], [0, USG_energies[2]-poly(GLM_energies[2])], "b--")
+ax2.text(0, 1.05, "residuals (squares sum) = {:.4f}".format(res[0]), fontsize="small")
+ax2.axhline(y=0, color="k")
+ax2.set_ylim(-1, 1)
+#ax2.set_xlabel("Meteor estimated kinetic energy by GLM (kilotons)", fontsize="small")
+ax2.set_ylabel("Residuals")
+f.text(0.5, 0.01, "Meteor estimated kinetic energy by GLM (kilotons)", ha='center', fontsize="small")
+#plt.fill_between(GLM_energies, poly_minus(GLM_energies), poly_plus(GLM_energies), color="r", alpha = 0.2)
+#plt.plot(GLM_energies, poly_minus(GLM_energies), "r--", alpha=0.2)
+#plt.plot(GLM_energies, poly_plus(GLM_energies), "r--", alpha=0.2)
+#plt.legend()
+f.tight_layout()
+plt.savefig("energy_fit.pdf")
+#+END_SRC
+
+#+NAME Energy vs time
+#+BEGIN_SRC python :eval no :tangle ./energy_time.py
+
+import numpy as np
+import matplotlib.pyplot as plt
+from astropy.table import Table
+import seaborn as sns
+
+# This program pretends to plot The kinetic energy of the meteors of the sample
+# versus the respecting date.
+
+# Read meteors database table
+
+t = Table.read("meteors_database.tab", format="ascii")
+t2 = Table.read("USG_meteors_database.tab", format="ascii")
+# extract relevant data
+
+ID , date, energy = t["ID"], t["Fecha"], t["Total energy recallibrated (kT)"]
+ID_USG, date_USG, energy_USG = t2["ID"], t2["Fecha"], t2["Energia total (kT)"]
+energy_arr = []
+de = []
+
+for e in energy:
+    a, b = e.split("+/-")
+    energy_arr.append(float(a))
+    de.append(float(b))
+
+
+# Make Boxplot (with whiskers)
+sns.set_style("whitegrid")
+GLM_energy = np.array(energy_arr)
+USG_energy = t2["Energia total (kT)"]
+
+plt.boxplot([GLM_energy, USG_energy], showfliers=False, patch_artist=True, 
+             boxprops=dict(facecolor="red", color="red", alpha=0.5),         
+             whiskerprops=dict(color="red"),
+             capprops=dict(color="red"), 
+             medianprops=dict(color="blue"))
+plt.xticks([1, 2], ["GLM", "USG"])
+plt.xlabel("Meteors sample")
+plt.ylabel("Total energy (kT)")
+plt.title("Meteors energy distribution (outliers removed)")
+plt.savefig("energies_boxplot.pdf")
+#+END_SRC
+
+#+NAME TEC Detrender
+#+BEGIN_SRC python :eval no :tangle ./TEC_detrender.py
+
+import numpy as np
+from astropy.table import Table
+import argparse
+import glob 
+import matplotlib.pyplot as plt
+from scipy.interpolate import interp1d
+from scipy.signal import savgol_filter as savitsky
+from scipy.stats import mode
+
+# The goal of this progrma is to get detrended time series TEC curves using the method
+# Described by Pradipta et al. 2015. We expect that the resulting detrended TEC data show
+# ionospheric perturbations in our dataset.
+
+
+def next_contact_point(x, y, x0, y0):
+    """
+    Estimate the next contact point into the Barrell roll curve (BRC)
+    inputs:
+    x: scaled time.
+    y: scaled vTEC
+    x0: x pivot point
+    y0: y pivot point
+    output:
+    (xf, yf): coordinates of the next contact point
+    """
+    # Define region of interest
+    R0 = 1 # Radius of the barrell roll. Unitary radius works pretty well
+    ROI = (x > x0) & (x < x0 + 2*R0)
+    # Delta_x and delta_y are the separation between the elements which belong to the ROI and (x0, y0)
+    delta_x = x[ROI]-x0
+    delta_y = y[ROI]-y0
+    
+    try:
+        # calculating important angles
+        theta = np.arctan2(delta_y, delta_x)
+        cos_alpha = np.sqrt(delta_x**2 + delta_y**2)/(2*R0) 
+        delta = np.arcsin(cos_alpha) - theta
+        # Selecting the Next Contact Point (NCP)
+        NCP = delta == min(delta) # The next contact point has the smallest angular distance delta
+        xf, yf = x0+delta_x[NCP][0], y0+delta_y[NCP][0]
+    except ValueError: # this happens because ROI is empty
+        xf, yf = x[~ROI & (x>x0)][0], y[~ROI & (x>x0)][0] #The element we will use as next contact point
+                                                          # is the first outside the ROI and greater than x0
+    return xf, yf
+
+def free_dep_signal(brc_x, brc_y, x, y):
+    """
+    Create the free depletion signal.
+    Inputs:
+    (brc_x, brc_y): Barrel roll curve coordinates
+    (x, y): TEC curve 
+    output:
+    (xf, yf): free depletion signal
+    """
+    delta_1, delta_2 = 1, 3
+    BRC_plus = brc_y + delta_1
+    BRC_minus = brc_y - delta_2
+    int_bplus = interp1d(brc_x, BRC_plus)
+    int_bminus = interp1d(brc_x, BRC_minus)
+    mask = (y < int_bplus(x)) & (y> int_bminus(x))
+    xf, yf = x[mask], y[mask]
+    return xf, yf
+
+# ************************** Get window size for Savitzky-Golay Filter ************************
+
+def get_window_size(x):
+    """
+    Get window size for the Savitzky-Golay filter. Must be an *odd* integer.
+    This module basically substracts 1 if x is an even number and keeps the number if x is odd
+    the output number is integer
+    """
+    return int(2*np.ceil(x/2.)-1)
+
+def discontinuity(x):
+    """
+    Find discontinuities in any array
+    """
+    x_gradient = np.gradient(x)
+    dx_mode = mode(x_gradient)[0][0]
+    for dx in x_gradient:
+        if dx > 2*dx_mode:
+            flag = True
+            break
+        else:
+            flag = False
+    return flag
+
+# **************************** Split discontine PRN *******************************************
+
+def split_PRN(t, TEC):
+    """
+    Split a discontinuos PRN into pieces and return the biggest ones
+    inputs:
+    t, TEC: arrays to be split. t --> time , TEC --> vTEC
+    outputs:
+    output_t, output_TEC --> 2D arrays which contain the fragmented curve
+    """
+
+    index_discontinuity =[]
+    gradient_t = np.gradient(t)
+    for i, dt in enumerate(gradient_t):
+        if dt > 0.01: # 0.01 is like 10 times the regular GPS frequency
+            index_discontinuity.append(i) # collect the indices where time gradient is big enough
+    split_t = np.split(t, index_discontinuity)
+    split_TEC = np.split(TEC, index_discontinuity)
+    output_t = []
+    output_TEC =[]
+    for s, tec in zip(split_t, split_TEC):
+        if len(s) > 20: #if the subarray contain too few elements will be discarded
+            output_t.append(s)
+            output_TEC.append(tec)
+    return output_t, output_TEC
+
+# *************************** Read inputs from command line ***********************************
+
+parser = argparse.ArgumentParser(
+    description=""" Choose a file to work""")
+
+
+parser.add_argument('--date', type=str, default='2000-01-01',
+			       help='Choose date. Format: yyyy-mm-dd')
+
+#parser.add_argument("--formato", type=str, default="pdf", choices=("pdf", "png", "jpg"), 
+#                                help="Choose output format")
+parser.add_argument("--starttime", type=str, default="00:00:00", help="Select the event start time")
+parser.add_argument("--filterhigh", type=float, default=30, 
+                     help="Filter the upper time interval of the TEC curve (in ninutes)")
+parser.add_argument("--filterlow", type=float, default=10, 
+                     help="Filter the lower time interval of the TEC curve (in ninutes)")
+
+cmd_args = parser.parse_args()
+date = cmd_args.date
+#formato = cmd_args.formato
+start_time = cmd_args.starttime
+filter_high = cmd_args.filterhigh
+filter_low = cmd_args.filterlow
+
+# ****************************** Read data file ************************************************
+
+directory = "./data/"+date
+files = glob.glob(directory+"/*.Cmn")
+
+# f = open("./data/2019-02-01/unpm032-2019-02-01.Cmn") # Test file until the program works
+
+# ******************************* Set final output lists ******************************************
+
+stations = []
+final_time = []
+final_PRN = []
+final_lat = []
+final_lon = []
+final_vTEC = []
+
+
+for File in files:
+    f = open(File, "r")
+    for i in range(4):
+        f.readline()
+
+    raw_data = f.readlines()
+
+# ****************************** Extract relevant information ***********************************
+    station = File[-22:-18] # Extract station name from file name(This should work in both
+                                          # windows and linux)
+    data = Table.read(raw_data, format="ascii")
+    hr, minute, sec = start_time.split(":")
+    time_hours = float(hr)+float(minute)/60. + float(sec)/3600.
+    time = data["Time"]
+    vTEC = data["Vtec"]
+    PRN = data["PRN"]
+    latitude = data["Lat"]
+    longitude = data["Lon"] -360.
+    time_corrector = time < 0
+    time[time_corrector] = time[time_corrector] + 24.0
+    tau_0, zeta_0 = 2.0, 40.0
+    prn_array = np.unique(PRN)
+    time_mask = (time < time_hours + filter_high/60.) & (time > time_hours-filter_low/60.)
+#selected_time = time[time_mask]
+#selected_TEC = vTEC[time_mask]
+
+
+# ******************************* Start loop over PRNs ********************************************
+
+    for p in prn_array:
+        PRN_mask = PRN == p
+        filtered_time = time[PRN_mask & time_mask]
+        filtered_TEC = vTEC[PRN_mask & time_mask]
+        filtered_lat = latitude[PRN_mask & time_mask]
+        filtered_lon = longitude[PRN_mask & time_mask]
+        if len(filtered_time) < 20: # TEC series with too few data will be considered "empty"
+            continue
+
+# ******************************* Split the signal into fragments *********************************
+
+        S_time, S_TEC = split_PRN(filtered_time, filtered_TEC)
+        S_time, S_lat = split_PRN(filtered_time, filtered_lat)
+        S_time, S_lon = split_PRN(filtered_time, filtered_lon)
+#test plot
+        for s, tec, la, lo in zip(S_time, S_TEC, S_lat, S_lon):
+#        plt.plot(s, tec, "b.")
+# ******************************* Start making BRC ***********************************************
+            X, Y = s/tau_0, tec/zeta_0
+            x_0, y_0 = X[0], Y[0]
+            BRC_x = [x_0]
+            BRC_y = [y_0]
+            while(x_0 < X[-1]):
+                xn, yn = next_contact_point(X, Y, x_0, y_0)
+                BRC_x.append(xn)
+                BRC_y.append(yn)
+                x_0, y_0 = xn, yn
+
+# ********************************** Making free deptetion signal ********************************
+# Return to the TEC-time space
+            brc_t, brc_vt = np.array(BRC_x)*tau_0, np.array(BRC_y)*zeta_0
+#        fdp_vt = interp1d(brc_t, brc_vt) # The free depletion signal may be an interpolation of the BRC
+            fdp_x, fdp_y = free_dep_signal(brc_t, brc_vt, s, tec)  
+#        plt.plot(brc_t, brc_vt, "r*")
+#        plt.plot(fdp_x, fdp_y)
+#        plt.plot(s, fdp_vt(s))
+# ********************************** Get trend using Savitzky-Golay filter **************************
+            y_trend = savitsky(tec, window_length=get_window_size(len(tec)), polyorder=7)
+            residuals = np.sum((y_trend-tec)**2)/len(tec)
+#            ord=ord+1
+            plt.plot(s, y_trend, "r--", label="Trend")
+#        print(residuals)
+# *********************************** Detrend signal and plot undetrended signal and trend************
+            det_signal = tec - y_trend
+            plt.plot(s, tec, label="original signal")
+            plt.axvline(time_hours, c="k", ls="--")
+            plt.xlabel("UT (hours)")
+            plt.ylabel("vTEC (TECU)")
+            plt.legend()
+            plt.title("{} PRN{}. Date: {}".format(station, p, date))
+            plt.savefig("./data/"+date+"/trends/{}-{}.pdf".format(station, p))
+            plt.clf()
+            for ft, flat, flon, d in zip(s, la, lo, det_signal): # Fill output lists
+                final_vTEC.append(d)
+                final_time.append(ft)          
+                final_PRN.append(p)
+                final_lat.append(flat) 
+                final_lon.append(flon) 
+                stations.append(station)
+
+# ***************************** Mask positions and save data to file *******************************
+
+
+output_table = Table([stations, final_time, final_PRN, final_lat, final_lon, final_vTEC], names=("Station", "Time", "PRN", "Latitude", "Longitude", "vTEC"))
+outfile = directory+"/detrended_TEC.csv" #File.replace("Cmn", "csv")
+output_table.write(outfile, format="csv", overwrite=True)
+
+#+END_SRC
+
+#+NAME TEC grid maps
+#+BEGIN_SRC python :eval no :tangle ./TEC_grid_maps.py
+
+import numpy as np
+from scipy.interpolate import griddata
+import pandas as pd
+import matplotlib.pyplot as plt
+import shapefile as shp
+from plotfullmap import plot_map
+import matplotlib.cm as cm
+import argparse
+
+parser = argparse.ArgumentParser(
+    description=""" Choose a file to work""")
+
+
+parser.add_argument('--date', type=str, default='2000-01-01',
+			       help='Choose date. Format: yyyy-mm-dd')
+
+
+cmd_args = parser.parse_args()
+date = cmd_args.date
+
+directory = "./data/"+date
+
+df = pd.read_csv(directory+"/detrended_TEC.csv")
+#print(df.head(10))
+#print(df.keys())
+latitude = df["Latitude"]
+longitude = df["Longitude"]
+det_TEC = df["vTEC"]
+
+xmin, ymin = min(longitude), min(latitude)
+xmax, ymax = max(longitude), max(latitude)
+res = 0.2
+Nx, Ny = (xmax-xmin)/res, (ymax-ymin)/res
+grid_x, grid_y = np.mgrid[xmin:xmax:Nx*1j, ymin:ymax:Ny*1j]
+
+fig =plt.figure()
+
+# Read and plot shape file of Mexico map
+sf = shp.Reader("map.shp")
+plot_map(sf)
+
+#Plot GLM trajectories
+
+data_16 = pd.read_csv(directory+"/GLM/GLM-16-data.csv", header=9)
+data_17 = pd.read_csv(directory+"/GLM/GLM-17-data.csv", header=9)
+
+plt.plot(data_16["longitude"], data_16["latitude"], "r.")
+plt.plot(data_17["longitude"], data_17["latitude"], "r.")
+
+
+# Plot event position
+
+event = pd.read_csv("GLM-database.csv")
+mask = event["Fecha"] == date
+event_lat = event["Latitud"][mask]
+event_lon = event["Longitud"][mask]
+event_ID = str(event["ID"][mask])
+#event_lat, event_lon =  22.5, -83.8
+plt.plot(event_lon, event_lat, "m*")
+plt.annotate(event_ID, (event_lon, event_lat), textcoords="offset points", color="w", fontsize="small",
+    xytext=(10, 10), ha="center", bbox=dict(boxstyle="round", pad=0.5, fc="m", alpha=0.7))
+
+#vx, vy = -2.4, 13.6
+#height = 23.7 
+
+
+points = []
+for x, y in zip(longitude, latitude):
+    points.append([x, y])
+
+#grid_z0 = griddata(points, det_TEC, (grid_x, grid_y), method="nearest")
+#grid_z1 = griddata(points, det_TEC, (grid_x, grid_y), method="linear")
+grid_z2 = griddata(points, det_TEC, (grid_x, grid_y), method="cubic")
+
+#plt.subplot(221)
+#plt.imshow(grid_z0.T, extent=(xmin, xmax, ymin, ymax), origin="lower")
+
+#plt.subplot(222)
+#plt.imshow(grid_z1.T, extent=(xmin, xmax, ymin, ymax), origin="lower")
+
+#plt.subplot(223)
+im = plt.imshow(grid_z2.T, extent=(xmin, xmax, ymin, ymax), origin="lower")
+
+cbar = plt.colorbar(im)
+cbar.set_label("Delta vTEC (TECU)")
+plt.title("Detrended TEC for 1 station for 2019-02-01")
+plt.gcf().set_size_inches(6, 6)
+outdir = "./TEC_grid_maps/"
+plt.savefig(outdir+date+"_TEC_map.pdf")
+#+END_SRC
+
+#+NAME TEC_series
+#+BEGIN_SRC python :eval no :tangle ./TEC_series.py
+import pandas as pd
+import argparse 
+import numpy as np
+import matplotlib.pyplot as plt
+
+parser = argparse.ArgumentParser(
+    description=""" Choose a file to work""")
+
+
+parser.add_argument('--date', type=str, default='2000-01-01',
+			       help='Choose date. Format: yyyy-mm-dd')
+
+
+parser.add_argument("--starttime", type=str, default="00:00:00", help="Select the event start time")
+parser.add_argument("--filterhigh", type=float, default=30, 
+                     help="Filter the upper time interval of the TEC curve (in ninutes)")
+parser.add_argument("--filterlow", type=float, default=10, 
+                     help="Filter the lower time interval of the TEC curve (in ninutes)")
+
+cmd_args = parser.parse_args()
+date = cmd_args.date
+start_time = cmd_args.starttime
+filter_high = cmd_args.filterhigh
+filter_low = cmd_args.filterlow
+
+infile="./data/"+date+"/detrended_TEC.csv"
+
+# ****************************** Read data file ************************************************
+
+csv_file = pd.read_csv(infile)
+prn_array = np.unique(csv_file["PRN"])
+station_array = np.unique(csv_file["Station"])
+hr, minute, sec = start_time.split(":")
+time_hours = float(hr)+float(minute)/60. + float(sec)/3600.
+
+for s in station_array:
+    for p in prn_array:
+        prn_mask = csv_file["PRN"] == p
+        plt.plot(csv_file["Time"][prn_mask], csv_file["vTEC"][prn_mask], ".")
+        plt.axvline(time_hours, ls="--", c="k")
+        plt.ylim(-0.3, 0.5)
+        plt.title(s.upper()+"-PRN{}".format(p))
+        plt.savefig("./TEC_series/"+date+"/{}-TEC_series_PRN_{}.pdf".format(s, p))
+        plt.clf()
+#+END_SRC
+
+#+NAME Wavelet Power spectrum
+#+BEGIN_SRC python :eval no :tangle ./wavelet_power.py
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import argparse
+import sys
+sys.path.insert(0, "./wavelets/wave_python/")
+from waveletFunctions import wavelet, wave_signif
+import matplotlib.colors as mcolors
+
+parser = argparse.ArgumentParser(
+    description=""" Choose a file to work""")
+
+
+parser.add_argument('--date', type=str, default='2000-01-01',
+			       help='Choose date. Format: yyyy-mm-dd')
+
+parser.add_argument("--frequency", type=float, default=15,
+                      help="Sampling time (in seconds)")
+
+cmd_args = parser.parse_args()
+date = cmd_args.date
+dt = cmd_args.frequency/3600.
+
+
+directory ="./data/"+date
+infile = directory + "/detrended_TEC.csv"
+df = pd.read_csv(infile)
+stations = np.unique(df["Station"])
+levels = 10
+
+for s in stations:
+    station_mask = df["Station"] ==s
+    PRNs = np.unique(df["PRN"][station_mask])
+    for p in PRNs:
+        plt.clf()
+        print("station: {}, PRN: {}".format(s, p))
+        prn_mask = df["PRN"] ==p
+        TEC_series = df["vTEC"][station_mask & prn_mask]
+        time_series = df["Time"][station_mask & prn_mask]
+        variance = np.std(TEC_series, ddof=1)**2
+        w, periods, scales, COI = wavelet(TEC_series, dt, pad=1)
+        n = len(TEC_series)
+        dof = n - scales
+        signif = wave_signif(([variance]), dt=dt, scale=scales, sigtest=1, lag1=0, dof=dof)
+        sig95 = signif[:, np.newaxis].dot(np.ones(n)[np.newaxis, :])
+        power = np.abs(w)**2
+        sig95_norm = power/sig95
+        plt.contour(time_series, periods, sig95_norm, [-99, 1], colors=["r", "w"])
+        plt.contourf(time_series, periods, power/np.max(power), levels) # Normalized corbar to (0,1) scale
+        plt.ylim([np.min(periods), np.max(periods)])
+        plt.gca().invert_yaxis()
+        plt.fill_between(time_series, periods[-1], COI, facecolor=None, edgecolor="w", hatch="x", alpha=0.3)
+        plt.plot(time_series, COI, "w--")        
+        bar = plt.colorbar()
+        plt.title("{}-PRN{}. Date: {}".format(s, p, date))
+        plt.savefig("./TEC_power_spectrum/"+date+"/{}-PRN{}-contour.pdf".format(s, p))
+#+END_SRC
+
+** Not useful
++ Here I will put the scripts whose results were not useful for the investigation (or they became obsolete)
 
 #+NAME: plot_GPS_map
 #+BEGIN_SRC python :eval no :tangle ./plot_stations.py
@@ -867,129 +1521,6 @@ else:
         plt.savefig(out_dir+date+"-{}_map.".format(datatype)+formato)
 
 #+END_SRC 
-
-#+NAME: Kp_index
-#+BEGIN_SRC python :eval no :tangle ./Kp-index.py
-
-  import numpy as np
-  import matplotlib.pyplot as plt
-  import argparse
-
-  # Get and plot planetary K index for a determined set of dates
-
-  parser = argparse.ArgumentParser(
-	description=""" Choose a file to work""")
-
-
-  parser.add_argument('--date', type=str, default='2000-01-01',
-			help='Choose date. Format: yyyy-mm-dd')
-
-  parser.add_argument('--datep', type=str, default='2000-01-01',
-			help='Choose date. Format: yyyy-mm-dd')
-
-  parser.add_argument('--datepp', type=str, default='2000-01-01',
-			help='Choose date. Format: yyyy-mm-dd')
-
-
-  parser.add_argument("--ftpfile", type=str, default="", 
-		      help="choose the file with the corresponding Kp index data")
-
-
-  #Capture data from command line
-
-  cmd_args = parser.parse_args()
-  date = cmd_args.date
-  datep = cmd_args.datep # Previous day to impact date
-  datepp = cmd_args.datepp # 2 days before impact date
-  year = date.split("-")[0]
-  ftpfile = year+cmd_args.ftpfile+"_DGD.txt"
-
-  # Read and load data from Kp index text file
-
-  f = open(ftpfile, "r")
-
-  ## Skip first 12 rows
-
-  f.readline()
-  f.readline()
-  f.readline()
-  f.readline()
-  f.readline()
-  f.readline()
-  f.readline()
-  f.readline()
-  f.readline()
-  f.readline()
-  f.readline()
-  f.readline()
-
-  ## Load data
-
-  raw_data = f.readlines()
-
-  # Select desired dates from the whole data
-
-  kp = []
-
-  for d in raw_data:
-      k_date = d.split()[0:3]
-      kdate = k_date[0]+"-"+ k_date[1]+"-"+k_date[2]
-      if((kdate==date)|(kdate==datep)|(kdate==datepp)):
-	 kp.append(d.split()[-8:])
-
-
-  # Reshape array to be unidimensional
-
-  Kp = np.array(kp).reshape(24,)
-
-  # Convert array elements from strings to integers
-
-  Kp = [int(k) for k in Kp]
-
-  # Start plotting. The output will be a bar graph
-
-  ## Set x coords
-
-  x = np.arange(len(Kp))
-
-  ## Plot bar graph
-  bar = plt.bar(x, Kp, width=0.5)
-
-  ## Set graph limits
-  plt.xlim(-0.5, 24)
-  plt.ylim(0, 9)
-
-  ## Set ticks in both axis
-
-  plt.xticks([0, 7.5, 15.5], [datepp, datep, date])
-  plt.yticks(np.arange(10))
-
-  ## Set vertical lines at the beginning of each day (00:00 UTC)
-
-  plt.axvline(x=7.5, ls="--", c="k")
-  plt.axvline(x=15.5, ls="--", c="k")
-
-
-  ## Set different color to bars according to Kp index value
-
-  for i in range(24):
-      if Kp[i]==4:
-	 bar[i].set_color("y")
-      elif Kp[i] > 4:
-	 bar[i].set_color("r")
-      else:
-	 bar[i].set_color("g")
-
-  ## Set label to axis and graph title
-
-  plt.ylabel("Kp Index")
-  plt.title("Estimated Planetary K Index (3 hours data). Begin {} UTC".format(datepp))
-
-  # Save graph
-
-  plt.savefig("./Kp index/"+date+" Kp index.pdf")
-
-#+END_SRC
 
 #+NAME: TEC vs Time
 #+BEGIN_SRC python :eval no :tangle ./TEC_vs_time.py
@@ -2478,50 +3009,6 @@ else:
         plt.savefig(out_dir+date+r"-$\delta$_{}_map.".format(datatype)+formato)
 #+END_SRC
 
-#+NAME Energy vs time
-#+BEGIN_SRC python :eval no :tangle ./energy_time.py
-
-import numpy as np
-import matplotlib.pyplot as plt
-from astropy.table import Table
-import seaborn as sns
-
-# This program pretends to plot The kinetic energy of the meteors of the sample
-# versus the respecting date.
-
-# Read meteors database table
-
-t = Table.read("meteors_database.tab", format="ascii")
-t2 = Table.read("USG_meteors_database.tab", format="ascii")
-# extract relevant data
-
-ID , date, energy = t["ID"], t["Fecha"], t["Total energy recallibrated (kT)"]
-ID_USG, date_USG, energy_USG = t2["ID"], t2["Fecha"], t2["Energia total (kT)"]
-energy_arr = []
-de = []
-
-for e in energy:
-    a, b = e.split("+/-")
-    energy_arr.append(float(a))
-    de.append(float(b))
-
-
-# Make Boxplot (with whiskers)
-sns.set_style("whitegrid")
-GLM_energy = np.array(energy_arr)
-USG_energy = t2["Energia total (kT)"]
-
-plt.boxplot([GLM_energy, USG_energy], showfliers=False, patch_artist=True, 
-             boxprops=dict(facecolor="red", color="red", alpha=0.5),         
-             whiskerprops=dict(color="red"),
-             capprops=dict(color="red"), 
-             medianprops=dict(color="blue"))
-plt.xticks([1, 2], ["GLM", "USG"])
-plt.xlabel("Meteors sample")
-plt.ylabel("Total energy (kT)")
-plt.title("Meteors energy distribution (outliers removed)")
-plt.savefig("energies_boxplot.pdf")
-#+END_SRC
 
 #+NAME Kp index vs time
 #+BEGIN_SRC python :eval no :tangle ./kp_vs_time.py
@@ -2564,65 +3051,6 @@ plt.savefig("Kp_index_dist.pdf")
 
 #+END_SRC
 
-#+NAME Energy Factor
-#+BEGIN_SRC python :eval no :tangle ./energy_factor.py
-
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-
-# The goal of this program is to estime the discrepancy factor between GLM energy estimations
-# and the energy estimations by USG instruments in order to calibrate uncertainties to other
-# events only registered by the GLM. For this we will make a linear fit between GLM and USG
-# energies for events where data is available in both the GLM website and CNEOS fireballs website
-# (Only three events meet this criteria: GLM-00, GLM-23 and GLM-Ven).
-# The slope will be the correction factor and the residuals the uncertainties. 
-
-sns.set_style("whitegrid")
-
-# insert meteor energies
-
-GLM_energies = np.array([1.0763569, 0.065099193, 3.1305469])
-USG_energies = np.array([1.4, 0.076, 6])
-
-GLM_uncertainties = np.array([0.18966796, 0.026813257, 0.28006880])
-weights = 1./(1+GLM_uncertainties)
-
-# Do the fit: p is an array with the fit coefficients, res is the residuals, rank, single values 
-# and rcond are other outputs not used
-p, res, rank, s_values, rcond = np.polyfit(GLM_energies, USG_energies, 1, w=weights, full=True)
-
-# make a linar polynomial with the coefficients
-poly = np.poly1d(p)
-#poly_plus = np.poly1d([p[0]+res[0], p[1]])
-#poly_minus = np.poly1d([p[0]-res[0], p[1]])
-
-# make the plot
-f = plt.figure()
-ax1 = f.add_subplot(1, 2, 1)
-ax2 = f.add_subplot(1, 2, 2)
-ax1.errorbar(GLM_energies, USG_energies, xerr=GLM_uncertainties, fmt="g.", label="data points")
-ax1.plot(GLM_energies, poly(GLM_energies), "k-", label="linear fit")
-#ax1.set_xlabel("Meteor estimated kinetic energy by GLM (kilotons)", fontsize="small")
-ax1.set_ylabel("Meteor estimated kinetic energy by USG sensors (kilotons)", fontsize="small")
-ax1.text(0, 6.5, r"Linear fit: $y={:.3f}x - {:.3f}$".format(p[0], np.abs(p[1])), fontsize="small")
-ax2.plot(GLM_energies, USG_energies-poly(GLM_energies), "go")
-ax2.plot([GLM_energies[0], GLM_energies[0]], [0, USG_energies[0]-poly(GLM_energies[0])], "b--")
-ax2.plot([GLM_energies[1], GLM_energies[1]], [0, USG_energies[1]-poly(GLM_energies[1])], "b--")
-ax2.plot([GLM_energies[2], GLM_energies[2]], [0, USG_energies[2]-poly(GLM_energies[2])], "b--")
-ax2.text(0, 1.05, "residuals (squares sum) = {:.4f}".format(res[0]), fontsize="small")
-ax2.axhline(y=0, color="k")
-ax2.set_ylim(-1, 1)
-#ax2.set_xlabel("Meteor estimated kinetic energy by GLM (kilotons)", fontsize="small")
-ax2.set_ylabel("Residuals")
-f.text(0.5, 0.01, "Meteor estimated kinetic energy by GLM (kilotons)", ha='center', fontsize="small")
-#plt.fill_between(GLM_energies, poly_minus(GLM_energies), poly_plus(GLM_energies), color="r", alpha = 0.2)
-#plt.plot(GLM_energies, poly_minus(GLM_energies), "r--", alpha=0.2)
-#plt.plot(GLM_energies, poly_plus(GLM_energies), "r--", alpha=0.2)
-#plt.legend()
-f.tight_layout()
-plt.savefig("energy_fit.pdf")
-#+END_SRC
 
 #+NAME Kp index extractor
 #+BEGIN_SRC python :eval no :tangle ./kp_index_file.py
@@ -2752,485 +3180,4 @@ t = Table([sample, Kp_median, Kp_max, Kp_deviation], names=("Date", "Median", "M
 t.write("Kp_table.csv", format="csv", overwrite=True)
 #+END_SRC
 
-#+NAME TEC Detrender
-#+BEGIN_SRC python :eval no :tangle ./TEC_detrender.py
-
-import numpy as np
-from astropy.table import Table
-import argparse
-import glob 
-import matplotlib.pyplot as plt
-from scipy.interpolate import interp1d
-from scipy.signal import savgol_filter as savitsky
-from scipy.stats import mode
-
-# The goal of this progrma is to get detrended time series TEC curves using the method
-# Described by Pradipta et al. 2015. We expect that the resulting detrended TEC data show
-# ionospheric perturbations in our dataset.
-
-
-def next_contact_point(x, y, x0, y0):
-    """
-    Estimate the next contact point into the Barrell roll curve (BRC)
-    inputs:
-    x: scaled time.
-    y: scaled vTEC
-    x0: x pivot point
-    y0: y pivot point
-    output:
-    (xf, yf): coordinates of the next contact point
-    """
-    # Define region of interest
-    R0 = 1 # Radius of the barrell roll. Unitary radius works pretty well
-    ROI = (x > x0) & (x < x0 + 2*R0)
-    # Delta_x and delta_y are the separation between the elements which belong to the ROI and (x0, y0)
-    delta_x = x[ROI]-x0
-    delta_y = y[ROI]-y0
-    
-    try:
-        # calculating important angles
-        theta = np.arctan2(delta_y, delta_x)
-        cos_alpha = np.sqrt(delta_x**2 + delta_y**2)/(2*R0) 
-        delta = np.arcsin(cos_alpha) - theta
-        # Selecting the Next Contact Point (NCP)
-        NCP = delta == min(delta) # The next contact point has the smallest angular distance delta
-        xf, yf = x0+delta_x[NCP][0], y0+delta_y[NCP][0]
-    except ValueError: # this happens because ROI is empty
-        xf, yf = x[~ROI & (x>x0)][0], y[~ROI & (x>x0)][0] #The element we will use as next contact point
-                                                          # is the first outside the ROI and greater than x0
-    return xf, yf
-
-def free_dep_signal(brc_x, brc_y, x, y):
-    """
-    Create the free depletion signal.
-    Inputs:
-    (brc_x, brc_y): Barrel roll curve coordinates
-    (x, y): TEC curve 
-    output:
-    (xf, yf): free depletion signal
-    """
-    delta_1, delta_2 = 1, 3
-    BRC_plus = brc_y + delta_1
-    BRC_minus = brc_y - delta_2
-    int_bplus = interp1d(brc_x, BRC_plus)
-    int_bminus = interp1d(brc_x, BRC_minus)
-    mask = (y < int_bplus(x)) & (y> int_bminus(x))
-    xf, yf = x[mask], y[mask]
-    return xf, yf
-
-# ************************** Get window size for Savitzky-Golay Filter ************************
-
-def get_window_size(x):
-    """
-    Get window size for the Savitzky-Golay filter. Must be an *odd* integer.
-    This module basically substracts 1 if x is an even number and keeps the number if x is odd
-    the output number is integer
-    """
-    return int(2*np.ceil(x/2.)-1)
-
-def discontinuity(x):
-    """
-    Find discontinuities in any array
-    """
-    x_gradient = np.gradient(x)
-    dx_mode = mode(x_gradient)[0][0]
-    for dx in x_gradient:
-        if dx > 2*dx_mode:
-            flag = True
-            break
-        else:
-            flag = False
-    return flag
-
-# **************************** Split discontine PRN *******************************************
-
-def split_PRN(t, TEC):
-    """
-    Split a discontinuos PRN into pieces and return the biggest ones
-    inputs:
-    t, TEC: arrays to be split. t --> time , TEC --> vTEC
-    outputs:
-    output_t, output_TEC --> 2D arrays which contain the fragmented curve
-    """
-
-    index_discontinuity =[]
-    gradient_t = np.gradient(t)
-    for i, dt in enumerate(gradient_t):
-        if dt > 0.01: # 0.01 is like 10 times the regular GPS frequency
-            index_discontinuity.append(i) # collect the indices where time gradient is big enough
-    split_t = np.split(t, index_discontinuity)
-    split_TEC = np.split(TEC, index_discontinuity)
-    output_t = []
-    output_TEC =[]
-    for s, tec in zip(split_t, split_TEC):
-        if len(s) > 20: #if the subarray contain too few elements will be discarded
-            output_t.append(s)
-            output_TEC.append(tec)
-    return output_t, output_TEC
-
-# *************************** Read inputs from command line ***********************************
-
-parser = argparse.ArgumentParser(
-    description=""" Choose a file to work""")
-
-
-parser.add_argument('--date', type=str, default='2000-01-01',
-			       help='Choose date. Format: yyyy-mm-dd')
-
-#parser.add_argument("--formato", type=str, default="pdf", choices=("pdf", "png", "jpg"), 
-#                                help="Choose output format")
-parser.add_argument("--starttime", type=str, default="00:00:00", help="Select the event start time")
-parser.add_argument("--filterhigh", type=float, default=30, 
-                     help="Filter the upper time interval of the TEC curve (in ninutes)")
-parser.add_argument("--filterlow", type=float, default=10, 
-                     help="Filter the lower time interval of the TEC curve (in ninutes)")
-
-cmd_args = parser.parse_args()
-date = cmd_args.date
-#formato = cmd_args.formato
-start_time = cmd_args.starttime
-filter_high = cmd_args.filterhigh
-filter_low = cmd_args.filterlow
-
-# ****************************** Read data file ************************************************
-
-directory = "./data/"+date
-files = glob.glob(directory+"/*.Cmn")
-
-# f = open("./data/2019-02-01/unpm032-2019-02-01.Cmn") # Test file until the program works
-
-# ******************************* Set final output lists ******************************************
-
-stations = []
-final_time = []
-final_PRN = []
-final_lat = []
-final_lon = []
-final_vTEC = []
-
-
-for File in files:
-    f = open(File, "r")
-    for i in range(4):
-        f.readline()
-
-    raw_data = f.readlines()
-
-# ****************************** Extract relevant information ***********************************
-    station = File[-22:-18] # Extract station name from file name(This should work in both
-                                          # windows and linux)
-    data = Table.read(raw_data, format="ascii")
-    hr, minute, sec = start_time.split(":")
-    time_hours = float(hr)+float(minute)/60. + float(sec)/3600.
-    time = data["Time"]
-    vTEC = data["Vtec"]
-    PRN = data["PRN"]
-    latitude = data["Lat"]
-    longitude = data["Lon"] -360.
-    time_corrector = time < 0
-    time[time_corrector] = time[time_corrector] + 24.0
-    tau_0, zeta_0 = 2.0, 40.0
-    prn_array = np.unique(PRN)
-    time_mask = (time < time_hours + filter_high/60.) & (time > time_hours-filter_low/60.)
-#selected_time = time[time_mask]
-#selected_TEC = vTEC[time_mask]
-
-
-# ******************************* Start loop over PRNs ********************************************
-
-    for p in prn_array:
-        PRN_mask = PRN == p
-        filtered_time = time[PRN_mask & time_mask]
-        filtered_TEC = vTEC[PRN_mask & time_mask]
-        filtered_lat = latitude[PRN_mask & time_mask]
-        filtered_lon = longitude[PRN_mask & time_mask]
-        if len(filtered_time) < 20: # TEC series with too few data will be considered "empty"
-            continue
-
-# ******************************* Split the signal into fragments *********************************
-
-        S_time, S_TEC = split_PRN(filtered_time, filtered_TEC)
-        S_time, S_lat = split_PRN(filtered_time, filtered_lat)
-        S_time, S_lon = split_PRN(filtered_time, filtered_lon)
-#test plot
-        for s, tec, la, lo in zip(S_time, S_TEC, S_lat, S_lon):
-#        plt.plot(s, tec, "b.")
-# ******************************* Start making BRC ***********************************************
-            X, Y = s/tau_0, tec/zeta_0
-            x_0, y_0 = X[0], Y[0]
-            BRC_x = [x_0]
-            BRC_y = [y_0]
-            while(x_0 < X[-1]):
-                xn, yn = next_contact_point(X, Y, x_0, y_0)
-                BRC_x.append(xn)
-                BRC_y.append(yn)
-                x_0, y_0 = xn, yn
-
-# ********************************** Making free deptetion signal ********************************
-# Return to the TEC-time space
-            brc_t, brc_vt = np.array(BRC_x)*tau_0, np.array(BRC_y)*zeta_0
-#        fdp_vt = interp1d(brc_t, brc_vt) # The free depletion signal may be an interpolation of the BRC
-            fdp_x, fdp_y = free_dep_signal(brc_t, brc_vt, s, tec)  
-#        plt.plot(brc_t, brc_vt, "r*")
-#        plt.plot(fdp_x, fdp_y)
-#        plt.plot(s, fdp_vt(s))
-# ********************************** Get trend using Savitzky-Golay filter **************************
-            y_trend = savitsky(tec, window_length=get_window_size(len(tec)), polyorder=7)
-            residuals = np.sum((y_trend-tec)**2)/len(tec)
-#            ord=ord+1
-            plt.plot(s, y_trend, "r--", label="Trend")
-#        print(residuals)
-# *********************************** Detrend signal and plot undetrended signal and trend************
-            det_signal = tec - y_trend
-            plt.plot(s, tec, label="original signal")
-            plt.xlabel("UT (hours)")
-            plt.ylabel("vTEC (TECU)")
-            plt.legend()
-            plt.title("{} PRN{}. Date: {}".format(station, p, date))
-            plt.savefig("./data/"+date+"/trends/{}.pdf".format(p))
-            plt.clf()
-            for ft, flat, flon, d in zip(s, la, lo, det_signal): # Fill output lists
-                final_vTEC.append(d)
-                final_time.append(ft)          
-                final_PRN.append(p)
-                final_lat.append(flat) 
-                final_lon.append(flon) 
-                stations.append(station)
-
-# ***************************** Mask positions and save data to file *******************************
-
-#plt.plot(final_time, final_vTEC, ".")
-output_table = Table([stations, final_time, final_PRN, final_lat, final_lon, final_vTEC], names=("Station", "Time", "PRN", "Latitude", "Longitude", "vTEC"))
-#print(final_time.dtype)
-outfile = directory+"/detrended_TEC.csv" #File.replace("Cmn", "csv")
-output_table.write(outfile, format="csv", overwrite=True)
-#plt.ylim(-1, 1)
-#plt.savefig("./TEC_tests/test_detrend_test.pdf")
-
- 
-
-#    print(p, len(X))
-
-
-
-
-
-
-
-#, vt = X*tau_0, Y*zeta_0
-
-
-
-
- 
-# ********************************** Plot test graph *********************************************
-#    print(p, np.corrcoef(t, vt)[0][1])
-#plt.plot(t, vt, "g.")
-
-
-#plt.plot(t, y_trend, "m--")
-#    plt.plot(X, Y, "g.")
-#    plt.plot(BRC_x, BRC_y, "r*")
-#    plt.fill_between(np.array(BRC_x), np.array(BRC_y)+1, np.array(BRC_y)-3, alpha=0.1) 
-
-
-
-
-#+END_SRC
-
-#+NAME TEC grid maps
-#+BEGIN_SRC python :eval no :tangle ./TEC_grid_maps.py
-
-import numpy as np
-from scipy.interpolate import griddata
-import pandas as pd
-import matplotlib.pyplot as plt
-import shapefile as shp
-from plotfullmap import plot_map
-import matplotlib.cm as cm
-import argparse
-
-parser = argparse.ArgumentParser(
-    description=""" Choose a file to work""")
-
-
-parser.add_argument('--date', type=str, default='2000-01-01',
-			       help='Choose date. Format: yyyy-mm-dd')
-
-
-cmd_args = parser.parse_args()
-date = cmd_args.date
-
-directory = "./data/"+date
-
-df = pd.read_csv(directory+"/detrended_TEC.csv")
-#print(df.head(10))
-#print(df.keys())
-latitude = df["Latitude"]
-longitude = df["Longitude"]
-det_TEC = df["vTEC"]
-
-xmin, ymin = min(longitude), min(latitude)
-xmax, ymax = max(longitude), max(latitude)
-res = 0.2
-Nx, Ny = (xmax-xmin)/res, (ymax-ymin)/res
-grid_x, grid_y = np.mgrid[xmin:xmax:Nx*1j, ymin:ymax:Ny*1j]
-
-fig =plt.figure()
-
-# Read and plot shape file of Mexico map
-sf = shp.Reader("map.shp")
-plot_map(sf)
-
-#Plot GLM trajectories
-
-data_16 = pd.read_csv(directory+"/GLM/GLM-16-data.csv", header=9)
-data_17 = pd.read_csv(directory+"/GLM/GLM-17-data.csv", header=9)
-
-plt.plot(data_16["longitude"], data_16["latitude"], "r.")
-plt.plot(data_17["longitude"], data_17["latitude"], "r.")
-
-
-# Plot event position
-
-event = pd.read_csv("GLM-database.csv")
-mask = event["Fecha"] == date
-event_lat = event["Latitud"][mask]
-event_lon = event["Longitud"][mask]
-event_ID = str(event["ID"][mask])
-#event_lat, event_lon =  22.5, -83.8
-plt.plot(event_lon, event_lat, "m*")
-plt.annotate(event_ID, (event_lon, event_lat), textcoords="offset points", color="w", fontsize="small",
-    xytext=(10, 10), ha="center", bbox=dict(boxstyle="round", pad=0.5, fc="m", alpha=0.7))
-
-#vx, vy = -2.4, 13.6
-#height = 23.7 
-
-
-points = []
-for x, y in zip(longitude, latitude):
-    points.append([x, y])
-
-#grid_z0 = griddata(points, det_TEC, (grid_x, grid_y), method="nearest")
-#grid_z1 = griddata(points, det_TEC, (grid_x, grid_y), method="linear")
-grid_z2 = griddata(points, det_TEC, (grid_x, grid_y), method="cubic")
-
-#plt.subplot(221)
-#plt.imshow(grid_z0.T, extent=(xmin, xmax, ymin, ymax), origin="lower")
-
-#plt.subplot(222)
-#plt.imshow(grid_z1.T, extent=(xmin, xmax, ymin, ymax), origin="lower")
-
-#plt.subplot(223)
-im = plt.imshow(grid_z2.T, extent=(xmin, xmax, ymin, ymax), origin="lower")
-
-cbar = plt.colorbar(im)
-cbar.set_label("Delta vTEC (TECU)")
-plt.title("Detrended TEC for 1 station for 2019-02-01")
-plt.gcf().set_size_inches(6, 6)
-outdir = "./TEC_grid_maps/"
-plt.savefig(outdir+date+"_TEC_map.pdf")
-#+END_SRC
-
-#+NAME TEC_series
-#+BEGIN_SRC python :eval no :tangle ./TEC_series.py
-import pandas as pd
-import argparse 
-import numpy as np
-import matplotlib.pyplot as plt
-
-parser = argparse.ArgumentParser(
-    description=""" Choose a file to work""")
-
-
-parser.add_argument('--date', type=str, default='2000-01-01',
-			       help='Choose date. Format: yyyy-mm-dd')
-
-
-parser.add_argument("--starttime", type=str, default="00:00:00", help="Select the event start time")
-parser.add_argument("--filterhigh", type=float, default=30, 
-                     help="Filter the upper time interval of the TEC curve (in ninutes)")
-parser.add_argument("--filterlow", type=float, default=10, 
-                     help="Filter the lower time interval of the TEC curve (in ninutes)")
-
-cmd_args = parser.parse_args()
-date = cmd_args.date
-start_time = cmd_args.starttime
-filter_high = cmd_args.filterhigh
-filter_low = cmd_args.filterlow
-
-infile="./data/"+date+"/detrended_TEC.csv"
-
-# ****************************** Read data file ************************************************
-
-csv_file = pd.read_csv(infile)
-prn_array = np.unique(csv_file["PRN"])
-station_array = np.unique(csv_file["Station"])
-hr, minute, sec = start_time.split(":")
-time_hours = float(hr)+float(minute)/60. + float(sec)/3600.
-
-for s in station_array:
-    for p in prn_array:
-        prn_mask = csv_file["PRN"] == p
-        plt.plot(csv_file["Time"][prn_mask], csv_file["vTEC"][prn_mask], ".")
-        plt.axvline(time_hours, ls="--", c="k")
-        plt.ylim(-0.3, 0.5)
-        plt.title(s.upper()+"-PRN{}".format(p))
-        plt.savefig("./TEC_series/"+date+"/{}-TEC_series_PRN_{}.pdf".format(s, p))
-        plt.clf()
-#+END_SRC
-
-#+NAME Wavelet Power spectrum
-#+BEGIN_SRC python :eval no :tangle ./wavelet_power.py
-
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import argparse
-import sys
-sys.path.insert(0, "./wavelets/wave_python/")
-from waveletFunctions import wavelet
-
-parser = argparse.ArgumentParser(
-    description=""" Choose a file to work""")
-
-
-parser.add_argument('--date', type=str, default='2000-01-01',
-			       help='Choose date. Format: yyyy-mm-dd')
-
-parser.add_argument("--frequency", type=float, default=15,
-                      help="Sampling time (in seconds)")
-parser.add_argument("--contour", action="store_true", help="Choose between image and contours")
-cmd_args = parser.parse_args()
-date = cmd_args.date
-dt = cmd_args.frequency/3600.
-contour = cmd_args.contour
-
-directory ="./data/"+date
-infile = directory + "/detrended_TEC.csv"
-df = pd.read_csv(infile)
-stations = np.unique(df["Station"])
-levels = [0, 0.5, 1, 2, 3, 4, 8, 10]
-
-for s in stations:
-    station_mask = df["Station"] ==s
-    PRNs = np.unique(df["PRN"][station_mask])
-    for p in PRNs:
-        print("station: {}, PRN: {}".format(s, p))
-        prn_mask = df["PRN"] ==p
-        TEC_series = df["vTEC"][station_mask & prn_mask]
-        time_series = df["Time"][station_mask & prn_mask]
-        w, periods, scales, COI = wavelet(TEC_series, dt, pad=1)
-
-        if contour:
-            plt.contourf(time_series, periods, np.abs(w)**2, len(levels))
-        else:
-            plt.imshow(np.abs(w)**2, extent=(min(time_series), max(time_series), min(periods), max(periods)))
-#        plt.plot(time_series, COI, "w--")
-        plt.title("{}-PRN{}. Date: {}".format(s, p, date))
-        if contour:
-            plt.savefig("./TEC_power_spectrum/"+date+"/{}-PRN{}-contour.pdf".format(s, p))
-        else:
-            plt.savefig("./TEC_power_spectrum/"+date+"/{}-PRN{}.pdf".format(s, p))
-#+END_SRC
 
