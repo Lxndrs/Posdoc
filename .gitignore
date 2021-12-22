@@ -1,0 +1,9 @@
+# ignore unwanted files
+*.sh
+*~
+#ignore some folders
+__pycache/
+TEC_power_spectrum/
+TEC_series/
+data/
+

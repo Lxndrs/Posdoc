@@ -1,19 +1,10 @@
 \subsection{Meteors Databases}
 \label{ssec:databases}
-We selected a sample of meteors which were observed in mexican territory from the Geostationary Lightning Mapper \citep{GOODMAN:2013}. Orignally this project was designed to detect ligthning activity in earth's athmosphere, but has been proven that also can detect bolides entering the athmosphere. The detection comes from two satellites called GOES-16 and GOES-17 orbiting the earth in geostationary orbits. %Figure  shows the area where GOES-16 and GOES-17 detect activity on a lightning flash rate map; in mexican territory clearly both satellites can make detections. %Create a figure where the area coverage of GOES-16 and GOES-17 is shown.
-We used the interactive database available at \url{https://neo-bolide.ndc.nasa.gov/#/}. These data are publicly available and easily downloaded from the same website. For each event we can obtain the recorded trajectory of meteors and the corresponding light curve. THe GLM satellites have an umbral magnitude for detection of -14. At this magnitude, a meteor is considered a bolide, and is expected to be at least decimeter-sized (in diameter) to reach such brightness. In the other hand, too bright meteors will saturate the detectors, and thus, lowering the quality of data. The result of this factors implies that the range in size of the objects in our sample varies in diameter between decimeter to meter size. %The sample was chosen following the next criteria:%selected in such way we chose the most probable objects to be detected by GPS sources in mexican territory and its surroundings: 
-Each event also has assigned a confidence ratio, from low confidence to high, depending in how bright is the event itself and if the trajectory recorded by GLM ressembles (or not) a straight line. We chose only events whose confidence ratio is high, in oreder to be sure we chose the brightest objects, and thus, in the diameter size of bolides, we favored the meter-sized ones. In table \ref{tab:table-meteors} we list the object we chose to do this work, order in chronological order. The columns of the table, from left to right are and ID to enumerate the meteors in the sample, the date and time each meteor was detected, the duration of the detection, their respective coordinates and the estimated height of the meteor over the ground at the time of the detection. GOES-16 and GOES-17 systematically detect the meteors at slightly different positions and at slightly different times, so we calculated the mean of the duration, latitude and longitude reported by both satellites for each event, and used the standard deviation as the uncertainties.
+We selected a sample of meteors which were observed in mexican territory from the Geostationary Lightning Mapper \citep{GOODMAN:2013}. Originally this project was designed to detect lightning activity in earth's atmosphere, but has been proven that also can detect bolides entering the atmosphere. The detection comes from two satellites called GOES-16 and GOES-17 orbiting the earth in geostationary orbits. %Figure  shows the area where GOES-16 and GOES-17 detect activity on a lightning flash rate map; in mexican territory clearly both satellites can make detections. %Create a figure where the area coverage of GOES-16 and GOES-17 is shown.
+We used the interactive database available at \url{https://neo-bolide.ndc.nasa.gov/#/}. These data are publicly available and easily downloaded from the same website. For each event we can obtain the recorded trajectory of meteors and the corresponding light curve. The GLM satellites have an umbral magnitude for detection of -14. At this magnitude, a meteor is considered a bolide, and is expected to be at least decimeter-sized (in diameter) to reach such brightness. In the other hand, too bright meteors will saturate the detectors, and thus, lowering the quality of data. The result of this factors implies that the range in size of the objects in our sample should vary in diameter between decimeter to meter size. Each event also has assigned a confidence ratio, from low confidence to high, depending in how bright is the event itself and if the trajectory recorded by GLM ressembles a straight line. We chose only events whose confidence ratio is high, in order to be sure we chose the brightest objects, and thus, in the diameter size of bolides, we favored the meter-sized ones. In table \ref{tab:table-meteors} we list the object we chose to do this work, order in chronological order. %The columns of the table, from left to right are and ID to enumerate the meteors in the sample, the date and time each meteor was detected, the duration of the detection, their respective coordinates and the estimated height of the meteor over the ground at the time of the detection. 
+GOES-16 and GOES-17 systematically detect the meteors at slightly different positions and at slightly different times, so we calculated the mean of the duration, latitude and longitude reported by both satellites for each event, and used the standard deviation as the uncertainties. In figure \ref{fig:meteors-map} we show the actual positions at which each bolide was detected.
 
-From table \ref{tab:table-meteors} is also clear that the duration of all the bolides detection last less than a second. This obsevation suggests that the bolides remain undetected by the GLM satellites until they get fragmented due to stagnation presure when they release a huge amount of energy and thus they become detectable.
-
-
-%From the light curves we can estimate the total radiated energy and then convert it to the total kinetic energy through a relation. With this energy we may estimate physical parameters with the cloud fragmentation model form wheeler et al.
-
-%\begin{itemize}
-%    \item The objects were detected inside mexican territory and its surroundings.
-%    \item The objects were detected by both satellites GOES 16 and GOES 17 (stereo)
-%    \item The detection has been assigned a high confidence ratio.
-%\end{itemize}
+From table \ref{tab:table-meteors} is also clear that the duration of all the bolides detection last less than a second. This observation suggests that the bolides remain undetected by the GLM satellites until they get fragmented due to stagnation pressure when they release a huge amount of energy and thus they become detectable.
 
 
 
@@ -24,7 +15,7 @@ From table \ref{tab:table-meteors} is also clear that the duration of all the bo
 \label{tab:table-meteors}
 \begin{tabular}{rrrrrrrrrr}
 \hline
-ID & Date of event  & Start Time (UT)  & Duration (seconds) & Latitude (deg) & Longitude (deg)& Altitude (km) & Energy (kT )\\\hline
+ID & Date of event  & Start Time (UT)  & Duration (seconds) & Latitude (deg) & Longitude (deg)& Altitude (km) & Energy (kT)\\\hline
 GLM-00 & 2019-02-01 & 18:17:09 & $2.651\pm 0.4907$ & $22.45 \pm 0.071$ & $-83.50  \pm  0.424$ & 24           & 2.0978196 +/- 0.42361329      \\         
 GLM-01 & 2019-05-23 & 16:36:18 & $0.197\pm 0.0000$ & $24.30 \pm 0.000$ & $-101.60 \pm  0.849$ & 28           & 0.011954659 +/- 7.4054404e-3  \\
 GLM-02 & 2019-07-18 & 14:30:30 & $0.058\pm 0.0000$ & $27.20 \pm 0.000$ & $-103.15 \pm  0.778$ & 72           & 5.7827709e-3 +/- 3.9334336e-3 \\
@@ -66,12 +57,12 @@ GLM-Ven& 2019-06-22 & 21:25:45 & $4.873\pm 0.0000$ & $14.9 \pm 0.000$  & $-65.8 
 
 \begin{figure}
   \centering
-  \includegraphics[width=\linewidth]{../meteors_map}
-  \caption{Positions of events from table \ref{tab:table-meteors} (blue) and table \ref{tab:table-meteors-2}. The events GLM-00/USG-08 actually correpond to the same bolide, but there are little discrepancies about the position where the bolide was detecte. The same applies for the events GLM-23/USG-10 and GLM-Ven/USG-09, which not appears in the map.}
+  \includegraphics[width=\linewidth]{../figures/meteors_map}
+  \caption{Positions of events from table \ref{tab:table-meteors} (blue) and table \ref{tab:table-meteors-2}. The events GLM-00/USG-08 actually correpond to the same bolide, but there are little discrepancies about the position where the bolide was detected. The same applies for the events GLM-23/USG-10 and GLM-Ven/USG-09, which not appears in the map.}
   \label{fig:meteors-map}
 \end{figure}
 
-By the other hand, we got another sample of 10 bolidesfrom US Goverment (USG) sensors from the Center for Near Earth Object Studies (CNEOS), publicly available at \url{https://cneos.jpl.nasa.gov/fireballs/}, where we may obtain directly data about bolides position, the date and time each bolide was detected, the energy released at fragmentation, the velocity and the height (the last two not availble for all bolides). As seen in table \ref{tab:table-meteors-2}, the time span is quite larger, and the released energy is generally larger. Both energy distributions are compared directly in figure \ref{fig:boxplot}. Some elements appear in both samples, since are bright enough to be detected regardless the project involved. In USG sample, the total energy of each meteor is obtained directly, but is not the case for the GLM sample. In appendix \ref{app:distance} and \ref{app:energy} we give details about how this total energy is obtained.
+By the other hand, we got another sample of 10 bolides from US Goverment (USG) sensors from the Center for Near Earth Object Studies (CNEOS), publicly available at \url{https://cneos.jpl.nasa.gov/fireballs/}, where we may obtain directly data about bolides position, the date and time each bolide was detected, the energy released at fragmentation, the velocity and the height (the last two not available for all bolides). As seen in table \ref{tab:table-meteors-2}, the time span is quite larger, and the released energy is generally larger. Some elements appear in both samples, since are bright enough to be detected regardless the project involved. In USG sample, the total energy of each meteor is already available from the database, but the energy for GLM bolides needs to be estimated. To do so, we estimated the distance between GOES satellites and the bolide and then followed \citet{Jenniskens:2018}, but we find some discrepancies in our measurements repect what is already reported for the same bolides in the USG database. (see the appendix \ref{app:distance} and \ref{app:energy}) for more details. We assumed that such discrepancy is due that GLM detectors underestimate the radiated energy by the bolides since before fragmentation the bolides remain undetectable by GLM sensors, and thus a fraction of the radiated energy is not accounted. To solve this, we estimated a correction factor using the bolides that appears in both GLM and USG samples (see figure \ref{fig:lin_fit} in appendix \ref{app:energies}). The energy distributions of USG and GLM samples are compared directly in figure \ref{fig:boxplot}. 
 
 \begin{table*}
     \centering
@@ -97,7 +88,7 @@ USG-10 & 2020-04-28    & 05:43:17         &      &         &           &        
 
 \begin{figure}
   \centering
-  \includegraphics[width=\linewidth]{./figures/energies_boxplot}
+  \includegraphics[width=\linewidth]{../figures/energies_boxplot}
   \caption{Comparison between released energies of bolides detected by the Geostationary Lightning Mapper and USG sensors.}
   \label{fig:boxplot}
 \end{figure}
@@ -304,12 +295,20 @@ We got RINEX data from 3 to 7 stations depending of the event location and data 
   Where $R_E$ is the Earth radius in km and $h=\SI{350}{km}$ is the ionospheric shell above the earth's surface.
 
   % Both parameters sTEC and vTEC are computed
- Using a software developed by Gopi K. Seemala, publicly available at \url{https://seemala.blogspot.com/}, we computed the slant TEC (TEC) and vertical TEC (vTEC) for a several number of GPS satellites, each one identified with a PseudoRandom Noise code (PRN). For each station, we filtered all the PRN and data that lie in a window of 30 minutes around the time the event was reported. Then we estimated the signal trend using a Savitsky-Golay filter and substracting the original signal from the trend.
+ Using a software developed by Gopi K. Seemala, publicly available at \url{https://seemala.blogspot.com/}, we computed the slant TEC (TEC) and vertical TEC (vTEC) for a several number of GPS satellites, each one identified with a PseudoRandom Noise code (PRN). An example of such TEC calculations is shown in figure \ref{fig:TEC-curve-example}. The behavior of the TEC curve is due to many factors, including the earth's rotation, solar activity, etc. TID's and wave-like features are not as prominent and are difficult to see. So we focused in a time interval close to the moment the bolide was detected, and detrended our time series following \citet{Pradipta:2015} using a Golay-Savitzky filter of order 7. An example of the resulting detrending signal is shown in figure . The resulting time series are adequate for wavelet analysis.%For each station, we filtered all the PRN and data that lie in a window of 30 minutes around the time the event was reported. Then we estimated the signal trend using a Savitsky-Golay filter and substracting the original signal from the trend.
 
-  
+\begin{figure}
+\includegraphics[width=\linewidth]{../figures/abmf173-2019-06-22_page0}
+\label{fig:TEC-curve-example}
+\caption{Example of TEC curve obtained for GPS data for the bolide USG-09 from ABMF station.}
+\end{figure}
  
+
+\begin{figure}
+\includegraphics[width=\linewidth]{}
+\end{figure}
   
-  \subsection{Wavelet analysis}
+\subsection{Wavelet analysis}
 
   
 %For the selected sample, we obtained RINEX data from the TlalocNet \citep{Cabral-Cano:2018} and UNAVCO network databases to study potential alterations in the ionospehre due to the presence of the passing meteor at the day the meteor was reported. For each event, we downloaded data from stations that surrounds the place where the event was detected (usually 3 to 5 stations. )The list of the sample meteors is shown in table \ref{tab:table-meteors}. The events are in chronological order. The reported duration, latitude and longitude correspond to the mean between measurements from satellites GOES-16 and GOES 17; in the same way, the uncertainties correspond to the standard deviation. Also their respective positions are available in figure \ref{fig:meteors-map}, where each label correspond to the ID (first column) of table \ref{tab:table-meteors}.
