@@ -84,7 +84,7 @@ for s in stations:
         w12 = (w1*w2_conj)/np.abs(w1)/np.abs(w2)
         wp12 = (wp1*w2p_conj)/np.abs(wp1)/np.abs(wp2)
      # Begin plotting
-        im1=ax1.contourf(c_time, periods1, w12, levels, norm=norm, vmin=0, vmax=1)
+        im1=ax1.contourf(c_time, periods1, w12, levels, vmin=0, vmax=1)
         ax1.contour(c_time, periods1, w12, [-99, 0.95], colors=["r", "w"])
         im2 = ax2.contourf(p_ctime, periods_p1, wp12, levels, vmin=0, vmax=1) 
         ax2.contour(p_ctime, periods_p1, wp12, [-99, 0.95], colors=["r", "w"])
