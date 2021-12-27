@@ -1,8 +1,16 @@
 # ignore unwanted files
 *.sh
-*~
+*.org~
+*.log
+*.eps
+*.bbl
+*.out
+*.spl
+*.gz
+*.blg
+*.aux
 #ignore some folders
-__pycache/
+__pycache__/
 TEC_power_spectrum/
 TEC_series/
 data/
