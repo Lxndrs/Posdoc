@@ -29,7 +29,7 @@ The transformation to spherical coordinates is given by:
   z = r\sin\theta \label{eq:ztoR}
 \end{align}
 
-Where $r$ is measured from the center of the earth, $ -180^\circ < phi <= 180^\circ$ represents the longitude; is positive at east of Greenwich meridian, and negative eastwards. $\-90^\circ <= \theta <= 90^\circ$ represents the latitude and is positive at the north of equator and negative southwards.
+Where $r$ is measured from the center of the earth, $ -180^\circ < \phi <= 180^\circ$ represents the longitude; is positive at east of Greenwich meridian, and negative eastwards. $\-90^\circ <= \theta <= 90^\circ$ represents the latitude and is positive at the north of equator and negative southwards.
 
 Substituting the transform (\ref{eq:xtoR} - \ref{eq:ztoR}) into (\ref{eq:R}), using elemental trigonometry and considering both GLM satellites lie into the equator ($\theta_{GLM}=0$) we get:
 
@@ -38,7 +38,7 @@ Substituting the transform (\ref{eq:xtoR} - \ref{eq:ztoR}) into (\ref{eq:R}), us
   \mathrm{where:} & f(\theta_{obj}, \phi_{obj}, \phi_{GLM}) = \cos\theta_{obj}\cos\left(\phi_{GLM}-\phi_{obj}\right)
 \end{align}
 
-Since $r_{GLM}$ and $r_{obj}$ are measured from the center of the arth ge find that:
+Since $r_{GLM}$ and $r_{obj}$ are measured from the center of the earth we find that:
 
 \begin{align}
   r_{GLM} &= r_{earth} + h_{GLM} \label{eq:rg}\\

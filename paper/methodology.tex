@@ -62,7 +62,7 @@ GLM-Ven& 2019-06-22 & 21:25:45 & $4.873\pm 0.0000$ & $14.9 \pm 0.000$  & $-65.8 
   \label{fig:meteors-map}
 \end{figure}
 
-By the other hand, we got another sample of 10 bolides from US Goverment (USG) sensors from the Center for Near Earth Object Studies (CNEOS), publicly available at \url{https://cneos.jpl.nasa.gov/fireballs/}, where we may obtain directly data about bolides position, the date and time each bolide was detected, the energy released at fragmentation, the velocity and the height (the last two not available for all bolides). As seen in table \ref{tab:table-meteors-2}, the time span is quite larger, and the released energy is generally larger. Some elements appear in both samples, since are bright enough to be detected regardless the project involved. In USG sample, the total energy of each meteor is already available from the database, but the energy for GLM bolides needs to be estimated. To do so, we estimated the distance between GOES satellites and the bolide and then followed \citet{Jenniskens:2018}, but we find some discrepancies in our measurements repect what is already reported for the same bolides in the USG database. (see the appendix \ref{app:distance} and \ref{app:energy}) for more details. We assumed that such discrepancy is due that GLM detectors underestimate the radiated energy by the bolides since before fragmentation the bolides remain undetectable by GLM sensors, and thus a fraction of the radiated energy is not accounted. To solve this, we estimated a correction factor using the bolides that appears in both GLM and USG samples (see figure \ref{fig:lin_fit} in appendix \ref{app:energies}). The energy distributions of USG and GLM samples are compared directly in figure \ref{fig:boxplot}. 
+By the other hand, we got another sample of 10 bolides from US Goverment (USG) sensors from the Center for Near Earth Object Studies (CNEOS), publicly available at \url{https://cneos.jpl.nasa.gov/fireballs/}, where we may obtain directly data about bolides position, the date and time each bolide was detected, the energy released at fragmentation, the velocity and the height (the last two not available for all bolides). As seen in table \ref{tab:table-meteors-2}, the time span is quite larger, and the released energy is generally larger. Some elements appear in both samples, since are bright enough to be detected regardless the project involved. In USG sample, the total energy of each meteor is already available from the database, but the energy for GLM bolides needs to be estimated. To do so, we estimated the distance between GOES satellites and the bolide and then followed \citet{Jenniskens:2018}, but we find some discrepancies in our measurements repect what is already reported for the same bolides in the USG database. (see the appendix \ref{app:distance} and \ref{app:energy}) for more details. We assumed that such discrepancy is due that GLM detectors underestimate the radiated energy by the bolides since before fragmentation the bolides remain undetectable by GLM sensors, and thus a fraction of the radiated energy is not accounted. To solve this, we estimated a correction factor using the bolides that appears in both GLM and USG samples (see figure \ref{fig:lin_fit} in appendix \ref{app:energy}). The energy distributions of USG and GLM samples are compared directly in figure \ref{fig:boxplot}. 
 
 \begin{table*}
     \centering
@@ -295,22 +295,60 @@ We got RINEX data from 3 to 7 stations depending of the event location and data 
   Where $R_E$ is the Earth radius in km and $h=\SI{350}{km}$ is the ionospheric shell above the earth's surface.
 
   % Both parameters sTEC and vTEC are computed
- Using a software developed by Gopi K. Seemala, publicly available at \url{https://seemala.blogspot.com/}, we computed the slant TEC (TEC) and vertical TEC (vTEC) for a several number of GPS satellites, each one identified with a PseudoRandom Noise code (PRN). An example of such TEC calculations is shown in figure \ref{fig:TEC-curve-example}. The behavior of the TEC curve is due to many factors, including the earth's rotation, solar activity, etc. TID's and wave-like features are not as prominent and are difficult to see. So we focused in a time interval close to the moment the bolide was detected, and detrended our time series following \citet{Pradipta:2015} using a Golay-Savitzky filter of order 7. An example of the resulting detrending signal is shown in figure . The resulting time series are adequate for wavelet analysis.%For each station, we filtered all the PRN and data that lie in a window of 30 minutes around the time the event was reported. Then we estimated the signal trend using a Savitsky-Golay filter and substracting the original signal from the trend.
+ Using a software developed by Gopi K. Seemala, publicly available at \url{https://seemala.blogspot.com/}, we computed the slant TEC (TEC) and vertical TEC (vTEC) for a several number of GPS satellites, each one identified with a PseudoRandom Noise code (PRN). An example of such TEC calculations is shown in figure \ref{fig:TEC-curve-example}. The behavior of the TEC curve is due to many factors, including the earth's rotation, solar activity, etc. TID's and wave-like features are not as prominent and are difficult to see. So we focused in a time interval close to the moment the bolide was detected, and detrended our time series following \citet{Pradipta:2015} using a Savitzky-Golay filter of order 7 (future change to this phrase: to do a proper detrending, we should detrend data for a TEC series of a random day when no geomagnetic storm or unusual events happened, callibrate the Savitsky-Golay filter for using a proper order and use it for our data). An example of the resulting detrending signal is shown in figure \ref{fig:detrending-example}. The resulting time series are adequate for wavelet analysis.%For each station, we filtered all the PRN and data that lie in a window of 30 minutes around the time the event was reported. Then we estimated the signal trend using a Savitsky-Golay filter and substracting the original signal from the trend.
 
 \begin{figure}
-\includegraphics[width=\linewidth]{../figures/abmf173-2019-06-22_page0}
+\includegraphics[width=\linewidth]{../figures/cn05173-2019-06-22_page0}
 \label{fig:TEC-curve-example}
-\caption{Example of TEC curve obtained for GPS data for the bolide USG-09 from ABMF station.}
+\caption{Example of TEC curve obtained for GPS data for the bolide USG-09 from CN05 station.}
 \end{figure}
  
 
 \begin{figure}
-\includegraphics[width=\linewidth]{}
+\begin{tabular}{cc}
+\includegraphics[width=0.45\linewidth]{../figures/cn05-6-190}&
+\includegraphics[width=0.45\linewidth]{../figures/cn05-TEC_series_PRN_6}
+\end{tabular}
+\label{fig:detrending-example}
+\caption{Example of detrending process with USG-09 event. Left: Undetrended TEC series for station CN05 with PRN 6 (blue) versus Golay-Savitsky fit of order 7 (red dashed curve). Right: detrended curve resulting from substracting the Golay-Savitsky fit from the original signal.}
 \end{figure}
   
 \subsection{Wavelet analysis}
 
-  
+Wavelet analysis is a powerful tool for analyzing variations of power within a time series \citep{Torrence:1998}. For this task we used a Morlet wavelet $\Psi_0(\eta) = \pi^{-1/4}\exp(i\omega_0\eta)\exp(-\eta^2/2)$, where $\omega_0$ is a non-dimensional frequency, usually set to be 6 to satisfy the admissibity condition \citep{Farge:1992} and $\eta$ is a non-dimensional "time parameter".
+
+With this, the wavelet transform is given by:
+
+\begin{align}
+W_n(s) = \sum_{k=0}^{N-1}\hat{x}_k\hat{\Psi}^*\left(s\omega_k\right)\exp(i\omega_k n\delta t)
+\end{align}  
+
+Where the $*$ indicates the complex conjugate, $k=0, 1, \ldots, N-1$ is the frequency index, s is the scale, $\delta t$ is the time spacing between data, $\omega_k$ is the angular frequency defined as:
+
+\begin{align}
+  \omega_k = \left\lbrace
+  \begin{array}{ccc}
+    \frac{2\pi k}{N\delta t} & : & k\leq \frac{N}{2} \\
+    -\frac{2\pi k}{N\delta t} & : & k > \frac{N}{2} 
+  \end{array}
+  \right.
+\end{align}
+And $\hat{\Psi}^*\left(s\omega_k\right)$ is the normalized wavelet function:
+
+\begin{align}
+  \hat{\Psi}^*\left(s\omega_k\right) = \left( \frac{2\pi s}{\delta t}\right)^{1/2} \hat{\Psi}_0\left(s\omega_k\right)
+\end{align}
+
+Since $\Psi(\eta)$ is a complex function, is expected that $W_n(s)$ is also complex. The transform can be divided into real and imaginary part. From the amplitude $|W_n(s)|$, from which we can obtain the power spectrum $|W_n(s)|^2$.
+
+If two stations show similar power spectrums, we can be confident enough to compute the wavelet coherence of both time series, defined as \citep{Yang:2011}:
+
+\begin{align}
+  R^2_{1,2}=\frac{|W_{12}|^2}{\left(|W_1|^2|W_2|^2\right)}
+\end{align}
+
+where the $W_{12}= W_1W^*_2$ is the cross wavelet spectrum, $W_i$ is the wavelet transform of the time series and $W^*_i$ is the complex conjugate of $W_i$. Regions with high coherence indicate the precence of a TID with frequency $1/T$, where $T$ is the period of the region with high frequency.
+
 %For the selected sample, we obtained RINEX data from the TlalocNet \citep{Cabral-Cano:2018} and UNAVCO network databases to study potential alterations in the ionospehre due to the presence of the passing meteor at the day the meteor was reported. For each event, we downloaded data from stations that surrounds the place where the event was detected (usually 3 to 5 stations. )The list of the sample meteors is shown in table \ref{tab:table-meteors}. The events are in chronological order. The reported duration, latitude and longitude correspond to the mean between measurements from satellites GOES-16 and GOES 17; in the same way, the uncertainties correspond to the standard deviation. Also their respective positions are available in figure \ref{fig:meteors-map}, where each label correspond to the ID (first column) of table \ref{tab:table-meteors}.
      
 %Using the data provided by TlalocNet and UNAVCO, we procceeded to obtain TEC parameters with the GPS\_GOPI software, available at \url{https://seemala.blogspot.com/}. This software takes as input the RINEX data (the navigation file is no strictly neccesary), and the outuput consists in in the vTEC and sTEC measurements for the PRNs of the whole day the event occurred, as well as the averaged TEC as function of time. We obtained vTEC maps for the events in table (\ref{tab:table-meteors}) and their respective next and previous day.

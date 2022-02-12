@@ -105,9 +105,9 @@ Col. Ex Hacienda de San Jos\'e de la Huerta, Morelia, Michoac\'an, 58190, M\'exi
 
 \begin{abstract}
 %%%
-Please type your abstract here, and the rest of the text, figures,
-tables, equations etc. in the main body. Please do not modify LaTeX\ 
-commands unless you need to modify them and know how to do it.
+Earth´s ionosphere may be perturbed by different phenomena, such as %earthquakes, tsunamis or even events caused by humans, like nuclear explosions and rockets launched to space. 
+geomagnetic storms, solar flares with a common origin in our star, the Sun. In this work we will study the effects in the ionosphere caused by objects coming from outside the atmosphere (asteroids) inside Mexican territory. The Geostationary Lightning Mapper (GLM) started to record the passage of fireballs since 2017 and has recorded over 3000 events in the American continent. By the other hand, the Center for Near Earth Object Studies has data of 886 meteors detected around the globe by the United States Government sensors (USG). From these databases, we chose a sample of events and collected data and estimated meteor properties such as mass and energy released (if not available). Also we collected GPS data from UNAVCO network for the days each event was reported looking for vestiges of the meteors passage. With this work, we have observed that the vTEC signal
+ of the ionosphere observed and calculated with GPS data from stations on Earth, is affected by the passage of these objects producing ionospheric perturbations with a permanence of a twice hours in average.  
 %%%%
 \end{abstract}
 
@@ -180,7 +180,7 @@ commands unless you need to modify them and know how to do it.
 \section{Bolides physical parameters}
 \label{sec:bolides}
 \input{../meteor-properties}
-\section{Ionospheric background and vTEC maps}
+\section{Ionospheric background and wavelet power spectrum}
 \label{sec:vTEC-maps}
      
 \input{../vTEC-maps}     
@@ -188,8 +188,8 @@ commands unless you need to modify them and know how to do it.
      
 %\section{Frecuency Analysis}
      
-\section{Discussion}
-\label{sec:discission}
+\section{Discussion and conclusions}
+\label{sec:discussion}
 
 \input{../discussion}
 %\section{How to include a figure?}
@@ -237,8 +237,7 @@ commands unless you need to modify them and know how to do it.
 %All equations should be numbered for easy referencing. 
 %The number should appear at the right margin.
 %\begin{eqnarray}
-%S'_{\mathrm{pg}} = \frac{S_{\mathrm{pg}} - \mathrm{min}(S_{\mathrm{pG}})}
-%  {\mathrm{max}(S_{\mathrm{pG}} - \mathrm{min}(S_{\mathrm{pG}}))}
+%S'_{\mathrm{pg}} = \frac{S_{\mathrm{pg}} - \mathrm{min}(S_{\mathrm{pG}})}7%  {\mathrm{max}(S_{\mathrm{pG}} - \mathrm{min}(S_{\mathrm{pG}}))}
 %\end{eqnarray}
 %In mathematical expressions 
 %in running text "/" should be used
@@ -296,11 +295,13 @@ commands unless you need to modify them and know how to do it.
 %}
 
 \section{Acknowledgments}
-\label{sec:acknowledgments}
-\input{../Acknowledgments}
+The author Tarango-Yong thanks to DGAPA-UNAM by the posdoctoral fellowship, as well as the Laboratorio de Ciencias Geoespacilaes (LACIGE) from the Escuela Nacional de Estudios Superiores -- Morelia for the facilities provided to carry out the calculations of this paper. In addition, Gutiérrez-Zalapa wishes to thanks the
+Consejo Nacional de Ciencias y Tecnología (CONACyT) for the support in carrying out this research, he also wishes to thanks the Posgrado en Ciencias de la Tierra from the Universidad Nacional Autónoma de México. Finally, M. Rodr\'iguez-Mart\'inez also is grateful for the DGAPA PAPIIT/PAPIME projects (IN118119/PE103419) to the computing support.
+%\label{sec:acknowledgments}
+%\input{Acknowledgments}
 %% Bibliography
 %% Author year style
-\input{../appendix}
+\input{../appendix}  
 \bibliographystyle{model5-names}
 \biboptions{authoryear}
 \bibliography{../bibliography}
@@ -308,4 +309,3 @@ commands unless you need to modify them and know how to do it.
 \end{document}
 
 %%
-
