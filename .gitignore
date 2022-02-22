@@ -64,3 +64,13 @@ ltximg/org-ltximg_fec444dc11bdb1483f930b163127d231e753e90c.png
 paper/ELSEVIER/manuscript.aux
 paper/MDPI/template.aux
 paper/MDPI/template.aux
+paper/ELSEVIER/manuscript.aux
+paper/arXiv/bibliography.bib
+paper/ELSEVIER/bibliography.bib
+paper/ELSEVIER/manuscript.aux
+paper/MDPI/bibliography.bib
+*.aux
+paper/ELSEVIER/manuscript.aux
+.ipynb_checkpoints/butterworth example-checkpoint.ipynb
+.ipynb_checkpoints/Cubic_spline_example vs Sav-Gol filter-checkpoint.ipynb
+paper/ELSEVIER/manuscript.aux
