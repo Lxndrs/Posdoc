@@ -181,7 +181,7 @@ Lon:
 | GLM-34 | 2021-03-31 |        15 | OK       |                    | OK             |                     |
 
 * UNAVCO Data users resposibilities
-Responsibilities of the data users when writing scientiﬁc publications include the following: Data users that are identiﬁed in 
+Responsibilities of the data users when writing scientiﬁc publications  include the following: Data users that are identiﬁed in 
 the archive (i.e., UNAVCO) as part of an ongoing project should always consult the appropriate PI for permission. *If the data 
 user is automatically downloading data from the archive via software, this does not excuse the user from manually checking to 
 make sure that the data are not part of an ongoing project. Also, when the data are not part of an ongoing project, the source 
@@ -198,7 +198,7 @@ Kyoto 606-8502, JAPAN
 * UNAVCO Station DOIs
 | Station | DOI                               | Cite Article (if apply)                                                                                                                                                                           |
 |---------+-----------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| BAR1    | https://doi.org/10.7283/T5668BHN  | https://doi.org/10.1785/0120000912                                                                                                                                                                |
+| BAR1    | https://doi.org/10.7283/T5668BHN  | https://doi.org/10.1785/0120000912                                                                                                                                                                | 
 | BLYT    | https://doi.org/10.7283/T5HT2MKK  | https://doi.org/10.1785/0120000912                                                                                                                                                                |
 | CN23    | https://doi.org/10.7283/T5Q23XJH  | None available                                                                                                                                                                                    |
 | CN25    | https://doi.org/10.7283/T57W69G7  | None available                                                                                                                                                                                    |
@@ -766,7 +766,7 @@ for File in files:
             brc_t, brc_vt = np.array(BRC_x)*tau_0, np.array(BRC_y)*zeta_0
             fdp_x, fdp_y = free_dep_signal(brc_t, brc_vt, s, tec)  
 # ********************************** Get trend using Savitzky-Golay filter **************************
-            y_trend = savitsky(tec, window_length=get_window_size(len(tec)), polyorder=7)
+            y_trend = savitsky(tec, window_length=get_window_size(0.25*len(tec)), polyorder=3)
             residuals = np.sum((y_trend-tec)**2)/len(tec)
             plt.plot(s, y_trend, "r--", label="Trend")
 # *********************************** Detrend signal and plot undetrended signal and trend************
@@ -898,6 +898,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import glob
 from statistics import mode
+import seaborn as sns
 parser = argparse.ArgumentParser(
 	   description=""" Choose a file to work""")
 
@@ -934,7 +935,7 @@ time_hours = float(time)
 fh = 130
 fl = -60
 ws = fh-fl
-
+sns.set_style("whitegrid")
 #for ws in window_size:
 #    win_mask = csv_file["WSize"] == ws
 for s in station_array:
@@ -946,6 +947,7 @@ for s in station_array:
         print("Station:{}, PRN:{}, Frequency:{}".format(s, p, frequency))
         plt.plot(csv_file["Time"][prn_mask & s_mask], csv_file["vTEC"][prn_mask & s_mask])
         plt.axvline(time_hours, ls="--", c="k")
+        plt.axhline(0, ls="--", c="k")
         plt.ylim(-0.3, 0.5)
         plt.xlabel("UT (hours)")
         plt.ylabel("vTEC (TECU)")
@@ -3393,7 +3395,7 @@ For each bolide we have the date and location it was recorded, and we got RINEX 
 *** Obtaining TEC curves
 Once we get the RINEX data in Hatanaka compression format, we proceed to calculate the TEC series. WE use a software developed by Gopi-Seemala that I assume compute the TEC series reading the original file and estimating the TEC from differences in time of the GPS signal arrival to the station of two different frequencies. In practice I don't properly understand how this program works exactly and have no choice but trust in the output this program offer. Two important outputs comes from this program. The first one is a file with extention .Cmn, which have several columns: 2 columns for time, one in format of fraction of julian day and the other as Universal time, latitude and longitude of the ionospheric pierce point where the measurements of sTEC and vTEC are made (which are other two colums), the PRN, which is a sort of ID of the satellite that makes contact with the station, the local azimuth and altitude of the satellite and a column with S4 index. Only files with LISN formats (and maybe Novatel) have a readable information in this column. For our RINEX data this column is useless. Basically this file has information of the TEC for all the satellites that make contact with the station. The average of all TEC measurements is stored in the other file, with extention .Std
 ** Detrending TEC
-The TEC series contain information of the ionospheric behavior. Is affected by earth rotation, the already mentioned geomagnetic storms, and of course, the passage of bolides, which are the phenomena we would like to study. All these phenomena are overlapped in the TEC series and is desirable to remove all this unwanted contributions and keep only the wave-like features (characteristic of TIDs). We are using a method for detrending TEC (Pradipta et al.) that does so, but I am not sure if this method is neccesary or a Butterworth filter over the original signal is enough (or if we need both) or if another method suits better to our problem or if a missing step is neccesary to "prepare" our data.
+The TEC series contain information of the ionospheric behavior. Is affected by earth rotation, the already mentioned geomagnetic storms, and of course, the passage of bolides, which are the phenomena we would like to study. All these phenomena are overlapped in the TEC series and is desirable to remove all this unwanted contributions and keep only the wave-like features (characteristic of TIDs). We are using a method for detrending TEC (Pradipta et al.) that does so, but I am not sure if this method is neccesary or a Butterworth filter over the original signal is enough (or if we need both) or if another method suits better to our problem or if a missing step is neccesary to "prepare" our data. For the methods I have tried so far, the Savitsky-Golay filter following Pradipta et al. is the best choice. I found what I did wrong: first implemented the method with a known signal: a sinusoidal wave with three harmonics with a trend. When implementing the Savitsky-Golay filter to detrend the superimposed signal (wave + trend), we found that the best recovered signal using a polyorder of 3 and the window size of the filter must be about a quarter of the length of the time series, when using a window size similar to the time series length the largest error is obtained. With these corrections, we found a wave-like feature in some station-satellite time series in the Chelyabinsk event data. So I feel more confident with this method for implementing in our sample
 
 ** Wavelet transforms and coherence
 The wavelets transforms are some analogous to Fourier transforms: the usual Fourier transforms converts a periodic function from time domain to frequency domain, but Fourier transforms works in periodic continous functions that spreads over an infinite time domain. Wavelet transforms do the same for discrete and finite time series.

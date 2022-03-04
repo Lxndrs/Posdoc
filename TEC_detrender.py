@@ -210,7 +210,7 @@ for File in files:
             brc_t, brc_vt = np.array(BRC_x)*tau_0, np.array(BRC_y)*zeta_0
             fdp_x, fdp_y = free_dep_signal(brc_t, brc_vt, s, tec)  
 # ********************************** Get trend using Savitzky-Golay filter **************************
-            y_trend = savitsky(tec, window_length=get_window_size(len(tec)), polyorder=7)
+            y_trend = savitsky(tec, window_length=get_window_size(0.25*len(tec)), polyorder=3)
             residuals = np.sum((y_trend-tec)**2)/len(tec)
             plt.plot(s, y_trend, "r--", label="Trend")
 # *********************************** Detrend signal and plot undetrended signal and trend************

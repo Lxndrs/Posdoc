@@ -4,6 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import glob
 from statistics import mode
+import seaborn as sns
 parser = argparse.ArgumentParser(
 	   description=""" Choose a file to work""")
 
@@ -40,7 +41,7 @@ time_hours = float(time)
 fh = 130
 fl = -60
 ws = fh-fl
-
+sns.set_style("whitegrid")
 #for ws in window_size:
 #    win_mask = csv_file["WSize"] == ws
 for s in station_array:
@@ -52,6 +53,7 @@ for s in station_array:
         print("Station:{}, PRN:{}, Frequency:{}".format(s, p, frequency))
         plt.plot(csv_file["Time"][prn_mask & s_mask], csv_file["vTEC"][prn_mask & s_mask])
         plt.axvline(time_hours, ls="--", c="k")
+        plt.axhline(0, ls="--", c="k")
         plt.ylim(-0.3, 0.5)
         plt.xlabel("UT (hours)")
         plt.ylabel("vTEC (TECU)")
