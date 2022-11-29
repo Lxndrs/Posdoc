@@ -2,72 +2,219 @@
 % \appendixpage
 % \addappheadtotoc
 
-% This is tha appendix, where we may insert detailed mathematical proccedures or other data which may be useful but also will make the main
-% text too large so this should be consulted only in case of neccesity
+% This is the appendix, where we may insert detailed mathematical procedures or other data which may be useful but also will make the main
+% text too large so this should be consulted only in case of necessity
+\section{Bolide velocity components}
+\label{app:velocity}
+The USG database from JPL is a great source of information about the brightest bolides that have entered the atmosphere since 1988. However, the velocity components $(v_x, v_y, v_z)$ are displayed in a geocentric Earth-fixed reference frame explained as follows:
 
-\section{Estimation of distances to meteors}
-\label{app:distance}
-The distance between the GOES satellite and the meteor, neccesary to estimate the radiated energy is calculated as follows:
+$v_x$ lies in the Earth's equatorial plane, parallel to the equator and points towards the prime meridian, $v_z$ is parallel to the earth's rotational axis and points towards the north celestial pole and $v_y$ completes the right-handed reference system. Figure  shows graphically these velocity components.
 
-\begin{align}
-  R = \left|\vec{r}_{GLM} - \vec{r}_{obj} \right|
-\end{align}
-
-where $\vec{r}_{GLM}$ is the vector position of the GLM satellite and $\vec{r}_{obj}$ is the vector position of the meteor.
-
-In cartesian coordinates, the distance $R$ is given by:
-
-\begin{align}
-  R &= \left((x_{GLM}-x_{obj})^2 + (y_{GLM}-y_{obj})^2 + (z_{GLM}-z_{obj})^2\right)^{1/2} \label{eq:R}\\
-\end{align}
-
-The transformation to spherical coordinates is given by:
-
-\begin{align}
-  x = r\cos\phi\cos\theta \label{eq:xtoR}\\
-  y = r\sin\phi\cos\theta \label{eq:ytoR}\\
-  z = r\sin\theta \label{eq:ztoR}
-\end{align}
-
-Where $r$ is measured from the center of the earth, $ -180^\circ < \phi <= 180^\circ$ represents the longitude; is positive at east of Greenwich meridian, and negative eastwards. $\-90^\circ <= \theta <= 90^\circ$ represents the latitude and is positive at the north of equator and negative southwards.
-
-Substituting the transform (\ref{eq:xtoR} - \ref{eq:ztoR}) into (\ref{eq:R}), using elemental trigonometry and considering both GLM satellites lie into the equator ($\theta_{GLM}=0$) we get:
-
-\begin{align}
-  R^2 &= r_{GLM}^2 + r_{obj}^2 - 2r_{GLM}r_{obj}f(\theta_{obj}, \phi_{obj}, \phi_{GLM}) \label{eq:R2}\\
-  \mathrm{where:} & f(\theta_{obj}, \phi_{obj}, \phi_{GLM}) = \cos\theta_{obj}\cos\left(\phi_{GLM}-\phi_{obj}\right)
-\end{align}
-
-Since $r_{GLM}$ and $r_{obj}$ are measured from the center of the earth we find that:
-
-\begin{align}
-  r_{GLM} &= r_{earth} + h_{GLM} \label{eq:rg}\\
-  r_{obj} &= r_{earth} + h_{obj} \label{eq:ro}
-\end{align}
-
-Substituting (\ref{eq:rg}, \ref{eq:ro}) into \ref{eq:R2} and considering that $h_{obj} \ll h_{GLM}$ we get:
-
-\begin{align}
-  \begin{split}
-    R^2 = 2r_{earth}^2\left(1-f(\theta_{obj}, \phi_{obj}, \phi_{GLM})\right) +2r_{earth}h_{GLM}\\
-    \left(1-f(\theta_{obj}, \phi_{obj}, \phi_{GLM})\right) + h_{GLM}^2 - 2h_{GLM}h_{obj}f(\theta_{obj}, \phi_{obj}, \phi_{GLM})
-    \end{split}
-\end{align}
-
-\section{Energy estimation}
-\label{app:energy}
-The total radiant energy emmited is calculated integrating over all the time and all directions. The first is obtained simply summing all the light curve points. In the other hand, to integrate over all directions, we multiply the GLM event energies by the factor (\SI{1.695e18}{})(\SI{1.018e3}{})$\left(\frac{R}{35780~km}\right)^2$ \citep{Jenniskens:2018}. This factor also considers that the GLM only detects light from the OI line. Then, we obtain the luminous efficiency $\tau_1$ (i.e the fraction of the total energy converted into radiation) following \citet{Brown:2002}:
-\begin{align}
-  \tau_1 = (0.1212\pm 0.0043)E_0^{0.115\pm 0.075}
-\end{align}
-
-Where $E_0$ is the luminous energy calculated from integrating GLM reported energies (in kilotons). Finally the total estimated energy is $E = E_0/\tau_1$. We may compare the resulting GLM energies with the energies reported by USG sensors using the events which belong to both samples, and we noticed that the energies obtained with GLM data is systematically lower than the energies reported by the USG sensors. In this work we assumed that this discrepancy is due to the GLM sensors does not detect the full meteor paths, just a fraction of the total radiated energy. To solve this problem we made a linear fit between the derived energies and the energies reported in the USG sample for the events which appear in both samples, and recallibrate the energies of the rest of the GLM sample. The linear fit is shown in figure \ref{fig:lin_fit}. We used the linear fit slope as the recallibration factor and the residuals as the error, we neglected the y-intercept term because this term is much larger than the most energies in the GLM sample and strongly affects the recallibrated energy.
+In the other hand, it might be useful and more intuitive to describe the velocity components in terms of the local reference system composed by $(v_{lon}, v_{lat}, v_h)$, where $v_{lon}$ is the velocity component parallel to the equatorial plane, positive towards east, $v_{lat}$ is parallel to the polar plane, positive to north, and $v_h$ is the radial component pointing towards the center of Earth. Figure \ref{fig:ref_velocity} sketches both reference systems simultaneously.
 
 \begin{figure}
-  \centering
-  \includegraphics[width=\linewidth]{../figures/energy_fit}
-  \caption{Left: Linear fit between energies calculated from GLM data and energies reported by USG sensors. Right: Residuals of the fit, used as error in the recallibration factor. The three events used for this linear fit are GLM-00 (the cuban meteoroid), GLM-23 and GLM-Ven (Venezolan meteoroid).}
-  \label{fig:lin_fit}
+    \centering
+    \includegraphics[width=\linewidth]{../figures/meteor_velocity_references.pdf}
+    \caption{Velocity components of bolide. The geocentric Earth fixed reference system is sketched in black and the local spherical reference system in blue. The components parallel to the equatorial plane are not shown since are perpendicular to the plane of the page.}
+    \label{fig:ref_velocity}
 \end{figure}
 
+The transformation between both reference systems in the north-west hemisphere is given as follows:
 
+\begin{align}
+v_{lon} &= v_x \label{eq:vlon}\\
+v_{lat} &= v_z\cos{L} - v_y\sin{L} \label{eq:vlat}\\
+v_h     &= v_y\cos{L} + v_z\sin{L} \label{eq:vh}
+\end{align}
+
+Where $L$ is the bolide latitude. With this information, we can estimate the velocity tangential to the Earth's surface as $v_{tan} = \left((v_{lon})^2 + (v_{lat})^2\right)^{1/2}$ and finally the trajectory angle respect to the normal as $\tan\theta = \frac{v_{tan}}{v_h}$. Using equations (\ref{eq:vlon}) to (\ref{eq:vh}) we obtain the following:
+
+\begin{align}
+    v_{tan} &= \left((v_x)^2 + (v_z\cos{L}-v_y\sin{L})^2\right)^{1/2} \\
+    \tan\theta &= \frac{\left((v_x)^2 + (v_z\cos{L}-v_y\sin{L})^2\right)^{1/2}}{v_y\cos{L} + v_z\sin{L}}  \label{eq:meteor-angle}
+\end{align}
+
+Substituting the corresponding data from table \ref{tab:Meteor-parameters} into equation (\ref{eq:meteor-angle}) we find that that the trajectory angle of the meteor respect to the normal is $\theta \approx 64.4^{\circ}$
+
+\section{Detrending test signal}
+\label{app:test-signal}
+Figure \ref{fig:test-signal} shows the form of this test time series, described mathematically as follows \citep{Boris:2020}:
+ \begin{align}
+     I_R(t) &= A\cdot \exp\left[-0.5\left(\frac{t-t_m}{d_t}\right)^2\right]\cdot \sum^{i}_{n}\sin\left(\omega_i t\right) \label{eq:ref-signal}\\
+     Trend(t) &= B\cdot \left|t - t_0\right|^3 \label{eq:trend}
+ \end{align}
+ 
+ \begin{figure*}
+     \centering
+     \includegraphics[width=\linewidth]{../figures/test_signal}
+     \caption{Initial setup for testing detrending method. a) Reference signal given by equation (\ref{eq:ref-signal}). b) Superposition between a) and the trend given by (\ref{eq:trend})}.
+     \label{fig:test-signal}
+ \end{figure*}
+ 
+ Where equation (\ref{eq:ref-signal}) is the signal we want to detrend and equation (\ref{eq:trend}) is the trend we want to remove. $A$ is the amplitude of the signal, set as $\SI{0.2}{TECU}$, $t_m$ is a parameter which determines the position of the envelope maximum, set as $\SI{250}{min}$, which is the half of the array length, $d_t$ is the half width of the envelope, set as $\SI{50}{min}$ and $\omega_i$ are the frequencies of three harmonics with periods of $\SI{20}{min}$, $\SI{40}{min}$ and $\SI{60}{min}$. In the other hand, $B$ is the amplitude of the trend, set as $\SI{3.84e-6}{TECU.min^{-1}}$ and $t_0=\SI{250}{min}$ determines position of the minimum of the trend.
+ 
+ For the detrending we used a Savitsky-Golay filter of order 3, this is lowest order filter which at the same time avoids too much oscillations and allows to the fit (and its derivative) to be smooth. The other remaining parameter is the window size, i.e. the number of convolution coefficients neccesary for the regression, which must be an odd integer, greater than the order of the polynomial order and lower than the array size. Then, we estimated the detrended signal using all possible values for the window size and estimated the residuals as follows:
+ 
+ \begin{align}
+     residuals = \sum_{i}^N \left(d_i - s_i\right)^2
+ \end{align}
+ Where $N$ is the array size, $d_i$ is the value of the detrended signal at the time $t_i$ and $s_i$ is the reference signal at the same time. In figure  we show the behavior of residuals as a function of the window size relative to the array size. We noted that the residuals behavior is almost insensitive to the window size when its size is lower than than 60\% of the array size, when the errors start to grow exponentially, but going to more detail, we found that using a window size of about $1/4$ of the array length, such errors are minimal. The detrended test curve is shown in figure \ref{fig:detrended-test}, compared with the original signal, as well as the substraction of both curves. In an ideal situation it should be zero for all times, but even in this case the amplitude of the envelope is about the tenth part of the amplitude of the envelope of the signal.
+
+\begin{figure*}
+\centering
+\includegraphics[width=\linewidth]{../figures/IRvsDetrended}
+\label{fig:detrended-test}
+\caption{Left: Original test signal (blue continuous curve) compared with the result of detrending the superposition of the test signal with the test trend (figure \ref{fig:test-signal}b), which is the orange dashed curve. Right: Substraction of both curves of left side. The amplitude of the envelope of this residuals qualitatively is about tenth percent of the amplitude of the original signal.}
+\end{figure*}
+
+\section{Coordinates transformation}
+\label{app:azimuth}
+
+In order to change coordinates form geocentric to local coordinates for the bolide position, we may assume the flat earth approximation since the GPS stations we used in our work are located near the place the bolide was detected, and the apparent curvature of Earth at the bolide height is almost zero. With this in mind, in figure \ref{fig:flat_earth_aproximation} we show the flat Earth approximation in order to transform the geocentric coordinates of the bolide (latitude and longitude) to their corresponding local coordinates azimuth and elevation. With the aid of this image, we derive the following equations:
+
+\begin{align}
+    \tan{Az} &= \frac{\Delta \lambda}{\Delta L} \\
+    \tan{Ele} &= \frac{h}{r}
+\end{align}
+Where $r = R_E\left((\Delta L)^2 + (\delta\lambda)^2\right)^{1/2}$ and $(\delta L, \delta\lambda)$ are the separation in latitude and longitude of the bolide from the GPS station, respectively. Azimuth is measured from the north counterclockwise and elevation is measured from the Earth's horizon to zenith, in such way azimuth goes from $0^\circ$ to $360^\circ$ and elevation from $0^\circ$ to $90^\circ$.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{../figures/coord_transform_drawing.pdf}
+    \caption{Sketch of flat Earth approximation for transforming the fireball position from geocentric coordinates to local coordinates. From this picture we can derive equations () to () to estimate the local azimuth and elevation of the bolide at the GPS station position. $\vec{R}$ is the vector pointing to the bolide position with origin in the GPS station. $r$ is the projection of $\vec{R}$ in the Earth's plane. $L_s$ and $L_B$ are the latitudes of the station and the bolide, respectively, while $\lambda_s$ and $\lambda_B$ their longitudes, $h$ is the bolide height and $R_E$ the radius of Earth.}
+    \label{fig:flat_earth_aproximation}
+\end{figure}
+%To do such transformation we do the following process \citep{Kroger:1996}:
+
+%The transformation from celestial coordinates to local coordinates are given by:
+
+%\begin{align}
+%    \sin(E) = \sin{\delta}\sin{L} + \cos{L}\cos{H}\cos\delta \label{eq:elevation}\\
+%    \cos{A} = \frac{\sin{\delta}-\sin{E}\sin{L}}{\cos{E}\cos{L}} \label{eq:cos-A}
+%\end{align}
+%Where $E$ is the elevation of the object, $\delta$ is the declination, $H$ is the hour angle, $A = Az$ when $\sin{H} <0$, otherwise $Az = 360-A$ where $Az$ is the Azimuth. Finally $L$ is the latitude of the observer (i.e, the GPS station). 
+%If there were an observer located in the same coordinates than the fragmentation of the bolide took place, then this hypothetical observer should have seen the bolide at zenith. The celestial coordinates of the bolide at this location are zero hour angle and declination equal to object reported latitude. The hour angle is relative to the time and place the object is being observed, and we need the hour angle of the object from the place is observed (the GPS station). To do this we need estimate the hour angle of the object from the station perspective, and the hour angle from the "zenith perspective":
+%\begin{align}
+%    H = LST_s - RA\label{eq:LST}\\
+%    0 = LST_z - RA \label{eq:z-LST}
+%\end{align}
+%Where $LST_s$ is the Local Sidereal Time from the station perspective, and $LST_z$ is the same but from the "zenith perspective", and $RA$ is the right ascension, which is the same in both perspectives. We can also write the Local sidereal time in terms of the Greenwich local time as follows:%If we sum the last equations we find that:
+%\begin{align}
+%    LST = GST + Lon_{obs} -RA \label{eq:LST-GST}
+%\end{align}
+
+%Where $GST$ is the Greenwich Local time and $Lon_obs$ is the observer longitude. Substituting (\ref{eq:LST-GST}) into (\ref{eq:LST}) and (\ref{eq:z-LST}) and sum the resulting equations we find that:
+
+%\begin{align}
+%    H = Lon_s - Lon_z \label{eq:H-lon}
+%\end{align}
+
+%Where $Lon_s$ is the station longitude and $Lon_z$ is the longitude of the bolide. Substituting \ref{eq:H-lon} into (\ref{eq:elevation}) and (\ref{eq:cos-A}) we can find the Azimuth and elevation in terms of the local latitude and longitude and the object's reported latitude and longitude:
+
+%\begin{align}
+%    \sin(E) = \sin{\delta}\sin{L} + \cos{L}\cos(Lon_s - Lon_z) \label{eq:elevation_f}\\
+%    \cos{A} = \frac{\sin{\delta}-\sin{E}\sin{L}}{\cos{E}\cos{L}} \label{eq:cos-A_f}
+%\end{align}
+
+%Examples of bolides trajectories against satellites trajectories are found in figures \ref{fig:boav-trajectory} - \ref{fig:ttsf-trajectory} for stations BOAV, CN00, CN04, CN05, KOUR and TTSF:
+
+%\begin{figure}
+%    \centering
+%    \includegraphics[width=\linewidth]{../figures/azimuth-elevation-map-boav-polar}
+%    \caption{Satellites trajectory from BOAV station perspective in colors in polar coordinates, where the azimuth is represented in the polar axis and the elevation in the radial axis, being the zenith at the center of the graph and the horizon at the edge. The estimated meteor trajectory is shown in a black dashed line and GLM data as magenta dots. Practically for all stations, the satellite with PRN 13 is the closest to the bolide trajectory. The dashed curves represent the propagation radius of TIDs after 1 hour (red) and two hours (blue) in the azimuth-elevation space assuming TIDs propagate at \SI{362}{km.s^{-1}}, the same as the reported high frequency TIDs from Chelyabinsk meteor \citep{Yang:2014}.}
+%    \label{fig:boav-trajectory}
+%\end{figure}
+
+%\begin{figure}
+%    \centering
+%    \includegraphics[width=\linewidth]{../figures/azimuth-elevation-map-cn00-polar}
+%    \caption{Same as figure \ref{fig:boav-trajectory} but using station CN00.}
+%    \label{fig:cn00-trajectory}
+%\end{figure}\begin{figure}
+%    \centering
+%    \includegraphics[width=\linewidth]{../figures/azimuth-elevation-map-cn04-polar}
+%    \caption{Same as figure \ref{fig:boav-trajectory} but using station CN04.}
+%    \label{fig:cn04-trajectory}
+%\end{figure}\begin{figure}
+%    \centering
+%    \includegraphics[width=\linewidth]{../figures/azimuth-elevation-map-cn05-polar}
+%    \caption{Same as figure \ref{fig:boav-trajectory} but using station CN05.}
+%    \label{fig:cn05-trajectory}
+%\end{figure}
+%\begin{figure}
+%    \centering
+%    \includegraphics[width=\linewidth]{../figures/azimuth-elevation-map-kour-polar}
+%    \caption{Same as figure \ref{fig:boav-trajectory} but using station KOUR.}
+%    \label{fig:kour-trajectory}
+%\end{figure}
+%\begin{figure}
+%    \centering
+%    \includegraphics[width=\linewidth]{../figures/azimuth-elevation-map-ttsf-polar}
+%    \caption{Same as figure \ref{fig:boav-trajectory} but using station TTSF.}
+%    \label{fig:ttsf-trajectory}
+%\end{figure}
+
+\section{UNAVCO Acknowledgements and stations list}
+
+In table  we will enlist the stations from we collected data for our work. This material is based on services provided by the GAGE Facility, operated by UNAVCO, Inc., with support from the National Science Foundation and the National Aeronautics and Space Administration under NSF Cooperative Agreement EAR-1724794, we are deeply grateful with all the people that was involved and whose work we are citing here.
+
+
+
+\clearpage
+\onecolumn
+\footnotesize
+\begin{landscape}
+\begin{table*}
+    \centering
+       \caption{List of GPS stations used for this work.}
+      \label{tab:table-stations}
+    \begin{tabular}{lllp{8cm}}
+ 
+    %  \endfirsthead
+    %  \endhead
+    \toprule
+    Station name & Latitude (deg) & Longitude (deg) & Citation \\
+    AIRS & 16.74 & -62.21 & \url{https://doi.org/10.7283/T53B5XGJ}\\
+    BARA & 18.21 & -71.09 & None available                       \\
+    BOAV & 2.85  & -60.70 & None available \\
+    CN00 & 17.67 & -61.79 & \url{https://doi.org/10.7283/T5FN14GQ} \\
+    CN04 & 14.02 & -60.97 &  \url{https://doi.org/10.7283/T5BP0124} \\
+    CN05 & 18.56 & -68.35 & \url{https://doi.org/10.7283/T5VQ30ZH} \\
+    CN19 & 12.61 & -70.04 & \url{https://doi.org/10.7283/T5HD7SZB}\\
+    CN27 & 19.67 & -69.93 & \url{https://doi.org/10.7283/T5JD4V2P} \\
+    CN40 & 12.18 & -68.96 & \url{https://doi.org/10.7283/T5BV7DWT} \\
+    CRLR & 18.41 & -68.93 & \url{https://doi.org/10.7283/T5FN14JM} \\
+    CRSE & 18.76 & -69.04 & None available \\
+    GERD & 16.80 & -62.19 & \url{https://doi.org/10.7283/T5TT4PBT} \\
+    GRE1 & 12.22 & -61.64 & \url{https://doi.org/10.7283/T5BC3WZ5} \\
+    JME2 & 18.23 & -72.54 &  \url{https://doi.org/10.7283/T5KW5D38}\\
+    KOUG & 5.10  & -52.64 & None available \\
+    KOUR & 5.25  & -52.81 & None available \\
+    LVEG & 19.22 & -70.53 & \url{https://doi.org/10.7283/T5CZ35GC}\\
+    NWBL & 16.82 & -62.20 & \url{https://doi.org/10.7283/T5ZK5F13} \\
+    OLVN & 16.75 & -62.23 & \url{https://doi.org/10.7283/T5Q23XMD} \\
+    RCHY & 16.70 & -62.15 & \url{https://doi.org/10.7283/T5707ZSJ} \\
+    RDAZ & 18.45 & -70.72 & None available \\
+    RDF2 & 19.45 & -70.68 & None available \\
+    RDHI & 18.60 & -68.72 & None available \\
+    RDLT & 19.31 & -69.55 & \url{https://doi.org/10.7283/T5J101GT} \\
+    RDMA & 19.54 & -71.08 & \url{https://doi.org/10.7283/T50863NM} \\
+    RDMC & 19.85 & -71.64 & None available \\
+    RDMS & 18.98 & -69.04 & \url{https://doi.org/10.7283/T5DV1HPQ} \\
+    RDNE & 18.50 & -71.42 & None available \\
+    RDON & 16.93 & -62.35 & \url{https://doi.org/10.7283/T5W37TFB} \\
+    RDSD & 18.46 & -69.91 & \url{https://doi.org/10.7283/T5CZ3594} \\
+    RDSF & 19.29 & -70.25 & None available \\
+    RDSJ & 18.82 & -71.23 & \url{https://doi.org/10.7283/T59W0CTW} \\
+    SPED & 18.46 & -69.31 & \url{https://doi.org/10.7283/T5HQ3X75} \\
+    SROD & 19.48 & -71.34 & \url{https://doi.org/10.7283/T5862DSD} \\
+    TGDR & 18.21 & -71.10 & \url{https://doi.org/10.7283/T5222S3R} \\
+    TRNT & 16.76 & -62.16 & \url{https://doi.org/10.7283/T5K935W2} \\
+    TTSF & 10.28 & -61.47 & \url{https://doi.org/10.7283/T5JQ0ZCJ} \\
+    TTUW & 10.64 & -61.40 & \url{https://doi.org/10.7283/T5TQ5ZTR} \\
+    \bottomrule
+\end{tabular}     
+\end{table*}
+  \end{landscape}
+  \clearpage
+  \twocolumn

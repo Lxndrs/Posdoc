@@ -67,6 +67,7 @@
 \usepackage{siunitx}
 \usepackage[utf8]{inputenc}
 \usepackage{etoolbox}
+\usepackage{booktabs}
 \usepackage{fixltx2e}
 \journal{Advances in Space Research}
 
@@ -76,7 +77,7 @@
 
 \begin{frontmatter}
 
-\title{Ionospheric Disturbances in Mexican Territory Produced by Objects Entering the Atmosphere from Space \tnoteref{tnote1}}%
+\title{Ionospheric Disturbances produced by the 2019 Caribbean Meteoroid\tnoteref{tnote1}}%
 %\tnotetext[tnote1]{This is an example for title footnote coding.}
 
 \author[1]{Jorge \snm{Tarango-Yong}\corref{cor1}}
@@ -96,18 +97,16 @@
 Col. Ex Hacienda de San Jos\'e de la Huerta, Morelia, Michoac\'an, 58190, M\'exico}
 %\address[2]{}
 
-\received{1 May 2013}
-\finalform{10 May 2013}
-\accepted{13 May 2013}
-\availableonline{15 May 2013}
+\received{}
+\finalform{}
+\accepted{}
+\availableonline{}
 \communicated{S. Sarkar}
 
 
 \begin{abstract}
 %%%
-Earth´s ionosphere may be perturbed by different phenomena, such as %earthquakes, tsunamis or even events caused by humans, like nuclear explosions and rockets launched to space. 
-geomagnetic storms, solar flares with a common origin in our star, the Sun. In this work we will study the effects in the ionosphere caused by objects coming from outside the atmosphere (asteroids) inside Mexican territory. The Geostationary Lightning Mapper (GLM) started to record the passage of fireballs since 2017 and has recorded over 3000 events in the American continent. By the other hand, the Center for Near Earth Object Studies has data of 886 meteors detected around the globe by the United States Government sensors (USG). From these databases, we chose a sample of events and collected data and estimated meteor properties such as mass and energy released (if not available). Also we collected GPS data from UNAVCO network for the days each event was reported looking for vestiges of the meteors passage. With this work, we have observed that the vTEC signal
- of the ionosphere observed and calculated with GPS data from stations on Earth, is affected by the passage of these objects producing ionospheric perturbations with a permanence of a twice hours in average.  
+Asteroids and other objects impact the Earth every day and cause different harm degree: from the smallest which perturb lightly the atmosphere to the biggest ones which cause global catastrophes. In this work we are studying the case of a meteoroid which hit the Earth in June 22th 2019 and was detected independently over the Caribbean Sea by U.S Goverment sensors and the Geostationary Lightning Mapper (GLM) and registered an impact energy of about 6 kt. This is the most energetic event registered by both databases simultaneously, and is an excellent opportunity to develop a method to study the Traveling Ionospheric Disturbances produced upon impact.
 %%%%
 \end{abstract}
 
@@ -116,9 +115,8 @@ geomagnetic storms, solar flares with a common origin in our star, the Sun. In t
 %% or \MSC[2008] code \sep code (2000 is the default)
 %\MSC 41A05\sep 41A10\sep 65D05\sep 65D17
 %% Keywords
-\KWD Space Sciences\sep Atmosphere%\sep Keyword3
+\KWD Space Sciences\sep Atmosphere \sep Ionosphere \sep UNAVCO%\sep Keyword3
 \end{keyword}
-
 \end{frontmatter}
 
 %% For linenumbers
@@ -173,17 +171,17 @@ geomagnetic storms, solar flares with a common origin in our star, the Sun. In t
 %\end{verbatim}
 
 
-\section{Observational data}
+\section{Data proccesing}
 \label{sec:methodology}
 \input{../methodology}
 
-\section{Bolides physical parameters}
-\label{sec:bolides}
+\section{Meteor physical parameters}
+\label{sec:physical-properties}
 \input{../meteor-properties}
-\section{Ionospheric background and wavelet power spectrum}
-\label{sec:vTEC-maps}
+\section{Ionospheric background and sTEC time series}
+\label{sec:sTEC-time_series}
      
-\input{../vTEC-maps}     
+\input{../sTEC-time_series}     
      
      
 %\section{Frecuency Analysis}
@@ -297,11 +295,12 @@ geomagnetic storms, solar flares with a common origin in our star, the Sun. In t
 \section{Acknowledgments}
 The author Tarango-Yong thanks to DGAPA-UNAM by the posdoctoral fellowship, as well as the Laboratorio de Ciencias Geoespacilaes (LACIGE) from the Escuela Nacional de Estudios Superiores -- Morelia for the facilities provided to carry out the calculations of this paper. In addition, Gutiérrez-Zalapa wishes to thanks the
 Consejo Nacional de Ciencias y Tecnología (CONACyT) for the support in carrying out this research, he also wishes to thanks the Posgrado en Ciencias de la Tierra from the Universidad Nacional Autónoma de México. Finally, M. Rodr\'iguez-Mart\'inez also is grateful for the DGAPA PAPIIT/PAPIME projects (IN118119/PE103419) to the computing support.
+%We thank Dr. Kalishin (AARI) and Dr. Sergeeva (SCiESMEX) for the opportunity to use Solar Terminator software.
 %\label{sec:acknowledgments}
 %\input{Acknowledgments}
 %% Bibliography
 %% Author year style
-\input{../appendix}  
+\input{../appendix}
 \bibliographystyle{model5-names}
 \biboptions{authoryear}
 \bibliography{../bibliography}
@@ -309,3 +308,4 @@ Consejo Nacional de Ciencias y Tecnología (CONACyT) for the support in carrying
 \end{document}
 
 %%
+

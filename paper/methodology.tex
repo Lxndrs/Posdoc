@@ -1,277 +1,60 @@
-\subsection{Meteors Databases}
+\subsection{Meteor location and trajectory}
 \label{ssec:databases}
-We selected a sample of meteors which were observed in mexican territory from the Geostationary Lightning Mapper \citep{GOODMAN:2013}. Originally this project was designed to detect lightning activity in earth's atmosphere, but has been proven that also can detect bolides entering the atmosphere. The detection comes from two satellites called GOES-16 and GOES-17 orbiting the earth in geostationary orbits. %Figure  shows the area where GOES-16 and GOES-17 detect activity on a lightning flash rate map; in mexican territory clearly both satellites can make detections. %Create a figure where the area coverage of GOES-16 and GOES-17 is shown.
-We used the interactive database available at \url{https://neo-bolide.ndc.nasa.gov/#/}. These data are publicly available and easily downloaded from the same website. For each event we can obtain the recorded trajectory of meteors and the corresponding light curve. The GLM satellites have an umbral magnitude for detection of -14. At this magnitude, a meteor is considered a bolide, and is expected to be at least decimeter-sized (in diameter) to reach such brightness. In the other hand, too bright meteors will saturate the detectors, and thus, lowering the quality of data. The result of this factors implies that the range in size of the objects in our sample should vary in diameter between decimeter to meter size. Each event also has assigned a confidence ratio, from low confidence to high, depending in how bright is the event itself and if the trajectory recorded by GLM ressembles a straight line. We chose only events whose confidence ratio is high, in order to be sure we chose the brightest objects, and thus, in the diameter size of bolides, we favored the meter-sized ones. In table \ref{tab:table-meteors} we list the object we chose to do this work, order in chronological order. %The columns of the table, from left to right are and ID to enumerate the meteors in the sample, the date and time each meteor was detected, the duration of the detection, their respective coordinates and the estimated height of the meteor over the ground at the time of the detection. 
-GOES-16 and GOES-17 systematically detect the meteors at slightly different positions and at slightly different times, so we calculated the mean of the duration, latitude and longitude reported by both satellites for each event, and used the standard deviation as the uncertainties. In figure \ref{fig:meteors-map} we show the actual positions at which each bolide was detected.
 
-From table \ref{tab:table-meteors} is also clear that the duration of all the bolides detection last less than a second. This observation suggests that the bolides remain undetected by the GLM satellites until they get fragmented due to stagnation pressure when they release a huge amount of energy and thus they become detectable.
+Data of the Caribbean meteoroid is available from the Geostationary Lightning Mapper (GLM) \citep{GOODMAN:2013} and the Center for Near Earth Object Studies (CNEOS) of the Jet Propultion Laboratory (JPL) of the NASA. We used the interactive database of both projects, available at \url{https://neo-bolide.ndc.nasa.gov/#/} and \url{https://cneos.jpl.nasa.gov/fireballs/}. From these databases, we found basic physical parameters such as event coordinates, altitude, total velocity asn its componentes, total radiated energy and calculated impact energy. These data are shown in table \ref{tab:Meteor-parameters}. 
 
-
-
-\begin{table*}
-  \centering
-  \footnotesize
-  \caption{List of bolides detected in mexican territory (plus one detected near Venezuela and one detected near Cuba), detected by the Geostationary Lighning mapper. The events are listed in chronological order. The listed duration, latitude and longitude correspond to the mean of the measurements of both GOES satellites. The uncertainties correspond to the respecting mean deviation.}
-\label{tab:table-meteors}
-\begin{tabular}{rrrrrrrrrr}
-\hline
-ID & Date of event  & Start Time (UT)  & Duration (seconds) & Latitude (deg) & Longitude (deg)& Altitude (km) & Energy (kT)\\\hline
-GLM-00 & 2019-02-01 & 18:17:09 & $2.651\pm 0.4907$ & $22.45 \pm 0.071$ & $-83.50  \pm  0.424$ & 24           & 2.0978196 +/- 0.42361329      \\         
-GLM-01 & 2019-05-23 & 16:36:18 & $0.197\pm 0.0000$ & $24.30 \pm 0.000$ & $-101.60 \pm  0.849$ & 28           & 0.011954659 +/- 7.4054404e-3  \\
-GLM-02 & 2019-07-18 & 14:30:30 & $0.058\pm 0.0000$ & $27.20 \pm 0.000$ & $-103.15 \pm  0.778$ & 72           & 5.7827709e-3 +/- 3.9334336e-3 \\
-GLM-03 & 2019-08-10 & 11:18:48 & $0.199\pm 0.0757$ & $21.50 \pm 0.000$ & $-102.50  \pm 0.849$ & 92           & 0.010556123 +/- 6.6488245e-3  \\
-GLM-04 & 2019-10-03 & 07:55:33 & $0.106\pm 0.0297$ & $25.65 \pm 0.071$ & $-96.25 \pm   0.778$ & 74           & 2.9915536e-3 +/- 2.2000998e-3 \\
-GLM-05 & 2019-10-09 & 06:08:11 & $0.103\pm 0.0078$ & $23.60 \pm 0.000$ & $-111.95 \pm  0.212$ & 32           & 0.021837042 +/- 0.012429732   \\
-GLM-06 & 2019-11-16 & 09:36:04 & $0.396\pm 0.0134$ & $20.30 \pm 0.000$ & $-100.55 \pm  0.919$ & 82           & 7.5423706e-3 +/- 4.9626060e-3 \\
-GLM-07 & 2019-11-17 & 15:36:01 & $0.116\pm 0.0035$ & $31.70 \pm 0.000$ & $-117.70 \pm  1.131$ & 88           & 0.022397444 +/- 0.012701445   \\
-GLM-08 & 2019-11-19 & 07:57:40 & $0.097\pm 0.1138$ & $20.00 \pm 0.000$ & $-88.40 \pm   1.131$ & 99           & 1.5012507e-3 +/- 1.1909667e-3 \\
-GLM-09 & 2019-11-26 & 13:23:20 & $0.078\pm 0.0290$ & $23.90 \pm 0.000$ & $-108.70 \pm  0.849$ & 81           & 4.9551290e-3 +/- 3.4345742e-3 \\
-GLM-10 & 2019-12-04 & 09:42:54 & $0.173\pm 0.0028$ & $31.50 \pm 0.000$ & $-113.65 \pm  0.919$ & 77           & 0.029149047 +/- 0.015891049   \\
-GLM-11 & 2019-12-15 & 14:50:49 & $0.127\pm 0.0134$ & $27.70 \pm 0.000$ & $-114.10 \pm  0.849$ & 78           & 0.010556123 +/- 6.6488245e-3  \\
-GLM-12 & 2019-12-29 & 16:16:35 & $0.062\pm 0.0134$ & $29.60 \pm 0.000$ & $-116.35 \pm  0.919$ & 79           & 4.2084911e-3 +/- 2.9746446e-3 \\
-GLM-13 & 2020-01-03 & 14:10:17 & $0.113\pm 0.0085$ & $30.20 \pm 0.000$ & $-117.65 \pm  0.919$ & 74           & 0.011607116 +/- 7.2187549e-3  \\
-GLM-14 & 2020-01-06 & 16:39:27 & $0.118\pm 0.0042$ & $31.40 \pm 0.000$ & $-108.20 \pm  0.990$ & 81           & 0.015448801 +/- 9.2392402e-3  \\
-GLM-15 & 2020-01-15 & 15:00:33 & $0.213\pm 0.1351$ & $19.45 \pm 0.071$ & $-95.55 \pm   0.919$ & 93           & 0.012559739 +/- 7.7284725e-3  \\
-GLM-16 & 2020-02-12 & 09:25:40 & $0.210\pm 0.0226$ & $18.90 \pm 0.000$ & $-93.50 \pm   0.849$ & 90           & 8.2107211e-3 +/- 5.3440405e-3 \\
-GLM-17 & 2020-03-03 & 12:33:27 & $0.062\pm 0.0007$ & $18.25 \pm 0.071$ & $-106.35 \pm  0.636$ & 77           & 3.4441157e-3 +/- 2.4922397e-3 \\
-GLM-18 & 2020-03-31 & 19:31:52 & $0.105\pm 0.0573$ & $28.45 \pm 0.071$ & $-112.05 \pm  0.636$ & 61           & 7.2469897e-3 +/- 4.7924800e-3 \\
-GLM-19 & 2020-04-08 & 16:25:28 & $0.120\pm 0.0926$ & $26.10 \pm 0.000$ & $-93.90 \pm   0.849$ & 78           & 4.0292119e-3 +/- 2.8626279e-3 \\
-GLM-20 & 2020-04-18 & 17:43:25 & $0.139\pm 0.0106$ & $29.00 \pm 0.000$ & $-106.55 \pm  0.919$ & 82           & 5.8303967e-3 +/- 3.9618242e-3 \\
-GLM-21 & 2020-04-20 & 16:05:22 & $0.318\pm 0.1655$ & $28.15 \pm 0.071$ & $-97.85 \pm   1.061$ & 88           & 0.031378060 +/- 0.016913982   \\
-GLM-22 & 2020-04-25 & 11:03:09 & $0.323\pm 0.0813$ & $32.15 \pm 0.071$ & $-111.60 \pm  1.131$ & 84           & 0.021997346 +/- 0.012507576   \\
-GLM-23 & 2020-04-28 & 19:31:52 & $0.105\pm 0.0573$ & $28.45 \pm 0.071$ & $-112.05 \pm  0.636$ & 29           & 0.12687833 +/- 0.053736010    \\
-GLM-24 & 2020-05-08 & 10:06:16 & $0.490\pm 0.0750$ & $21.60 \pm 0.000$ & $-92.40 \pm   0.849$ & 81           & 0.033207253 +/- 0.017743607   \\
-GLM-25 & 2020-07-15 & 19:58:28 & $0.693\pm 0.0495$ & $24.00 \pm 0.000$ & $-108.35 \pm  0.495$ & 53           & 0.020548979 +/- 0.011800641   \\
-GLM-26 & 2020-08-07 & 13:29:57 & $0.163\pm 0.0057$ & $28.80 \pm 0.000$ & $-106.05 \pm  0.919$ & 89           & 0.014606987 +/- 8.8040841e-3  \\
-GLM-27 & 2020-09-13 & 16:41:59 & $0.184\pm 0.0078$ & $28.45 \pm 0.071$ & $-113.75 \pm  0.919$ & 85           & 0.010995616 +/- 6.8881646e-3  \\
-GLM-28 & 2020-09-30 & 12:28:11 & $0.100\pm 0.0078$ & $24.90 \pm 0.000$ & $-110.90 \pm  0.849$ & 83           & 0.014013965 +/- 8.4951275e-3  \\
-GLM-29 & 2020-11-16 & 12:28:11 & $0.100\pm 0.0078$ & $24.90 \pm 0.000$ & $-110.90 \pm  0.849$ &106           & 0.052044572 +/- 0.025868548   \\
-GLM-30 & 2020-11-17 & 12:53:41 & $0.404\pm 0.0262$ & $23.00 \pm 0.000$ & $-102.45 \pm  0.919$ & 93           & 0.060624247 +/- 0.029367156   \\
-GLM-31 & 2020-12-19 & 10:18:14 & $0.407\pm 0.0110$ & $21.95 \pm 0.071$ & $-101.60 \pm  0.990$ & 98           & 0.060272985 +/- 0.029225978   \\
-GLM-32 & 2020-12-23 & 09:43:01 & $0.148\pm 0.0014$ & $25.75 \pm 0.071$ & $-111.25 \pm  0.778$ & 81           & 0.012127937 +/- 7.4982028e-3  \\
-GLM-33 & 2020-12-29 & 15:20:54 & $0.118\pm 0.0014$ & $16.80 \pm 0.000$ & $-102.20 \pm  0.707$ & 81           & 0.013161054 +/- 8.0470909e-3  \\
-GLM-34 & 2021-03-31 & 09:01:17 & $0.753\pm 0.3083$ & $20.15 \pm 0.071$ & $-92.95 \pm  0.212$  & 24           & 0.054259119 +/- 0.026782008   \\
-GLM-Ven& 2019-06-22 & 21:25:45 & $4.873\pm 0.0000$ & $14.9 \pm 0.000$  & $-65.8 \pm 0.000$    & 25           & 6.1014359 +/- 0.81239700      \\ \hline
-\end{tabular}
-\end{table*}
-
-\begin{figure}
-  \centering
-  \includegraphics[width=\linewidth]{../figures/meteors_map}
-  \caption{Positions of events from table \ref{tab:table-meteors} (blue) and table \ref{tab:table-meteors-2}. The events GLM-00/USG-08 actually correpond to the same bolide, but there are little discrepancies about the position where the bolide was detected. The same applies for the events GLM-23/USG-10 and GLM-Ven/USG-09, which not appears in the map.}
-  \label{fig:meteors-map}
-\end{figure}
-
-By the other hand, we got another sample of 10 bolides from US Goverment (USG) sensors from the Center for Near Earth Object Studies (CNEOS), publicly available at \url{https://cneos.jpl.nasa.gov/fireballs/}, where we may obtain directly data about bolides position, the date and time each bolide was detected, the energy released at fragmentation, the velocity and the height (the last two not available for all bolides). As seen in table \ref{tab:table-meteors-2}, the time span is quite larger, and the released energy is generally larger. Some elements appear in both samples, since are bright enough to be detected regardless the project involved. In USG sample, the total energy of each meteor is already available from the database, but the energy for GLM bolides needs to be estimated. To do so, we estimated the distance between GOES satellites and the bolide and then followed \citet{Jenniskens:2018}, but we find some discrepancies in our measurements repect what is already reported for the same bolides in the USG database. (see the appendix \ref{app:distance} and \ref{app:energy}) for more details. We assumed that such discrepancy is due that GLM detectors underestimate the radiated energy by the bolides since before fragmentation the bolides remain undetectable by GLM sensors, and thus a fraction of the radiated energy is not accounted. To solve this, we estimated a correction factor using the bolides that appears in both GLM and USG samples (see figure \ref{fig:lin_fit} in appendix \ref{app:energy}). The energy distributions of USG and GLM samples are compared directly in figure \ref{fig:boxplot}. 
-
-\begin{table*}
+\begin{table*}[t]
     \centering
-  \footnotesize
-  \caption{List of bolides detected in mexican territory (plus one detected near Venezuela and one detected near Cuba), detected by USG sensors.}
-\label{tab:table-meteors-2}
-\begin{tabular}{rrrrrrrrrrr}
-       &               &                  & \multicolumn{4}{c}{Velocity (km/s)}       &                   &                 &\\\cline{4-7}
-\multicolumn{1}{c}{ID}&\multicolumn{1}{c}{Date of event}&\multicolumn{1}{c}{Start Time (UT)}&\multicolumn{1}{c}{$v$}&\multicolumn{1}{c}{$v_x$}&\multicolumn{1}{c}{$v_y$}&\multicolumn{1}{c}{$v_z$}&\multicolumn{1}{c}{Latitude (deg)}&\multicolumn{1}{c}{Longitude (deg)}&\multicolumn{1}{c}{Altitude (km)} & \multicolumn{1}{c}{Energy (kT)}\\\hline
-USG-01 & 1995-08-05    & 17:14:10         &      &         &           &              & 11.6              &  -104.3         &             &  0.56\\
-USG-02 & 1996-07-12    & 14:04:45         &      &         &           &              & 20.7              &   -93.6         &             &  0.11\\ 
-USG-03 & 1997-10-09    & 18:47:15         &      &         &           &              & 31.8              &  -106.0         &   37.0      &  0.53\\
-USG-04 & 2000-01-18    & 08:33:58         &      &         &           &              & 24.3              &   -94.9         &             &  0.12\\
-USG-05 & 2000-08-25    & 01:12:25         &      &         &           &              & 14.5              &  -106.1         &             &   3.1\\
-USG-06 & 2005-11-15    & 05:19:07         &      &         &           &              & 26.3              &  -113.4         &   32.4      & 0.089\\
-USG-07 & 2015-07-19    & 07:06:26         & 17.8 &   9.4   &  13.0     & 7.8          & 20.6              &   -87.6         &   22.0      & 0.082\\
-USG-08 & 2019-02-01    & 18:17:10         & 16.3 &  -2.4   &  13.6     & 8.7          & 22.5              &   -83.8         &   23.7      &   1.4\\
-USG-09 & 2019-06-22    & 21:25:48         & 14.9 & -13.4   &   6.0     & 2.5          & 14.9              &   -66.2         &   25.0      &   6.0\\
-USG-10 & 2020-04-28    & 05:43:17         &      &         &           &              & 20.1              &  -109.4         &             & 0.076\\\hline  
-  \end{tabular}
+    \caption{List of meteor basic parameters. Source: \url{https://cneos.jpl.nasa.gov/fireballs/}}
+    \begin{tabular}{cc|c}
+     \toprule
+    Event date  (yyyy-mm-dd)&   & 2019-06-22 \\\hline
+    Time (UT) & &21:25:48\\\hline
+    Latitude (deg) & & 14.9\\\hline
+    Longitude (deg) & & -66.2\\\hline
+    Altitude (km) & &25.0\\\hline
+    Velocity (km/s) & & 14.9\\\hline
+    Duration (seconds)& & 4.873 \\\hline
+    \multirow{3}{*}{Velocity components (km/s)}&$v_x$ & -13.4 \\\cline{2-3}
+     & $v_y$& 6.0\\\cline{2-3}
+     & $v_z$ & 2.5\\\hline
+    Total radiated energy (J) & &\SI{294.7e10}{}\\\hline
+    Calculated Total Impact energy (kt)&  & 6 \\
+    \bottomrule
+    \end{tabular}
+    \label{tab:Meteor-parameters}
 \end{table*}
 
+Row 7 shows the velocity components of the bolide. $v_x$ is the velocity in the equatorial plane, positive towards the prime meridian, $v_z$ is directed towards the celestial north pole and $v_y$ completes the right-handed coordinate system, see figure \ref{fig:ref_velocity} in appendix \ref{app:velocity}. 
+
+From GLM data we know that the bolide was visible for 4.873 seconds. The trajectory using the data is shown in figure  \ref{fig:bolide-trajectory}, among with the GLM records.
 
 \begin{figure}
-  \centering
-  \includegraphics[width=\linewidth]{../figures/energies_boxplot}
-  \caption{Comparison between released energies of bolides detected by the Geostationary Lightning Mapper and USG sensors.}
-  \label{fig:boxplot}
+    \centering
+    \includegraphics[width=\linewidth]{../figures/bolide-trajectory}
+    \caption{In orange continuous line, the Caribbean bolide estimated trajectory using velocity components from table \ref{tab:Meteor-parameters}. In blue dots, GLM position records.}
+    \label{fig:bolide-trajectory}
 \end{figure}
 
+ 
 
-\subsection{GPS data}
-\label{ssec:GPS}
-%This material is based on services provided by the GAGE Facility, operated by UNAVCO, Inc., with support from the National Science Foundation and the National Aeronautics and Space Administration under NSF Cooperative Agreement EAR-1724794.
-
-We got RINEX data from 3 to 7 stations depending of the event location and data availability that surround the event place in all directions as possible. A list of the stations where we got RINEX data is available in table%\ref{tab:table-stations}
-. Most of the stations lie in mexican territory, but in some cases we required data from other stations to cover events near the mexican frontier at north or south.
-
-%\clearpage
-%\onecolumn
-%\footnotesize
-%\begin{landscape}
-%%\begin{table*}
-%%    \centering
-%  \begin{longtable}{llllllp{12cm}}
-%      \caption{List of GPS stations used for this work.}
-%      \label{tab:table-stations}
-%      \endfirsthead
-%      \endhead
-%    \hline
-%    Station name & Latitude & Longitude & \multicolumn{3}{c}{Events ID}  & Citation \\\hline
-%    \multirow{4}{*}{BAR1\hyperlink{Hudnut}{${}^1$}\hyperlink{Hudnut2}{${}^5$}} & \multirow{4}{*}{33.48} & \multirow{4}{*}{-119.03} & \multirow{4}{*}{GLM-07} & \multirow{4}{*}{GLM-12} & \multirow{4}{*}{GLM-13} & UNAVCO Community, Hudnut, Kenneth, King, Nancy, Aspiotes, Aris G., Borsa, Adrian A., Determan, \\
-%    &&&&&& Daniel N., Galetzka, John E., Stark, Keith F., 2005, SCIGN-PBO Nucleus GPS Network - BAR1-Santa \\
-%    &&&&&& Barbara Island One P.S., The GAGE Facility operated by UNAVCO, Inc., GPS/GNSS Observations Dataset, \\
-%    &&&&&& \url{https://doi.org/10.7283/T5668BHN}.\\\hline
-%    \multirow{3}{*}{BLYT\hyperlink{Hudnut}{${}^1$}} & \multirow{3}{*}{33.61} & \multirow{3}{*}{-114.71} &  \multirow{3}{*}{GLM-12} & \multirow{3}{*}{GLM-13}  & & Hudnut, Kenneth, King, Nancy, Aspiotes, Aris G., Borsa, Adrian A., Determan, Daniel N., Galetzka, John \\
-%    &&&&&& E., Stark, Keith F., 2006, SCIGN USGS GPS Network - BLYT-Blythe P.S., The GAGE Facility operated \\
-%    &&&&&&  by UNAVCO, Inc., GPS/GNSS Observations Dataset, \url{https://doi.org/10.7283/T5HT2MKK}.\\\hline
-%    \multirow{3}{*}{CN23} & \multirow{3}{*}{17.26} & \multirow{3}{*}{-88.78} &\multirow{3}{*}{GLM-08} & \multirow{3}{*}{GLM-15} & \multirow{3}{*}{GLM-16} & UNAVCO Community, 2012, COCONet GPS Network - CN23-BelmopanBZCR2012 P.S., The GAGE \\
-%    &&&&&& Facility operated by UNAVCO, Inc., GPS/GNSS Observations Dataset, \\
-%    &&&&&& \url{https://doi.org/10.7283/T5Q23XJH}.\\\hline
-%    \multirow{3}{*}{CN25} & \multirow{3}{*}{16.23} & \multirow{3}{*}{-92.13} & \multirow{3}{*}{GLM-15} & & & UNAVCO Community, 2014, COCONet GPS Network - CN25-ComitandDMEX2012 P.S., The GAGE Facility operated by UNAVCO, Inc., GPS/GNSS Observations Dataset, \url{https://doi.org/10.7283/T57W69G7}.\\\hline
-%    \multirow{3}{*}{GCFS} & \multirow{3}{*}{19.31} & \multirow{3}{*}{-81.18} & \multirow{3}{*}{GLM-08} & & & Watts, Anthony, 2016, COCONet GPS Network - GCFS-G\_CAYMAN\_CYM2014 P.S., The GAGE Facility operated by UNAVCO, Inc., GPS/GNSS Observations Dataset, \url{https://doi.org/10.7283/7ETV-X536}.\\\hline
-%    \multirow{4}{*}{GMPK\hyperlink{Hudnut}{${}^1$}} & \multirow{4}{*}{33.05} & \multirow{4}{*}{-114.83} & \multirow{4}{*}{GLM-10} & & & UNAVCO Community, Hudnut, Kenneth, King, Nancy, Aspiotes, Aris G., Borsa, Adrian A., Determan, \\
-%    &&&&&& Daniel N., Galetzka, John E., Stark, Keith F., 2005, SCIGN-PBO Nucleus GPS Network - GMPK-Glamis \\
-%    &&&&&& Peak P.S., The GAGE Facility operated by UNAVCO, Inc., GPS/GNSS Observations Dataset, \\
-%    &&&&&& \url{https://doi.org/10.7283/WCHN-H687}.\\\hline
-%    \multirow{3}{*}{GUAT\hyperlink{Garnier}{${}^2$}} & \multirow{3}{*}{14.59} & \multirow{3}{*}{-90.52} & \multirow{3}{*}{GLM-16} & & & DeMets, Charles, Cosenza-Muralles, Beatriz, 2021, Central America 2018 - Guatemala, The GAGE \\
-%    &&&&&& Facility operated by UNAVCO, Inc., GPS/GNSS Observations Dataset, \\
-%    &&&&&& \url{https://doi.org/10.7283/KH2R-K704}.\\\hline
-%\multirow{4}{*}{GUAX\hyperlink{Hudnut}{${}^1$}} & \multirow{4}{*}{28.88} & \multirow{4}{*}{-118.29} & GLM-05 & GLM-07 & GLM-11 & Hudnut, Kenneth, King, Nancy, Aspiotes, Aris G., Borsa, Adrian A., Determan, Daniel N., Galetzka, John \\
-%    &&&GLM-12& GLM-13& GLM-18 & E., Stark, Keith F., 2001, SCIGN USGS GPS Network - GUAX-Isla Guadalupe P.S., The GAGE Facility \\
-%    &&& GLM-25 &GLM-27 &GLM-28& operated by UNAVCO, Inc., GPS/GNSS Observations Dataset, \url{https://doi.org/10.7283/T5GX48T2}.\\
-%    &&& GLM-32 &       &     &  \\\hline
-%    \multirow{3}{*}{IAGX} & \multirow{3}{*}{29.03} & \multirow{3}{*}{-113.17} & \multirow{3}{*}{GLM-10} & & & Gonzalez-Ortega, Alejandro, Galetzka, John E., Gonzalez, Javier, 2018, CICESE REGNOM GPS Network \\
-%    &&&&&& - IAGX-iagxREGNOMmx2018 P.S., The GAGE Facility operated by UNAVCO, Inc., GPS/GNSS  \\
-%    &&&&&& Observations Dataset, \url{https://doi.org/10.7283/DGWN-A627}. \\\hline
-%    \multirow{2}{*}{INEG} & \multirow{2}{*}{21.85} & \multirow{2}{*}{-102.28} & GLM-25 & GLM-26 & GLM-28  & No citations were found \\
-%    &&& GLM-29 & GLM-30 & GLM-31 & \\\hline 
-%    \multirow{4}{*}{KVTX} & \multirow{4}{*}{27.55} & \multirow{4}{*}{-97.89} & GLM-01 & GLM-02 & GLM-03  & UNAVCO Community, 2007, PBO GPS Network - KVTX-KingsvilleTX2006 P.S., The GAGE Facility \\
-%    &&& GLM-04 & GLM-06 & GLM-19 & operated by UNAVCO, Inc., GPS/GNSS Observations Dataset, \url{https://doi.org/10.7283/T5J38QH8}.\\
-%    &&& GLM-20 & GLM-21 & GLM-24 & \\
-%    &&& GLM-26 &&& \\\hline
-%    MDO1 & 30.68 & -104.02 & GLM-02 & & & No citations were found\\\hline
-%    MGO5 & 30.68 & -104.02 & GLM-21 &GLM-26 &  & No citations were found\\\hline
-%    MGW3 & 29.62 & -89.95 & GLM-19 & GLM-21 & GLM-24 & No citations were found\\\hline
-%    \multirow{3}{*}{OXTH} & \multirow{3}{*}{16.29} & \multirow{3}{*}{-95.24} & \multirow{3}{*}{GLM-15} & \multirow{3}{*}{GLM-16} & & DeMets, Charles, Cabral-Cano, Enrique, 2008, Oaxaca GPS Network - OXTH-Tehuantepec P.S., The \\
-%    &&&&&& GAGE Facility operated by UNAVCO, Inc., GPS/GNSS Observations Dataset, \\
-%    &&&&&& \url{https://doi.org/10.7283/T5Q81B5V}.\\\hline
-%    \multirow{3}{*}{OXUM\hyperlink{Graham}{${}^3$}} & \multirow{3}{*}{15.66} & \multirow{3}{*}{-96.50} & \multirow{3}{*}{GLM-34} & & & Cabral-Cano, Enrique, Salazar-Tlaczani, Luis, 2015, TLALOCNet - OXUM-oxum\_tnet\_mx2001 P.S., The \\
-%    &&&&&& GAGE Facility operated by UNAVCO, Inc., GPS/GNSS Observations Dataset, \\
-%    &&&&&& \url{https://doi.org/10.7283/T5J964RP}.\\\hline
-%    \multirow{2}{*}{P001} & \multirow{2}{*}{31.95} & \multirow{2}{*}{-112.80} & \multirow{2}{*}{GLM-07} & \multirow{2}{*}{GLM-22} & & UNAVCO Community, 2008, PBO GPS Network - P001-Organ\_PipeAZ2007 P.S., The GAGE Facility \\
-%    &&&&&& operated by UNAVCO, Inc., GPS/GNSS Observations Dataset, \url{https://doi.org/10.7283/T5DR2SGP}.\\\hline
-%    \multirow{2}{*}{P014} & \multirow{2}{*}{31.97} & \multirow{2}{*}{-11.09} & GLM-10 & GLM-12 & GLM-13 & UNAVCO Community, 2008, PBO GPS Network - P014-Sahuarita\_AZ2007 P.S., The GAGE Facility \\
-%    &&& GLM-14 & GLM-22 & & operated by UNAVCO, Inc., GPS/GNSS Observations Dataset, \url{https://doi.org/10.7283/T5DJ5CMK}.\\\hline
-%    \multirow{2}{*}{P807} & \multirow{2}{*}{30.49} & \multirow{2}{*}{-98.82} & GLM-06 & GLM-14 & GLM-21 & UNAVCO Community, 2012, PBO GPS Network - P807-EcRockStPkTX2012 P.S., The GAGE Facility \\
-%    &&& GLM-30 &&& operated by UNAVCO, Inc., GPS/GNSS Observations Dataset, \url{https://doi.org/10.7283/T5TQ5ZKM}.\\\hline
-%    \multirow{2}{*}{PLPX} & \multirow{2}{*}{31.59} & \multirow{2}{*}{-115.15} & \multirow{2}{*}{GLM-10} & & & UNAVCO Community, 2011, PBO GPS Network - PLPX-Las\_PintasMX2010 P.S., The GAGE Facility \\
-%    &&&&&& operated by UNAVCO, Inc., GPS/GNSS Observations Dataset, \url{https://doi.org/10.7283/T5K64G3T}.\\\hline
-%    \multirow{2}{*}{PTEX} & \multirow{2}{*}{32.29} & \multirow{2}{*}{-116.52} & GLM-07 & GLM-12 & GLM-13  & UNAVCO Community, 2011, PBO GPS Network - PTEX-Testerazo\_MX2011 P.S., The GAGE Facility \\
-%    &&& GLM-27 & GLM-32 & & operated by UNAVCO, Inc., GPS/GNSS Observations Dataset, \url{https://doi.org/10.7283/T5610XBP}.\\\hline 
-%    \multirow{3}{*}{RG06} & \multirow{3}{*}{32.63} & \multirow{3}{*}{-107.86} & \multirow{3}{*}{GLM-22} & & & Sheehan, Anne, 2007, Rio Grande Rift GPS Network - RG06-RG06FaywodNM2006 P.S., The GAGE \\
-%    &&&&&& Facility operated by UNAVCO, Inc., GPS/GNSS Observations Dataset, \\
-%    &&&&&& \url{https://doi.org/10.7283/T5668BFR}.\\\hline
-%    \multirow{3}{*}{RG07} & \multirow{3}{*}{32.50} & \multirow{3}{*}{-106.84} & \multirow{3}{*}{GLM-14} & & & Sheehan, Anne, 2007, Rio Grande Rift GPS Network - RG07-RG07CrucesNM2006 P.S., The GAGE  \\
-%    &&&&&& Facility operated by UNAVCO, Inc., GPS/GNSS Observations Dataset, \\
-%    &&&&&& \url{https://doi.org/10.7283/T5KD1W45}. \\\hline
-%    \multirow{3}{*}{SG33} & \multirow{3}{*}{31.77} & \multirow{3}{*}{-106.51} & \multirow{3}{*}{GLM-06} & \multirow{3}{*}{GLM-20} & \multirow{3}{*}{GLM-26} & Harder, Steven, Kaip, Galen, Montana, Carlos, 2004, SuomiNet-G GPS Network - SG33-UTEP P.S., The \\
-%    &&&&&& GAGE Facility operated by UNAVCO, Inc., GPS/GNSS Observations Dataset,  \\
-%    &&&&&& \url{https://doi.org/10.7283/T50863KQ}. \\\hline
-%    \multirow{3}{*}{TGMX}  & \multirow{3}{*}{20.87} & \multirow{3}{*}{-86.87} & \multirow{3}{*}{GLM-34} & & & UNAVCO Community, 2015, COCONet GPS Network - TGMX-PtoMor\_TG\_MX2015 P.S., The GAGE \\
-%    &&&&&& Facility operated by UNAVCO, Inc., GPS/GNSS Observations Dataset,  \\
-%    &&&&&& \url{https://doi.org/10.7283/T5154FB7}. \\\hline
-%    \multirow{2}{*}{TNAM} & \multirow{2}{*}{20.54} & \multirow{2}{*}{-103.97} & GLM-17 & GLM-25 & GLM-28  & UNAVCO Community, 2014, TLALOCNet - TNAM-TNAM\_TNET\_MX2014 P.S., The GAGE Facility \\
-%    &&& GLM-29 & GLM-30 & GLM-31 & operated by UNAVCO, Inc., GPS/GNSS Observations Dataset, \url{https://doi.org/10.7283/T5QF8R4R}.\\\hline
-%    \multirow{2}{*}{TNAT} & \multirow{2}{*}{18.13} & \multirow{2}{*}{-98.04} & \multirow{2}{*}{GLM-15} & & & UNAVCO Community, 2014, TLALOCNet - TNAT-TNAT\_TNET\_MX2014 P.S., The GAGE Facility \\
-%    &&&&&& operated by UNAVCO, Inc., GPS/GNSS Observations Dataset, \url{https://doi.org/10.7283/T5G15Z4S}. \\\hline
-%    \multirow{2}{*}{TNBA} & \multirow{2}{*}{28.97} & \multirow{2}{*}{-113.55} & GLM-05 & GLM-07 & GLM-09  & UNAVCO Community, 2015, TLALOCNet - TNBA-TNBA\_TNET\_MX2014 P.S., The GAGE Facility  \\
-%    &&& GLM-11 & GLM-12 & GLM-13 & operated by UNAVCO, Inc., GPS/GNSS Observations Dataset, \url{https://doi.org/10.7283/T57M0688}.\\\hline
-%    \multirow{2}{*}{TNCC} & \multirow{2}{*}{18.79} & \multirow{2}{*}{-103.17} & \multirow{2}{*}{GLM-17} & & & UNAVCO Community, 2015, TLALOCNet - TNCC-TNCC\_TNET\_MX2015 P.S., The GAGE Facility \\
-%    &&&&&& operated by UNAVCO, Inc., GPS/GNSS Observations Dataset, \url{https://doi.org/10.7283/T50R9MSK}.\\\hline
-%    \multirow{2}{*}{TNCM} & \multirow{2}{*}{19.50} & \multirow{2}{*}{-105.04} & \multirow{2}{*}{GLM-17} & \multirow{2}{*}{GLM-23} & & UNAVCO Community, 2014, TLALOCNet - TNCM-TNCM\_TNET\_MX2014 P.S., The GAGE Facility \\
-%    &&&&&& operated by UNAVCO, Inc., GPS/GNSS Observations Dataset, \url{https://doi.org/10.7283/T5B856FW}.\\\hline
-%    \multirow{2}{*}{TNCN} & \multirow{2}{*}{18.55} & \multirow{2}{*}{-101.97} & \multirow{2}{*}{GLM-29} & \multirow{2}{*}{GLM-33} & & UNAVCO Community, 2016, TLALOCNet - TNCN-TNCN\_TNET\_MX2016 P.S., The GAGE Facility \\
-%    &&&&&& operated by UNAVCO, Inc., GPS/GNSS Observations Dataset, \url{https://doi.org/10.7283/T5610XQM}.\\\hline
-%    \multirow{4}{*}{TNCU} & \multirow{4}{*}{28.45} & \multirow{4}{*}{-106.79} & GLM-01 & GLM-02 & GLM-03  & UNAVCO Community, 2014, TLALOCNet - TNCU-CuauhtemocTN2014 P.S., The GAGE Facility \\
-%    &&& GLM-06 & GLM-11 & GLM-14 & operated by UNAVCO, Inc., GPS/GNSS Observations Dataset, \url{https://doi.org/10.7283/T5V69GV2}.\\
-%    &&& GLM-18 & GLM-20 & GLM-25 & \\
-%    &&& GLM-26 & GLM-30 & GLM-31 & \\\hline
-%    \multirow{3}{*}{TNGF} & \multirow{3}{*}{19.33} & \multirow{3}{*}{-99.18} & \multirow{3}{*}{GLM-29} & \multirow{3}{*}{GLM-33} & & Cabral-Cano, Enrique, Salazar-Tlaczani, Luis, 2016, TLALOCNet GPS Network - TNGF\_Geofisica-\\
-%    &&&&&& UNAM\_Mexico\_City\_TNET\_mx2015 P.S., The GAGE Facility operated by UNAVCO, Inc., GPS/GNSS \\
-%    &&&&&& Observations Dataset, \url{https://doi.org/10.7283/T53X851M}. \\\hline
-%    \multirow{5}{*}{TNHM} & \multirow{5}{*}{29.08} & \multirow{5}{*}{-110.97} & GLM-05 & GLM-09 & GLM-10 & UNAVCO Community, 2014, TLALOCNet - TNHM-hermosilloTN2014 P.S., The GAGE Facility \\
-%    &&& GLM-11 & GLM-12 & GLM-13 & operated by UNAVCO, Inc., GPS/GNSS Observations Dataset, \url{https://doi.org/10.7283/T5KP80FV}.\\
-%    &&& GLM-18 & GLM-20 & GLM-25 & \\
-%    &&& GLM-26 & GLM-27 & GLM-28 & \\
-%    &&& GLM-32 &        &        & \\\hline
-%    \multirow{2}{*}{TNMS} & \multirow{2}{*}{20.53} & \multirow{2}{*}{-104.80} & GLM-05 & GLM-09 & GLM-11  & UNAVCO Community, 2014, TLALOCNet - TNMS-TNMS\_TNET\_MX2014 P.S., The GAGE Facility \\
-%    &&& GLM-17 & GLM-25 & & operated by UNAVCO, Inc., GPS/GNSS Observations Dataset, \url{https://doi.org/10.7283/T56H4FQ5}.\\\hline
-%    \multirow{3}{*}{TNNP} & \multirow{3}{*}{16.12} & \multirow{3}{*}{-97.14} & \multirow{3}{*}{GLM-23} & & & Cabral-Cano, Enrique, Salazar-Tlaczani, Luis, DeMets, Charles, 2016, TLALOCNet - TNNP-\\
-%    &&&&&& tnnp\_tnet\_mx2015 P.S., The GAGE Facility operated by UNAVCO, Inc., GPS/GNSS Observations Dataset, \\
-%    &&&&&& \url{https://doi.org/10.7283/T5N29V96}. \\\hline
-%    \multirow{2}{*}{TNNX} & \multirow{2}{*}{17.41} & \multirow{2}{*}{-97.22} & GLM-15 & GLM-16 & GLM-33  & UNAVCO Community, 2014, TLALOCNet - TNNX-TNNX\_TNET\_MX2014 P.S., The GAGE Facility \\
-%    &&& GLM-34 &&& operated by UNAVCO, Inc., GPS/GNSS Observations Dataset, \url{https://doi.org/10.7283/T52R3PZ0}.\\\hline
-%    \multirow{2}{*}{TNPP} & \multirow{2}{*}{31.34} & \multirow{2}{*}{-113.63} & GLM-07 & GLM-10 & GLM-18 & UNAVCO Community, 2015, TLALOCNet - TNPP-TNPP\_TNET\_MX2015 P.S., The GAGE Facility \\
-%    &&& GLM-22 &&& operated by UNAVCO, Inc., GPS/GNSS Observations Dataset, \url{https://doi.org/10.7283/T5CC0Z0M}.\\\hline
-%    \multirow{2}{*}{TNSJ} & \multirow{2}{*}{16.17} & \multirow{2}{*}{-96.49} & \multirow{2}{*}{GLM-33} & & & UNAVCO Community, 2016, TLALOCNet - TNSJ-tnsj\_tnet\_mx2015 P.S., The GAGE Facility operated by \\
-%    &&&&&& UNAVCO, Inc., GPS/GNSS Observations Dataset, \url{https://doi.org/10.7283/T59S1PF1}.\\\hline
-%    \multirow{3}{*}{TSFX} & \multirow{3}{*}{30.93} & \multirow{3}{*}{-114.81} & \multirow{3}{*}{GLM-07} & \multirow{3}{*}{GLM-27} & \multirow{3}{*}{GLM-32} & Gonzalez-Ortega, Alejandro, Galetzka, John E., Gonzalez, Javier, 2018, CICESE REGNOM GPS Network \\
-%    &&&&&& - TSFX-tsfxREGNOMmx2016 P.S., The GAGE Facility operated by UNAVCO, Inc., GPS/GNSS \\
-%    &&&&&& Observations Dataset, \url{https://doi.org/10.7283/AGEA-2G27}.\\\hline
-%    \multirow{3}{*}{UAGU} & \multirow{3}{*}{21.92} & \multirow{3}{*}{-102.32} & GLM-01 & GLM-02 & GLM-03  & Cabral-Cano, Enrique, Salazar-Tlaczani, Luis, 2015, TLALOCNet - UAGU-uagu\_tnet\_mx2008 P.S., The \\
-%    &&& GLM-04 & GLM-06 & GLM-09 & GAGE Facility operated by UNAVCO, Inc., GPS/GNSS Observations Dataset, \\
-%    &&& GLM-11 & GLM-20 &        & \url{https://doi.org/10.7283/T5513WK7}.\\\hline
-%    \multirow{3}{*}{UCOE\hyperlink{Graham}{${}^3$}} & \multirow{3}{*}{19.81} & \multirow{3}{*}{-101.69} & GLM-03 & GLM-06 & GLM-30 & Cabral-Cano, Enrique, Salazar-Tlaczani, Luis, 2015, TLALOCNet - UCOE-ucoe\_tnet\_mx2003 P.S., The \\
-%    &&& GLM-31 &&& GAGE Facility operated by UNAVCO, Inc., GPS/GNSS Observations Dataset, \\
-%    &&&&&& \url{https://doi.org/10.7283/T51834VW}. \\\hline
-%    \multirow{3}{*}{UGEO\hyperlink{Marquez}{${}^4$}} & \multirow{3}{*}{20.69} & \multirow{3}{*}{-103.35} & \multirow{3}{*}{GLM-03} & & & Marquez-Azua, Bertha, DeMets, Charles, Cabral-Cano, Enrique, Salazar-Tlaczani, Luis, 2015, \\
-%    &&&&&& TLALOCNet - UGEO-ugeo\_tnet\_mx1998 P.S., The GAGE Facility operated by UNAVCO, Inc., GPS/GNSS \\
-%    &&&&&& Observations Dataset, \url{https://doi.org/10.7283/T58S4N9N}. \\\hline
-%    \multirow{2}{*}{UHSL} & \multirow{2}{*}{29.57} & \multirow{2}{*}{-95.65} & \multirow{2}{*}{GLM-19} & & & Wang, Guoquan, 2014, HoustonNet GPS Network - UHSL-SugarLandUSA2014 P.S., The GAGE Facility \\
-%    &&&&&& operated by UNAVCO, Inc., GPS/GNSS Observations Dataset, \url{https://doi.org/10.7283/T55X271S}.\\\hline
-%    \multirow{3}{*}{UHWL} & \multirow{3}{*}{30.06} & \multirow{3}{*}{-94.98} & \multirow{3}{*}{GLM-31} & & & Wang, Guoquan, 2014, HoustonNet GPS Network - UHWL-West Liberty Airport(Deep) P.S., The GAGE \\
-%    &&&&&& Facility operated by UNAVCO, Inc., GPS/GNSS Observations Dataset,  \\
-%    &&&&&& \url{https://doi.org/10.7283/T53R0R5P}. \\\hline
-%    \multirow{3}{*}{UNPM} & \multirow{3}{*}{20.86} & \multirow{3}{*}{-86.86} & GLM-08 & GLM-15 & GLM-16  & UNAVCO Community, 2012, COCONet GPS Network - UNPM-Puerto\_Morelos\_MX\_2007 P.S., The \\
-%    &&& GLM-24 &&& GAGE Facility operated by UNAVCO, Inc., GPS/GNSS Observations Dataset, \\
-%    &&&&&& \url{https://doi.org/10.7283/J1GD-5S40}.\\\hline
-%    \multirow{3}{*}{USMX} & \multirow{3}{*}{29.82} & \multirow{3}{*}{-109.68} & GLM-12 & GLM-13 & GLM-14  & Bennett, Rick, 2004, Northwest Mexico GPS Network - USMX-Universidad de la Sierra P.S., The GAGE \\
-%    &&& GLM-22 & GLM-26 & GLM-28 & Facility operated by UNAVCO, Inc., GPS/GNSS Observations Dataset, \\
-%    &&&&&& \url{https://doi.org/10.7283/T5W957CQ}.\\\hline
-%    \multirow{3}{*}{UXAL\hyperlink{Graham}{${}^3$}} & \multirow{3}{*}{19.52} & \multirow{3}{*}{-96.92} & GLM-04 & GLM-15 & GLM-16  & Cabral-Cano, Enrique, Salazar-Tlaczani, Luis, 2015, TLALOCNet - UXAL-uxal\_tnet\_mx2005 P.S., The \\
-%    &&& GLM-19 & GLM-24 & GLM-31 & GAGE Facility operated by UNAVCO, Inc., GPS/GNSS Observations Dataset, \\
-%    &&& GLM-34 &        &        & \url{https://doi.org/10.7283/T5DJ5D1C}.\\\hline
-%    \multirow{2}{*}{WEPD} & \multirow{2}{*}{29.69} & \multirow{2}{*}{-95.23} & \multirow{2}{*}{GLM-21} & & & Wang, Guoquan, 2014, HoustonNet GPS Network - WEPD-willmselementary P.S., The GAGE Facility \\
-%    &&&&&& operated by UNAVCO, Inc., GPS/GNSS Observations Dataset, \url{https://doi.org/10.7283/T5NZ85RB}. \\\hline
-%    \multirow{2}{*}{WMOK} & \multirow{2}{*}{34.74} & \multirow{2}{*}{-98.78} & \multirow{2}{*}{GLM-21} & & & UNAVCO Community, 2005, PBO GPS Network - WMOK-WichitaMtnOK2005 P.S., The GAGE Facility \\
-%    &&&&&& operated by UNAVCO, Inc., GPS/GNSS Observations Dataset, \url{https://doi.org/10.7283/T59021Q6}. \\\hline
-%    \multirow{4}{*}{WWMT\hyperlink{Hudnut}{${}^1$}} & \multirow{4}{*}{33.96} & \multirow{4}{*}{-116.65} & \multirow{4}{*}{GLM-07} & \multirow{4}{*}{GLM-12} & \multirow{4}{*}{GLM-13} & Hudnut, Kenneth, King, Nancy, Aspiotes, Aris G., Borsa, Adrian A., Determan, Daniel N., Galetzka, John \\
-%    &&&&&& E., Stark, Keith F., 2006, SCIGN USGS GPS Network - WWMT-Whitewater Mountain P.S., The GAGE \\
-%    &&&&&& Facility operated by UNAVCO, Inc., GPS/GNSS Observations Dataset,  \\
-%    &&&&&& \url{https://doi.org/10.7283/T5H993F2}. \\\hline
-%    \multirow{2}{*}{YESX} & \multirow{2}{*}{28.38} & \multirow{2}{*}{-108.92} & GLM-09 & GLM-11 & GLM-14  & Bennett, Rick, 2004, Northwest Mexico GPS Network - YESX-Yecora P.S., The GAGE Facility operated \\
-%    &&&GLM-20 & GLM-23 & GLM-25 & by UNAVCO, Inc., GPS/GNSS Observations Dataset, \url{https://doi.org/10.7283/T5RJ4GPF}.\\\hline
-%    
-%%    % \end{table*}
-%  \end{longtable}
-%    \begin{minipage}{0.9\linewidth}
-%      \footnotesize
-%      Related articles:
-%      
-%      \hypertarget{Hudnut}{${}^1$}\citet{Hudnut:2002},
-%      %
-%      \hypertarget{Garnier}{${}^2$}\citet{Garnier:2021}, 
-%      %
-%      \hypertarget{Graham}{${}^3$}\citet{Graham:2016}
-%      
-%      \hypertarget{Marquez}{${}^4$}\href{https://doi.org/10.7283/T58S4N9N}{B. Marquez-Azua, E. Cabral-Cano, F. Correa-Mora and C. DeMets, 2004. A model for Mexican neotectonics based on Nationwide GPS measurements, 1993-2001, Geofisica Internacional, v. 43, p.319-330}
-%      
-%      \hypertarget{Hudnut2}{${}^5$}\href{https://doi.org/10.7283/T5668BHN}{Hudnut, K. W., Y. Bock, J. E. Galetzka, F. H. Webb, and W. H. Young, The Southern California Integrated GPS Network (SCIGN), Proceedings of the International Workshop on Seismotectonics at the Subduction Zone, Y. Fujinawa (ed.), NIED, Tsukuba, Japan, pp. 175-196, 1999}    
-%    \end{minipage}
-%  \end{landscape}
-%  \clearpage
-%  \twocolumn
-
-  The obtained RINEX files are compressed in Hatanaka format, developed at the Geographical Survey Institute by Y. Hatanaka \citep{Kumar:2012}. From this files we may estimate the Slant Total Electron Content (sTEC) and the Vertical Total Electron Content (vTEC) which may be computed in the following way:
+  \section{RINEX data}
+  \label{sec:GPS-data}
+  We collected RINEX data for event from 38 stations that surrounded the impact coordinates for the day of the event. Since the event ocurred near 24:00 UT, we also obtained GPS data for the next day in case of there would be TIDs detected several hours after the fragmentation. We obtained TEC curves using the GOPI software and detrended the resulting time series for each receiver-satellite line of sight. %The spatial distribution of stations is shown in figure \ref{fig:stations_map}, and 
+  Table \ref{tab:table-stations} shows the stations names, coordinates and proper citations.
+  
+  
+%  \begin{figure}
+%      \centering
+%      \includegraphics[width=\linewidth]{./figures/caribbean_stations_map}
+%      \caption{UNAVCO GPS stations map. The red star shows the positions where the bolide fragmented. The blue arrow shows the direction the bolide was moving in such instant. The green dots represent the positions of the stations we got GPS data.}
+%      \label{fig:stations_map}
+%  \end{figure}
+  
+   The obtained RINEX files are compressed in Hatanaka format, developed at the Geographical Survey Institute by Y. Hatanaka \citep{Kumar:2012}. From this files we may estimate the Slant Total Electron Content (sTEC) and the Vertical Total Electron Content (vTEC) which may be computed in the following way:
 
   The Total Electron content along the integrated path of the link $(s_i)$ at the frequency $f_i$ can be inferred from the phase delay $L_i$ of the frequency $f_i$ \citep{Emery:2017}:
+  
   \begin{align}
     L_i = s_i - \frac{\SI{40.3082}{m^3.s^{-1}}}{f_i^2}sTEC_i
   \end{align}
@@ -281,7 +64,8 @@ We got RINEX data from 3 to 7 stations depending of the event location and data 
     sTEC = \frac{f_1^2f_2^2\left(L_1-L_2\right)}{\SI{40.3082}{m^3.s^{-1}}\left(f_1^2-f_2^2\right)}
   \end{align}
 
-  In the other hand, the Vertical Total Electron Content (vTEC) is computed from the sTEC as follows \citep{Kumar:2012}:
+  In the other hand, the vertical Total Electron Content (vTEC) is computed from the sTEC as follows \citep{Kumar:2012}. In figure \ref{fig:TEC-sketch} we illustrate the satellite-receiver path and how the vTEC and sTEC are related.
+  
   \begin{align}
     vTEC = \frac{sTEC-\left[b_R+b_S\right]}{S(\theta_I)}
   \end{align}
@@ -289,68 +73,75 @@ We got RINEX data from 3 to 7 stations depending of the event location and data 
   where $b_R$ and $b_S$ are receiver and satellite biases, respectively. $\theta_I$ is the elevation angle in degrees, $S(\theta_I)$ is the obliquity factor with zenith angle $\psi$ at the Ionospheric Pierce Point (IPP):
 
   \begin{align}
-    S(\theta_i) = \frac{1}{\cos\psi} = \left\lbrace 1-\frac{R_E\cos\theta_I}{R_E+h}\right\rbrace^{-1/2}
+    S(\theta_I) = \frac{1}{\cos\psi} = \left\lbrace 1-\frac{R_E\cos\theta_I}{R_E+h}\right\rbrace^{-1/2}
   \end{align}
 
   Where $R_E$ is the Earth radius in km and $h=\SI{350}{km}$ is the ionospheric shell above the earth's surface.
 
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{../figures/TEC_drawing.pdf}
+    \caption{Schematic figure of TEC calculations in the ionosphere. The GPS satellite is located at an elevation of $\theta_I$ from the position of the receiver. The Ionospheric Pierce Point (IPP) is located at a height of $h=\SI{350}{km}$ above the Earth's surface. $\psi$ is the zenital angle. sTEC is measured along the satellite-receiver path and vTEC is measured in the radial direction sharing the same IPP as the satellite-receiver path.}
+    \label{fig:TEC-sketch}
+\end{figure}
+
   % Both parameters sTEC and vTEC are computed
- Using a software developed by Gopi K. Seemala, publicly available at \url{https://seemala.blogspot.com/}, we computed the slant TEC (TEC) and vertical TEC (vTEC) for a several number of GPS satellites, each one identified with a PseudoRandom Noise code (PRN). An example of such TEC calculations is shown in figure \ref{fig:TEC-curve-example}. The behavior of the TEC curve is due to many factors, including the earth's rotation, solar activity, etc. TID's and wave-like features are not as prominent and are difficult to see. So we focused in a time interval close to the moment the bolide was detected, and detrended our time series following \citet{Pradipta:2015} using a Savitzky-Golay filter of order 7 (future change to this phrase: to do a proper detrending, we should detrend data for a TEC series of a random day when no geomagnetic storm or unusual events happened, callibrate the Savitsky-Golay filter for using a proper order and use it for our data). An example of the resulting detrending signal is shown in figure \ref{fig:detrending-example}. The resulting time series are adequate for wavelet analysis.%For each station, we filtered all the PRN and data that lie in a window of 30 minutes around the time the event was reported. Then we estimated the signal trend using a Savitsky-Golay filter and substracting the original signal from the trend.
+ Using a software developed by Gopi K. Seemala, publicly available at \url{https://seemala.blogspot.com/}, we computed the slant TEC (sTEC) and vertical TEC (vTEC) for a several number of GPS satellites, each one identified with a PseudoRandom Noise code (PRN). An example of such TEC calculations is shown in figure \ref{fig:TEC-curve-example}. The behavior of the TEC curve is due to many factors, including the earth's rotation, solar activity, etc. TID's and wave-like features are not as prominent and are difficult to see. Since our sample is quite large, detrending process must be automatized in some degree, and it is critical to do this process adequately to have a correct interpretation of data \citep{Boris:2020}.
+ 
+ \subsection{Detrending process}
+ 
+ For detrending our data we used a method developed for detecting plasma bubbles in the equatorial region \citep{Pradipta:2015}, but proved to be effective for detecting Acoustic Gravity Waves (AGWs) and Traveling Ionospheric Disturbances (TIDs). 
+ With this method we are able to infer the trend from our TEC data using a Savitsky-Golay filter. However, the results of this filtering are sensitive to the parameters we use for such filtering, thus altering significantly the quality of the detrended signal. 
+ The TEC time series are assumed to be an additive combination of a signal and a trend \citep{Boris:2020}. Thus we tested the method of \citet{Pradipta:2015} over the sum of a known signal and a known trend and find the parameters of the Savitsky-Golay filter that recover in the best way the original signal. We used a test signal with the purpose to find out the most appropriate parameters for the filter and we show its functional form in appendix \ref{app:test-signal}. 
+
 
 \begin{figure}
-\includegraphics[width=\linewidth]{../figures/cn05173-2019-06-22_page0}
+\centering
+\includegraphics[width=\linewidth]{../figures/BOAV-vTEC-curves}
 \label{fig:TEC-curve-example}
-\caption{Example of TEC curve obtained for GPS data for the bolide USG-09 from CN05 station.}
+\caption{Example of vTEC curves obtained for GPS data from BOAV station.}
 \end{figure}
  
 
+
+On the other side, not necessarily all satellites could have detected ionospheric perturbations produced by TIDs, most of then should have detected other non related phenomena. To check which satellites have the best probabilities of detecting TIDs we compared in an azimuth-elevation map the satellites trajectory against the bolide trajectory. To do so we converted the bolide coordinates. The procedure is shown in \ref{app:azimuth}.
+
+From Chelyabinsk event \citep{Yang:2014} we learned that high frequency TIDs (1.0 - 2.5 mHz) may travel at speed of $\sim 362 \pm 23~\mathrm{m~s^{-1}}$. Using this upper bound (since this event being less energetic, we can expect that similar TIDs in this case would travel at lower speed), we estimated the sphere where the TIDs should have propagated after a certain time interval. These propagation circles are shown in our azimuth-elevation maps.
+
+From these figures that are representative of the trajectories observed for all stations we can see that the bolide is observed at an elevation of about 80 degrees and that the satellite that consistently was closest to the bolide trajectory is PRN 13, but after a few hours, PRN 2, PRN 17 and PRN 19 could intercept TIDs as they propagate from the bolide. 
+
+\subsection{Morlet Wavelet}
+\label{ssec:Morlet}
 \begin{figure}
-\begin{tabular}{cc}
-\includegraphics[width=0.45\linewidth]{../figures/cn05-6-190}&
-\includegraphics[width=0.45\linewidth]{../figures/cn05-TEC_series_PRN_6}
-\end{tabular}
-\label{fig:detrending-example}
-\caption{Example of detrending process with USG-09 event. Left: Undetrended TEC series for station CN05 with PRN 6 (blue) versus Golay-Savitsky fit of order 7 (red dashed curve). Right: detrended curve resulting from substracting the Golay-Savitsky fit from the original signal.}
+    \centering
+    \includegraphics[width=\linewidth]{../figures/morlet.pdf}
+    \caption{Example of Morlet wavelet. Since this is a complex function, we show in blue continous curve the real part and in green dashed curve the imaginary part. The Morlet wavelet consist in a sinosoid function with a determined frequency and damped to the left and right by a gaussian.}
+    \label{fig:Morlet_wavelet}
 \end{figure}
-  
-\subsection{Wavelet analysis}
 
-Wavelet analysis is a powerful tool for analyzing variations of power within a time series \citep{Torrence:1998}. For this task we used a Morlet wavelet $\Psi_0(\eta) = \pi^{-1/4}\exp(i\omega_0\eta)\exp(-\eta^2/2)$, where $\omega_0$ is a non-dimensional frequency, usually set to be 6 to satisfy the admissibity condition \citep{Farge:1992} and $\eta$ is a non-dimensional "time parameter".
-
-With this, the wavelet transform is given by:
+From our time series, we must distinguish some features that should appear if any TIDs has been detected. The TIDs are wave-like features constrained in a limited amount of time. A function that fits this description is the Morlet wavelet, which is given by \citep{Torrence:1998}:
 
 \begin{align}
-W_n(s) = \sum_{k=0}^{N-1}\hat{x}_k\hat{\Psi}^*\left(s\omega_k\right)\exp(i\omega_k n\delta t)
-\end{align}  
-
-Where the $*$ indicates the complex conjugate, $k=0, 1, \ldots, N-1$ is the frequency index, s is the scale, $\delta t$ is the time spacing between data, $\omega_k$ is the angular frequency defined as:
-
-\begin{align}
-  \omega_k = \left\lbrace
-  \begin{array}{ccc}
-    \frac{2\pi k}{N\delta t} & : & k\leq \frac{N}{2} \\
-    -\frac{2\pi k}{N\delta t} & : & k > \frac{N}{2} 
-  \end{array}
-  \right.
-\end{align}
-And $\hat{\Psi}^*\left(s\omega_k\right)$ is the normalized wavelet function:
-
-\begin{align}
-  \hat{\Psi}^*\left(s\omega_k\right) = \left( \frac{2\pi s}{\delta t}\right)^{1/2} \hat{\Psi}_0\left(s\omega_k\right)
+    \Psi_0(\eta) = \pi^{-1/4}\exp(i\omega_0\eta)\exp(-\eta^2/2)
 \end{align}
 
-Since $\Psi(\eta)$ is a complex function, is expected that $W_n(s)$ is also complex. The transform can be divided into real and imaginary part. From the amplitude $|W_n(s)|$, from which we can obtain the power spectrum $|W_n(s)|^2$.
+Where $\omega_0$ is a non-dimensional frequency, usually set to be 6 to satisfy the admissibity condition \citep{Farge:1992} and $\eta$ is a non-dimensional "time parameter". The real and imaginary part of the Morlet wavelet is shown in figure \ref{fig:Morlet_wavelet}.
 
-If two stations show similar power spectrums, we can be confident enough to compute the wavelet coherence of both time series, defined as \citep{Yang:2011}:
+\subsection{TIDs velocity estimation}
 
-\begin{align}
-  R^2_{1,2}=\frac{|W_{12}|^2}{\left(|W_1|^2|W_2|^2\right)}
-\end{align}
+%In figure \ref{fig:fragmentation-scheme} we analyze the scenario where TIDs are generated when the bolide is fragmented due to stagnation pressure. At this moment, a large amount of energy is released in the form of a shock wave that propagates isotropically. When the shock wave reaches back the ionosphere, the perturbed gas becomes detectable to our GPS sensors, if the perturbed area lies in the satellite-receiver Line Of Sight (LOS). In this case we should expect that TIDs appear in out time series in a certain time interval after the fragmentation occurred (the time needed for the shock wave reaching the ionosphere).
 
-where the $W_{12}= W_1W^*_2$ is the cross wavelet spectrum, $W_i$ is the wavelet transform of the time series and $W^*_i$ is the complex conjugate of $W_i$. Regions with high coherence indicate the precence of a TID with frequency $1/T$, where $T$ is the period of the region with high frequency.
+In figure \ref{fig:TID-scheme-2} we sketch the scenario where TIDs may be generated. This model explains that when the bolide enters the atmosphere perturbs the gas in its path. The bolide passes through the ionosphere before fragmentation then the TIDs generated should have been detected before fragmentation, too. The delay time in this case depends now in the bolide velocity as it penetrates the atmosphere.
+%\begin{figure}
+%    \centering
+%\includegraphics[width=\linewidth]{figures/ionosphere_drawing.pdf}
+%    \caption{Scheme of TIDs generation: here the bolide is fragmented due to stagnation pressure at height $h_B$. The fragmentation releases energy isotropically and eventually the blast reaches the ionosphere. The area of the perturbed ionosphere can or cannot be at the satellite-receiver Line of Sight (LOS).}
+%    \label{fig:fragmentation-scheme}
+%\end{figure}
 
-%For the selected sample, we obtained RINEX data from the TlalocNet \citep{Cabral-Cano:2018} and UNAVCO network databases to study potential alterations in the ionospehre due to the presence of the passing meteor at the day the meteor was reported. For each event, we downloaded data from stations that surrounds the place where the event was detected (usually 3 to 5 stations. )The list of the sample meteors is shown in table \ref{tab:table-meteors}. The events are in chronological order. The reported duration, latitude and longitude correspond to the mean between measurements from satellites GOES-16 and GOES 17; in the same way, the uncertainties correspond to the standard deviation. Also their respective positions are available in figure \ref{fig:meteors-map}, where each label correspond to the ID (first column) of table \ref{tab:table-meteors}.
-     
-%Using the data provided by TlalocNet and UNAVCO, we procceeded to obtain TEC parameters with the GPS\_GOPI software, available at \url{https://seemala.blogspot.com/}. This software takes as input the RINEX data (the navigation file is no strictly neccesary), and the outuput consists in in the vTEC and sTEC measurements for the PRNs of the whole day the event occurred, as well as the averaged TEC as function of time. We obtained vTEC maps for the events in table (\ref{tab:table-meteors}) and their respective next and previous day.
-     
-%Final idea: use GOPI software to get the vTEC data from the day of each event and the previous days.
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{../figures/ionosphere_drawing2.pdf}
+       \caption{TIDs generation sketch. When the bolide passes through the atmosphere perturbs the gas in its way. The resulting TIDs can be detected before the bolide fragmentation.}
+    \label{fig:TID-scheme-2}
+\end{figure}
