@@ -23,24 +23,24 @@ def next_contact_point(x, y, x0, y0):
     output:
     (xf, yf): coordinates of the next contact point
     """
-    # Define region of interest
+	# Define region of interest
     R0 = 1 # Radius of the barrell roll. Unitary radius works pretty well
     ROI = (x > x0) & (x < x0 + 2*R0)
-    # Delta_x and delta_y are the separation between the elements which belong to the ROI and (x0, y0)
+	# Delta_x and delta_y are the separation between the elements which belong to the ROI and (x0, y0)
     delta_x = x[ROI]-x0
     delta_y = y[ROI]-y0
 
     try:
-	  # calculating important angles
+	      # calculating important angles
         theta = np.arctan2(delta_y, delta_x)
         cos_alpha = np.sqrt(delta_x**2 + delta_y**2)/(2*R0) 
         delta = np.arcsin(cos_alpha) - theta
-	  # Selecting the Next Contact Point (NCP)
+	      # Selecting the Next Contact Point (NCP)
         NCP = delta == min(delta) # The next contact point has the smallest angular distance delta
         xf, yf = x0+delta_x[NCP][0], y0+delta_y[NCP][0]
     except ValueError: # this happens because ROI is empty
         xf, yf = x[~ROI & (x>x0)][0], y[~ROI & (x>x0)][0] #The element we will use as next contact point
-							    # is the first outside the ROI and greater than x0
+								# is the first outside the ROI and greater than x0
     return xf, yf
 
 def free_dep_signal(brc_x, brc_y, x, y):
@@ -101,41 +101,46 @@ def split_PRN(t, TEC):
     for i, dt in enumerate(gradient_t):
         if dt > 0.01: # 0.01 is like 10 times the regular GPS frequency
             index_discontinuity.append(i) # collect the indices where time gradient is big enough
-    split_t = np.split(t, index_discontinuity)
-    split_TEC = np.split(TEC, index_discontinuity)
-    output_t = []
-    output_TEC =[]
-    for s, tec in zip(split_t, split_TEC):
-        if len(s) > 20: #if the subarray contain too few elements will be discarded
-            output_t.append(s)
-            output_TEC.append(tec)
-    return output_t, output_TEC
+        split_t = np.split(t, index_discontinuity)
+        split_TEC = np.split(TEC, index_discontinuity)
+        output_t = []
+        output_TEC =[]
+        for s, tec in zip(split_t, split_TEC):
+            if len(s) > 20: #if the subarray contain too few elements will be discarded
+                output_t.append(s)
+                output_TEC.append(tec)
+        return output_t, output_TEC
 
 # *************************** Read inputs from command line ***********************************
 
 parser = argparse.ArgumentParser(
-    description=""" Choose a file to work""")
+	description=""" Choose a file to work""")
 
 
 parser.add_argument('--date', type=str, default='2000-01-01',
-				 help='Choose date. Format: yyyy-mm-dd')
+				     help='Choose date. Format: yyyy-mm-dd')
 parser.add_argument("--starttime", type=str, default="00:00:00", help="Select the event start time")
-parser.add_argument("--previous", action="store_true", help="Choose previous day data")
+parser.add_argument("--previous", action="store_true", help="Join previous day data")
+parser.add_argument("--Next", action="store_true", help="Join next day data")
 parser.add_argument("--sets", type=str, help="Choose between sets of stations")
-
+parser.add_argument("--sTEC", action="store_true", help="Use Slant TEC")
 cmd_args = parser.parse_args()
 date = cmd_args.date
 start_time = cmd_args.starttime
 previous = cmd_args.previous
+Next = cmd_args.Next
 filter_low = np.array([-15, -35, -60])
 filter_high = np.array([40, 80, 130])
 stations_set = cmd_args.sets
 set_folder = "/set"+stations_set
+sTEC = cmd_args.sTEC
 # ****************************** Read data file ************************************************
 
 directory = "./data/"+date+set_folder
 if previous:
     directory = "./data/"+date+set_folder+"/previous"
+elif Next:
+    directory = "./data/{}{}/next".format(date, set_folder)
 files = glob.glob(directory+"/*.Cmn")
 
 # ******************************* Set final output lists ******************************************
@@ -149,91 +154,115 @@ final_vTEC = []
 window_size = []
 
 # Use the longest window size to keep most frequencies inside COI
-#for fl, fh in zip(filter_low, filter_high): # Now the window size is variable
-fh = 130
-fl = -60
+
+fh = 200
+fl = 150
 ws = fh-fl
 for File in files:
-    f = open(File, "r")
-    for i in range(4):
-        f.readline()
+        f = open(File, "r")
+        for i in range(4):
+            f.readline()
 
-    raw_data = f.readlines()
+        raw_data = f.readlines()
 
 # ****************************** Extract relevant information ***********************************
-    station = File[-22:-18] # Extract station name from file name(This should work in both
-			    # windows and linux)
-    data = Table.read(raw_data, format="ascii")
-    hr, minute, sec = start_time.split(":")
-    time_hours = float(hr)+float(minute)/60. + float(sec)/3600.
-    time = data["Time"]
-    vTEC = data["Vtec"]
-    PRN = data["PRN"]
-    latitude = data["Lat"]
-    longitude = data["Lon"] -360.
-    time_corrector = time < 0
-    time[time_corrector] = time[time_corrector] + 24.0
-    tau_0, zeta_0 = 2.0, 40.0
-    prn_array = np.unique(PRN)
-    time_mask = (time < time_hours + fh/60.) & (time > time_hours-fl/60.)
-
+        station = File[-22:-18] # Extract station name from file name(This should work in both
+        			# windows and linux)
+        data = Table.read(raw_data, format="ascii")
+        hr, minute, sec = start_time.split(":")
+        time_hours = float(hr)+float(minute)/60. + float(sec)/3600.
+        time = data["Time"]
+        if sTEC:
+            vTEC = data["Stec"]
+            ylabel = "sTEC (TECU)"
+        else:
+            vTEC = data["Vtec"]
+            ylabel = "vTEC (TECU)"
+        PRN = data["PRN"]
+        latitude = data["Lat"]
+        longitude = data["Lon"] -360.
+        time_corrector = time < 0
+        time[time_corrector] = time[time_corrector] + 24.0
+        tau_0, zeta_0 = 2.0, 40.0
+        prn_array = np.unique(PRN)
+        time_mask = (time < time_hours + fh/60.) & (time > time_hours-fl/60.)
+        if previous:
+            time_mask = time > 22.0  # These modifications allow to join desired time series to the either next or previous day
+        elif Next:                   # to extend the window time in case that ionospheric perturbations were detected near the
+            time_mask = time < 8.0   # day transition, but we sacrifice the previous day comparison
 # ******************************* Start loop over PRNs ********************************************
 
-    for p in prn_array:
-        PRN_mask = PRN == p
-        filtered_time = time[PRN_mask & time_mask]
-        filtered_TEC = vTEC[PRN_mask & time_mask]
-        filtered_lat = latitude[PRN_mask & time_mask]
-        filtered_lon = longitude[PRN_mask & time_mask]
-        if len(filtered_time) < 20: # TEC series with too few data will be considered "empty"
-            continue
+        for p in prn_array:
+            PRN_mask = PRN == p
+            filtered_time = time[PRN_mask & time_mask]
+            filtered_TEC = vTEC[PRN_mask & time_mask]
+            filtered_lat = latitude[PRN_mask & time_mask]
+            filtered_lon = longitude[PRN_mask & time_mask]
+#        print("Station:{}, PRN:{}, Array length:{}".format(station.upper(), p, len(filtered_time)))
+            if len(filtered_time) < 20: # TEC series with too few data will be considered "empty"
+                continue
 
 # ******************************* Split the signal into fragments *********************************
 
-        S_time, S_TEC = split_PRN(filtered_time, filtered_TEC)
-        S_time, S_lat = split_PRN(filtered_time, filtered_lat)
-        S_time, S_lon = split_PRN(filtered_time, filtered_lon)
-        for s, tec, la, lo in zip(S_time, S_TEC, S_lat, S_lon):
+            S_time, S_TEC = split_PRN(filtered_time, filtered_TEC)
+            S_time, S_lat = split_PRN(filtered_time, filtered_lat)
+            S_time, S_lon = split_PRN(filtered_time, filtered_lon)
+            print("Station:{}, PRN:{}, Array length:{}".format(station.upper(), p, len(S_time)))
+            for s, tec, la, lo in zip(S_time, S_TEC, S_lat, S_lon):
 # ******************************* Start making BRC ***********************************************
-            X, Y = s/tau_0, tec/zeta_0
-            x_0, y_0 = X[0], Y[0]
-            BRC_x = [x_0]
-            BRC_y = [y_0]
-            while(x_0 < X[-1]):
-                xn, yn = next_contact_point(X, Y, x_0, y_0)
-                BRC_x.append(xn)
-                BRC_y.append(yn)
-                x_0, y_0 = xn, yn
-
+                X, Y = s/tau_0, tec/zeta_0
+                x_0, y_0 = X[0], Y[0]
+                BRC_x = [x_0]
+                BRC_y = [y_0]
+                try:
+                    while(x_0 < X[-1]):
+            	        xn, yn = next_contact_point(X, Y, x_0, y_0)
+            	        BRC_x.append(xn)
+            	        BRC_y.append(yn)
+            	        x_0, y_0 = xn, yn
+                except IndexError:
+                    print("Skip to next PRN")
+                    continue
 # ********************************** Making free deptetion signal ********************************
 # Return to the TEC-time space
-            brc_t, brc_vt = np.array(BRC_x)*tau_0, np.array(BRC_y)*zeta_0
-            fdp_x, fdp_y = free_dep_signal(brc_t, brc_vt, s, tec)  
+                brc_t, brc_vt = np.array(BRC_x)*tau_0, np.array(BRC_y)*zeta_0
+                fdp_x, fdp_y = free_dep_signal(brc_t, brc_vt, s, tec)  
 # ********************************** Get trend using Savitzky-Golay filter **************************
-            y_trend = savitsky(tec, window_length=get_window_size(0.25*len(tec)), polyorder=3)
-            residuals = np.sum((y_trend-tec)**2)/len(tec)
-            plt.plot(s, y_trend, "r--", label="Trend")
+                y_trend = savitsky(tec, window_length=get_window_size(0.25*len(tec)), polyorder=3)
+                residuals = np.sum((y_trend-tec)**2)/len(tec)
+                plt.plot(s, y_trend, "r--", label="Trend")
 # *********************************** Detrend signal and plot undetrended signal and trend************
-            det_signal = tec - y_trend
-            plt.plot(s, tec, label="original signal")
-            plt.axvline(time_hours, c="k", ls="--")
-            plt.xlabel("UT (hours)")
-            plt.ylabel("vTEC (TECU)")
-            plt.legend()
-            plt.title("{} PRN{}. Date: {}".format(station, p, date))
-            plt.savefig(directory+"/trends/{}-{}-{}.pdf".format(station, p, ws))
-            plt.clf()
-            for ft, flat, flon, d in zip(s, la, lo, det_signal): # Fill output lists
-                final_vTEC.append(d)
-                final_time.append(ft)          
-                final_PRN.append(p)
-                final_lat.append(flat) 
-                final_lon.append(flon) 
-                stations.append(station)
-    #            window_size.append(ws)
+                det_signal = tec - y_trend
+                mean = np.mean(det_signal)
+                if not Next and not previous:
+                    plt.axvline(time_hours, c="k", ls="--")
+                plt.plot(s, tec, label="original signal")    
+                plt.xlabel("UT (hours)")
+                plt.ylabel(ylabel)
+                plt.legend()
+                plt.title("{} PRN{}. Date: {}. Mean = {:.3e}".format(station.upper(), p, date, mean))
+                plt.savefig(directory+"/trends/{}-{}-{}.pdf".format(station, p, ws))
+                plt.clf()
+                for ft, flat, flon, d in zip(s, la, lo, det_signal): # Fill output lists
+                    final_vTEC.append(d)
+                    final_time.append(ft)          
+                    final_PRN.append(p)
+                    final_lat.append(flat) 
+                    final_lon.append(flon) 
+                    stations.append(station)
+
 # ***************************** Mask positions and save data to file *******************************
 
-
-output_table = Table([stations, final_time, final_PRN, final_lat, final_lon, final_vTEC], names=("Station", "Time", "PRN", "Latitude", "Longitude", "vTEC"))
-outfile = directory+"/"+date+"_"+str(time_hours)+"_detrended-TEC.csv" #File.replace("Cmn", "csv")
+if sTEC:
+	TEC_label = "sTEC"
+	out_extention = "_detrended-sTEC.csv"
+else:
+	TEC_label = "vTEC"
+	out_extention = "_detrended-TEC.csv"
+output_table = Table([stations, final_time, final_PRN, final_lat, final_lon, final_vTEC], names=("Station", "Time", "PRN", "Latitude", "Longitude", TEC_label))
+outfile = directory+"/"+date+"_"+str(time_hours)+out_extention #File.replace("Cmn", "csv")
+if previous:
+	outfile = directory+"/previous{}_{}{}".format(date, str(time_hours), out_extention)
+elif Next:
+	outfile = directory+"/next{}_{}{}".format(date, str(time_hours), out_extention)
 output_table.write(outfile, format="csv", overwrite=True)

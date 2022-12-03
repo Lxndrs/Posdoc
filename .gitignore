@@ -14,7 +14,6 @@ __pycache__/
 TEC_power_spectrum/
 TEC_series/
 data/
-
 .ipynb_checkpoints/ARTU (chelyabinsk) data-checkpoint.ipynb
 2019Q2_DGD.txt
 a_sizes.txt
@@ -26,7 +25,6 @@ README.md~
 paper/vTEC-maps.tex~
 paper/methodology.tex~
 paper/meteor-properties.tex~
-paper/MDPI/template.pdf
 paper/MDPI/template.aux
 paper/introduction.tex~
 paper/ELSEVIER/manuscript.aux
@@ -77,3 +75,16 @@ paper/ELSEVIER/manuscript.aux
 .ipynb_checkpoints/signal-noise-checkpoint.ipynb
 .ipynb_checkpoints/vTEC maps-checkpoint.ipynb
 paper/ELSEVIER/manuscript.aux
+paper/figures
+solar_wind_figures/
+xray/
+solar_data/
+power_spec/
+dtec_windex/
+az-ele/
+Map/
+.ipynb_checkpoints/skyfield_test-checkpoint.ipynb
+Dst_index/
+Kp index/
+de421.bsp
+*aas_macros.sty

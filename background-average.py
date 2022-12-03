@@ -1,59 +1,56 @@
 import numpy as np
 from astropy.table import Table
 import glob
-import statistics as stats
 import argparse
 
-# objetivo del programa: Obtener la curva TEC vs tiempo en diferentes fechas previas al evento
-# para una misma estaci髇 y obtener ~~un promedio~~ la mediana del comportamiento del TEC y restarlo a los datos
-# Observar si hay alguna fluctuci髇 inusual que ser韆 nuestra detecci髇.
+# objetivo del programa: Obtener la curva TEC vs tiempo para 27 d铆as previos al evento
+# para una misma estaci贸n y recopilar los datos de todas las curvas TEC en un mismo archivo
 
+# Obtenci贸n de par谩metros de l铆nea de comandos.
+# - Station: Estaci贸n de GPS de la cual recopilaremos las curvas TEC
+# - date: Fecha en la cual se detect贸 el meteoro
+# - sets: set de estaciones donde se encuentra la estaci贸n que deseamos
 
 parser = argparse.ArgumentParser(
-    description=""" Choose a file to work""")
+	description=""" Choose a file to work""")
 
 parser.add_argument("--station", type=str,
-                    default="kvtx",
-                    help=" Choose station")
+			default="kvtx",
+			help=" Choose station")
 
 parser.add_argument('--date', type=str, default='2000-01-01',
-                    help='Choose date. Format: yyyy-mm-dd')
+			help='Choose date. Format: yyyy-mm-dd')
 
-
+parser.add_argument("--sets", type=str, default="1", help="Choose a set of stations")
 
 
 cmd_args = parser.parse_args()
 date = cmd_args.date
 station = cmd_args.station
+set_folder = cmd_args.sets
 
-directory = "./data/"+date
-b_data = glob.glob(directory+"/background/"+station+"*.Std")
-
-
-
-Tec_Matrix = []
-
+directory = "./data/{}/set{}/previous/".format(date, set_folder) # Directorio del cual extraemos las curvas TEC de
+                                                                 # los d铆as previos
+b_data = glob.glob(directory+"{}*.Std".format(station))
+outtab = Table(names=("FileID", "time", "TEC", "sigma_TEC")) # Iniciamos tabla de salida, donde recopilaremos todas 
+                                                             #las curvas TEC
+outdir = "./data/{}/set{}/".format(date, set_folder)         # Directorio de la tabla de salida
+# Recopilaci贸n de datos
 for b in b_data:
-    Tab = Table.read(b, format="ascii")
-    Tec_Matrix.append(Tab["col2"])
-
-
-
-
-m = len(Tec_Matrix) # Number of RINEX files read
-n = len(Tec_Matrix[0]) # The number of rows in one Std file
-Tec_median = np.zeros(n)
-
-for i in range(0, n):
-    guante = []
-    for j in range(0, m):
-        if Tec_Matrix[j][i]=="-":
-            guante.append(np.nan)
+    tab = Table.read(b, format="ascii")
+    time = tab["col1"]
+    TEC = tab["col2"]
+    s_TEC = tab["col3"]
+    for i, tec in enumerate(TEC):
+        if tec=="-": # Reemplazamos guiones en archivo original por nan
+            guantec =np.nan
         else:
-            guante.append(float(Tec_Matrix[j][i]))
-    Tec_median[i] = stats.median(guante)
-
-# Create table with the median curve
-
-out_table = Table([Tab["col1"], Tec_median], names=("Time (UT)", "Mean vTEC"))
-out_table.write(directory+"/"+station+"-mean-TEC.tab", format="ascii", overwrite=True)
+            guantec = float(tec) # Debido a los guiones, python cree que la variable TEC est谩 compuesta por strings (texto)
+                                 # por lo que hay que cambiar los elementos de estas variables por n煤meros reales (float)
+        if s_TEC[i] == "-":
+            s_guantec = np.nan # guantec y s_guantec son variables temporales donde almacenaremos la informaci贸n que queremos
+        else:                  # guantec para el TEC y s_guantec para la desviaci贸n est谩ndar
+            s_guantec = float(s_TEC[i])
+        outtab.add_row([int(i+1), time[i], guantec, s_guantec]) # A帽adimos una nueva l铆nea al archivo de salida en cada nueva iteraci贸n
+outtab.write(outdir+"{}-Avg-prev-days-summary.tab".format(station), format="ascii") # Al finalizar, guardamos
+#Calcularemos el dTEC en otro programa.

@@ -21,7 +21,7 @@ cmd_args = parser.parse_args()
 date = cmd_args.date
 year, month, day = date.split("-")
 datafile = "Dst-index-"+month+"-"+year+".txt"
-directory = "./Dst index/" 
+directory = "./Dst_index/" 
 f = open(directory+datafile, "r")
 
 # Extract information from file
@@ -41,7 +41,7 @@ Tabdata= Table.read(data, format="ascii")
 Dst_index = []
 
 mask = Tabdata["col1"]==int(day)
-maskp = Tabdata["col1"]==int(day) - 1
+#maskp = Tabdata["col1"]==int(day) - 1
 # Set the time array for plotting
 
 time = time_str.split()
@@ -65,5 +65,7 @@ plt.text(0, 85, day+" "+h3.lstrip())
 plt.text(15, 85, h1.lstrip())
 plt.xlabel("Time (UT, hours)")
 plt.ylabel("Dst Index (nT)")
+plt.gcf().set_size_inches(10, 3)
+plt.tight_layout()
 outfile = datafile.replace(".txt", ".pdf")
 plt.savefig(directory+outfile)
