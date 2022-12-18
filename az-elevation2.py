@@ -140,7 +140,7 @@ prop_cycle = plt.rcParams["axes.prop_cycle"]
 colors = prop_cycle.by_key()["color"]
 ax = fig.add_subplot(1,1,1, projection="polar")
 outfile = "./az-ele/{}/azimuth-elevation-map-{}-polar-hlght.png".format(date, station)
-ax.text(np.radians(0.5*45), 2.1, "Elevation (deg)", fontsize=14)
+ax.text(np.radians(0.5*45), 2.1, "Elevation (deg)", fontsize="large")
 ax.set_yticks([0, 2./3, 4./3, 2.])
 ax.set_yticklabels([r"$90^\circ$", r"$60^\circ$", r"$30^\circ$", r"$0^\circ$"])
 tGLM = np.radians(GLM_Az)
@@ -167,7 +167,7 @@ for j in prn_list:
     if len(theta) > 0:
         ax.plot(theta, r, "o", ms=0.8)#, label="PRN {}".format(j))
         ax.plot(theta[0], r[0], "o", ms=5, c=colors[k])
-        ax.text(theta[-1], r[-1], "PRN {}".format(j), c="w", bbox=dict(boxstyle="round", facecolor=colors[k], alpha=0.5))
+        ax.text(theta[-1], r[-1], "PRN {}".format(j), c="w", bbox=dict(boxstyle="round", facecolor=colors[k], alpha=0.5), fontsize="medium")
     else:
         continue
     k+=1
@@ -191,9 +191,9 @@ ax.plot(tGLM2, rGLM2, "k.", label="GLM data")
 #ax.plot(t3, r3, "k--", label="Meteor trajectory")
 #print(len(t2), len(R2))
 ax.plot(t2, R2, "m--", label="Meteor trajectory")
-legend =ax.legend()
+legend =ax.legend(fontsize="medium")
 legend.get_frame().set_alpha(0.5)
-ax.set_xlabel("Azimuth (deg)", fontsize=14)
-fig.suptitle(suptitle)
+ax.set_xlabel("Azimuth (deg)", fontsize="large")
+fig.suptitle(suptitle, fontsize="large")
 fig.set_size_inches(8,6)
 plt.savefig(outfile)

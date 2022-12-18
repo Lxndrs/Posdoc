@@ -80,8 +80,9 @@ for s in station_array:
         if not Next and not previous:
             plt.axvline(time_hours, ls="--", c="k")
         plt.ylim(-2.8, 2.8)
-        plt.xlabel("UT (hours)")
-        plt.ylabel(ylabel)
-        plt.title(s.upper()+"-PRN{}".format(p))
+#        plt.xticks([5, 10, 15, 20, 23], ["5:00:00", "10:00:00", "15:00:00", "20:00:00", "23:00:00"], fontsize="medium")
+        plt.xlabel("UT (hours)", fontsize="large")
+        plt.ylabel(ylabel, fontsize="large")
+        plt.title(s.upper()+"-PRN{}".format(p), fontsize="large")
         plt.savefig(outdir+out_extention)
         plt.clf()
